@@ -117,14 +117,14 @@ nav.nav-solid {
 /* Nav links */
 .nav-links {
   display: flex;
-  gap: 40px;
+  gap: 60px;
   list-style: none;
   margin-right: 28px;
 }
 
 .nav-links a {
-  font-size: 13.5px;
-  font-weight: 400;
+  font-size: 15px;
+  font-weight: 500;
   color: var(--white);    /* white text over dark hero */
   text-decoration: none;
   letter-spacing: 0.02em;
@@ -135,21 +135,6 @@ nav.nav-solid {
 nav.nav-solid .nav-links a { color: var(--text); }
 
 .nav-links a:hover { opacity: 0.55; }
-
-/* Search link */
-.nav-search {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 13.5px;
-  color: var(--white);
-  text-decoration: none;
-  transition: color 0.35s;
-}
-nav.nav-solid .nav-search { color: var(--text); }
-
-.nav-search svg { width: 16px; height: 16px; }
-
 
 /* ================================================================
    HERO SECTION
