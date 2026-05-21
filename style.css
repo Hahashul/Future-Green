@@ -144,7 +144,7 @@ nav.nav-solid .nav-links a { color: var(--text); }
 .hero {
   position: relative;
   width: 100%;
-  height: 100vh;           /* full screen height */
+  height: 78vh;           /* full screen height */
   min-height: 520px;
   overflow: hidden;
   background: #1a1a18;     /* dark fallback while images load */
@@ -275,7 +275,7 @@ nav.nav-solid .nav-links a { color: var(--text); }
    └───────────┴──────────┴──────────┘
 ================================================================ */
 .categories {
-  padding: 0;              /* grid goes edge to edge */
+  padding:80px 40px 80px 40px;              /* grid goes edge to edge */
   background: var(--white);
 }
 
@@ -285,7 +285,7 @@ nav.nav-solid .nav-links a { color: var(--text); }
   grid-template-columns: 1.1fr 1fr 1fr;
   /* 2 rows of equal height */
   grid-template-rows: 340px 340px;
-  gap: 3px;                /* thin gap between cells — luxury feel */
+  gap: 10px;                /* thin gap between cells — luxury feel */
 }
 
 /* Default cell styles */
@@ -378,29 +378,29 @@ nav.nav-solid .nav-links a { color: var(--text); }
    JS animates the count-up when section scrolls into view.
 ================================================================ */
 .stats {
-  background: var(--stats-bg);
-  padding: 72px 48px;
+  background: var(--white);
+  padding:40px 40px 80px 40px;
 }
 
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
-  max-width: 1100px;
+  max-width: auto;
   margin: 0 auto;
 }
 
 /* Individual dark card */
 .stat-card {
-  background: #181c20;           /* slightly lighter than section bg */
-  border: 1px solid #2a2e34;
+  background: var(--off-white);           
+  border: 1px solid var(--off-white);
   border-radius: 12px;
-  padding: 40px 32px;
+  padding: 40px 100px;
   text-align: center;
   transition: border-color 0.3s, transform 0.3s;
 }
 .stat-card:hover {
-  border-color: var(--stats-glow);
+  border-color: #78b728;
   transform: translateY(-4px);   /* subtle lift on hover */
 }
 
@@ -417,26 +417,27 @@ nav.nav-solid .nav-links a { color: var(--text); }
   font-family: 'Libre Baskerville', serif;
   font-size: clamp(40px, 5vw, 60px);
   font-weight: 700;
-  color: var(--stats-glow);       /* green glow color */
+  color:#78b728;       /* green glow color */
   line-height: 1;
   /* text-shadow creates the subtle glow effect */
-  text-shadow: 0 0 30px rgba(200, 245, 99, 0.4);
+  text-shadow: 0 0 30px rgba(101, 245, 99, 0.4);
 }
 
 .stat-suffix {
   font-size: clamp(28px, 3vw, 38px);
   font-weight: 700;
-  color: var(--stats-glow);
-  text-shadow: 0 0 20px rgba(200, 245, 99, 0.3);
+  color: #78b728;
+  text-shadow: 0 0 20px rgba(150, 245, 99, 0.3);
 }
 
 /* Label below the number */
 .stat-label {
   font-size: 11px;
+  justify-content: center;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.45);
-  font-weight: 400;
+  color: rgba(15, 3, 3, 0.45);
+  font-weight: 700;
 }
 
 
