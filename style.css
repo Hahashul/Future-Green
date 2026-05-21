@@ -85,14 +85,14 @@ body {
 ================================================================ */
 nav {
   position: fixed;         /* floats above everything */
-  top: 36px;               /* sits below the top-bar (36px = top-bar height) */
+  top: 0;               /* sits below the top-bar (36px = top-bar height) */
   left: 0;
   right: 0;
   z-index: 300;
   display: flex;
   align-items: center;
   padding: 0 40px;
-  height: 68px;
+  height: 100px;
   background: transparent; /* invisible by default */
   transition: background 0.35s ease, box-shadow 0.35s ease;
 }
@@ -107,10 +107,10 @@ nav.nav-solid {
 .nav-logo-link { margin-right: auto; }
 
 .nav-logo-img {
-  height: 90px;   /* change this to resize your logo */
+  height: 80px;   /* change this to resize your logo */
   width: auto;
   display: block;
-  transform: translateY(-6px);
+  transform: translateY(-2px);
   /* Fallback text if image is missing */
 }
 
