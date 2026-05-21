@@ -1,413 +1,491 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Future Green</title>
-
-  <!-- Google Fonts: Libre Baskerville for the logo, Lato for body text -->
-  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet"/>
-
-  <!-- Our stylesheet -->
-  <link rel="stylesheet" href="style.css"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Brand — Premium Lighting</title>
+ 
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+ 
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+ 
 
+ 
   <!-- ============================================================
-       NAVIGATION BAR
-       Sticky nav that stays at the top when you scroll.
-       Logo on left, links in center, search on right.
+    NAVIGATION
+    - Over the hero: fully transparent (invisible)
+    - On hover or scroll: white background appears
+    - Logo: replace logo.png with your actual logo file name
+    - Links scroll to sections using #id anchors
   ============================================================ -->
   <nav id="mainNav">
-    <!-- Logo — lowercase "astro" in serif font -->
-    <a class="nav-logo" href="#">FUTURE GREEN</a>
-
-    <!-- Main navigation links -->
+ 
+    <!-- LOGO — upload your logo file and change "logo.png" to match -->
+    <a href="#" class="nav-logo-link">
+      <img src="logo.png" alt="Your Brand Logo" class="nav-logo-img" />
+    </a>
+ 
+    <!-- Main nav links -->
     <ul class="nav-links">
-      <li><a href="#">Products</a></li>
-      <li><a href="#">Sectors</a></li>
-      <li><a href="#">Projects</a></li>
-      <li><a href="#">About</a></li>
-      <li><a href="#">Support</a></li>
+      <li><a href="#products">Products</a></li>
+      <li><a href="#categories">Categories</a></li>
+      <li><a href="#stats">About</a></li>
+      <li><a href="#contact">Contact</a></li>
       <li><a href="#">Where to buy</a></li>
     </ul>
-
+ 
+    <!-- Search icon -->
+    <a class="nav-search" href="#">
+      Search
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <circle cx="11" cy="11" r="7"/>
+        <line x1="16.5" y1="16.5" x2="22" y2="22"/>
+      </svg>
+    </a>
+ 
   </nav>
-
-
+ 
+ 
   <!-- ============================================================
-       HERO SECTION (SLIDESHOW)
-       Full-width dark banner at the top of the page.
-       3 slides that auto-rotate every 5 seconds.
-       Dots at bottom-right let you jump to a specific slide.
+    HERO SECTION
+    Full-screen slideshow. Text bottom-left. Dots bottom-right.
+    3 slides auto-rotate every 5 seconds.
+ 
+    HOW TO ADD REAL PHOTOS:
+      In style.css, find .slide-bg-1 / .slide-bg-2 / .slide-bg-3
+      and replace the gradient with:
+      background-image: url('hero1.jpg');
+      background-size: cover;
+      background-position: center;
   ============================================================ -->
-  <section class="hero">
-
-    <!-- SLIDE 1 -->
-    <div class="hero-slide active" id="slide1">
-      <div class="hero-slide-bg slide-bg-1"></div> <!-- background color/image -->
-      <div class="hero-overlay"></div>             <!-- dark gradient overlay for readability -->
+  <section class="hero" id="hero">
+ 
+    <!-- Slide 1 -->
+    <div class="hero-slide active">
+      <div class="hero-slide-bg slide-bg-1"></div>
+      <div class="hero-overlay"></div>
       <div class="hero-text">
-        <h1>Precision meets performance</h1>
-        <a href="#" class="hero-link">Discover Downlight PRO</a>
+        <h1>Light every space<br>with precision</h1>
+        <a href="#products" class="hero-link">Explore products</a>
       </div>
     </div>
-
-    <!-- SLIDE 2 -->
-    <div class="hero-slide" id="slide2">
+ 
+    <!-- Slide 2 -->
+    <div class="hero-slide">
       <div class="hero-slide-bg slide-bg-2"></div>
       <div class="hero-overlay"></div>
       <div class="hero-text">
-        <h1>Statement pendants, refined</h1>
-        <a href="#" class="hero-link">Explore pendants</a>
+        <h1>COB &amp; Flood<br>collections</h1>
+        <a href="#categories" class="hero-link">View all categories</a>
       </div>
     </div>
-
-    <!-- SLIDE 3 -->
-    <div class="hero-slide" id="slide3">
+ 
+    <!-- Slide 3 -->
+    <div class="hero-slide">
       <div class="hero-slide-bg slide-bg-3"></div>
       <div class="hero-overlay"></div>
       <div class="hero-text">
-        <h1>Illuminate every space, beautifully</h1>
-        <a href="#" class="hero-link">View all products</a>
+        <h1>Engineered for<br>the outdoors</h1>
+        <a href="#categories" class="hero-link">Garden &amp; Street lights</a>
       </div>
     </div>
-
-    <!-- Slide indicator dots — clicking them jumps to that slide -->
+ 
+    <!-- Slide dots — clicking jumps to that slide -->
     <div class="hero-dots">
-      <div class="hero-dot active" onclick="goSlide(0)"></div>
-      <div class="hero-dot" onclick="goSlide(1)"></div>
-      <div class="hero-dot" onclick="goSlide(2)"></div>
+      <button class="hero-dot active" onclick="goSlide(0)"></button>
+      <button class="hero-dot" onclick="goSlide(1)"></button>
+      <button class="hero-dot" onclick="goSlide(2)"></button>
     </div>
-
+ 
   </section>
-
-
+ 
+ 
   <!-- ============================================================
-       INTRO SECTION
-       "Modern lighting designed in the UK"
-       Left: text description | Right: 4 product category tiles
+    CATEGORY MOSAIC GRID
+    Luxury uneven asymmetric layout — 6 categories:
+    COB · Flood Lights · Downlights · Panel Lights · Garden Lights · Street Lights
+ 
+    Layout pattern (like luxury brand grids):
+      [ WIDE-LEFT ]  [ TOP-RIGHT-SMALL ] [ TOP-RIGHT-SMALL ]
+      [ WIDE-LEFT ]  [ BIG-CENTER-TALL                     ]
+      [ BOTTOM-SM ]  [ BIG-CENTER-TALL  ] [ BOTTOM-RIGHT   ]
+ 
+    HOW TO ADD REAL PHOTOS:
+      In style.css find .cat-bg-1 through .cat-bg-6
+      Replace gradient with: background-image: url('category.jpg');
   ============================================================ -->
-  <section class="intro-section reveal">
-
-    <!-- Left: heading, description, link -->
-    <div class="intro-text">
-      <h2>Modern lighting designed in the UK</h2>
-      <p>Where innovation meets timeless design to create contemporary lighting concepts for any space.</p>
-      <a href="#" class="link-arrow">Explore all products</a>
-    </div>
-
-    <!-- Right: 4 product category tiles with prev/next arrows -->
-    <div class="intro-carousel">
-
-      <!-- Arrow buttons to scroll the tiles -->
-      <div class="carousel-nav">
-        <button class="carousel-btn" id="prevBtn">&#8249;</button>
-        <button class="carousel-btn" id="nextBtn">&#8250;</button>
+  <section class="categories" id="categories">
+ 
+    <div class="cat-grid">
+ 
+      <!-- CELL 1: COB — large tall cell, left column spans 2 rows -->
+      <div class="cat-cell cat-tall-left cat-bg-1">
+        <div class="cat-img-inner"></div>
+        <div class="cat-label-wrap">
+          <span class="cat-label">COB</span>
+          <span class="cat-sub">Chip on Board</span>
+        </div>
       </div>
-
-      <!-- The 4 category image tiles -->
-      <div class="prod-tiles">
-
-        <!-- Each tile has a colored background + label -->
-        <div class="prod-tile tile-bathroom">
-          <div class="prod-tile-img">
-            <!-- Replace the emoji below with an <img> tag when you have real photos -->
-            <div class="prod-tile-icon">💡</div>
-          </div>
-          <span class="prod-tile-label">Bathroom</span>
+ 
+      <!-- CELL 2: Flood Lights — top center, normal height -->
+      <div class="cat-cell cat-bg-2">
+        <div class="cat-img-inner"></div>
+        <div class="cat-label-wrap">
+          <span class="cat-label">Flood Lights</span>
+          <span class="cat-sub">High-output beam</span>
         </div>
-
-        <div class="prod-tile tile-interior">
-          <div class="prod-tile-img">
-            <div class="prod-tile-icon">🔆</div>
-          </div>
-          <span class="prod-tile-label">Interior</span>
-        </div>
-
-        <div class="prod-tile tile-exterior">
-          <div class="prod-tile-img">
-            <div class="prod-tile-icon">🏠</div>
-          </div>
-          <span class="prod-tile-label">Exterior</span>
-        </div>
-
-        <div class="prod-tile tile-coastal">
-          <div class="prod-tile-img">
-            <div class="prod-tile-icon">🌊</div>
-          </div>
-          <span class="prod-tile-label">Coastal</span>
-        </div>
-
       </div>
+ 
+      <!-- CELL 3: Downlights — top right, normal height -->
+      <div class="cat-cell cat-bg-3">
+        <div class="cat-img-inner"></div>
+        <div class="cat-label-wrap">
+          <span class="cat-label">Downlights</span>
+          <span class="cat-sub">Recessed precision</span>
+        </div>
+      </div>
+ 
+      <!-- CELL 4: Panel Lights — bottom center, TALL spans 2 rows -->
+      <div class="cat-cell cat-tall-center cat-bg-4">
+        <div class="cat-img-inner"></div>
+        <div class="cat-label-wrap">
+          <span class="cat-label">Panel Lights</span>
+          <span class="cat-sub">Even surface glow</span>
+        </div>
+      </div>
+ 
+      <!-- CELL 5: Garden Lights — bottom left (under COB) -->
+      <div class="cat-cell cat-bg-5">
+        <div class="cat-img-inner"></div>
+        <div class="cat-label-wrap">
+          <span class="cat-label">Garden Lights</span>
+          <span class="cat-sub">Outdoor ambiance</span>
+        </div>
+      </div>
+ 
+      <!-- CELL 6: Street Lights — bottom right, wide -->
+      <div class="cat-cell cat-wide-right cat-bg-6">
+        <div class="cat-img-inner"></div>
+        <div class="cat-label-wrap">
+          <span class="cat-label">Street Lights</span>
+          <span class="cat-sub">Urban infrastructure</span>
+        </div>
+      </div>
+ 
     </div>
-
+ 
   </section>
-
-
+ 
+ 
   <!-- ============================================================
-       FEATURE SPLIT — "Statement Pendants"
-       Left: text (label, heading, description, link)
-       Right: big product photo with carousel arrows
+    STATS / NUMBERS PANEL
+    Dark cards. Numbers count up from 0 when scrolled into view.
+ 
+    TO CHANGE VALUES:
+      Find data-target="27" and change the number.
+      Change the text in <p class="stat-label"> for the label.
+      Change <span class="stat-suffix"> for "+", "yrs" etc.
   ============================================================ -->
-  <section class="feature-split reveal">
-
-    <!-- Left text panel -->
-    <div class="feature-split-text">
-      <div class="feature-eyebrow">New in</div>
-      <h2>Statement pendants</h2>
-      <p>Strong silhouettes and considered detailing define our collection of sculptural pendants. Thoughtfully designed to anchor a space, each piece delivers balanced, reliable illumination.</p>
-      <a href="#" class="link-arrow">Explore pendants</a>
-    </div>
-
-    <!-- Right image panel -->
-    <div class="feature-split-img">
-      <!-- Replace this placeholder div with an <img> tag for the real photo -->
-      <div class="img-placeholder">🪔</div>
-
-      <!-- Small prev/next arrows overlaid on the image -->
-      <div class="feature-carousel-nav">
-        <button class="carousel-btn">&#8249;</button>
-        <button class="carousel-btn">&#8250;</button>
+  <section class="stats" id="stats">
+ 
+    <div class="stats-grid">
+ 
+      <div class="stat-card">
+        <div class="stat-number">
+          <span class="stat-count" data-target="15">0</span>
+          <span class="stat-suffix">+</span>
+        </div>
+        <p class="stat-label">Years Experience</p>
       </div>
+ 
+      <div class="stat-card">
+        <div class="stat-number">
+          <span class="stat-count" data-target="200">0</span>
+          <span class="stat-suffix">+</span>
+        </div>
+        <p class="stat-label">Product Variants</p>
+      </div>
+ 
+      <div class="stat-card">
+        <div class="stat-number">
+          <span class="stat-count" data-target="500">0</span>
+          <span class="stat-suffix">+</span>
+        </div>
+        <p class="stat-label">Dealer Partners</p>
+      </div>
+ 
+      <div class="stat-card">
+        <div class="stat-number">
+          <span class="stat-count" data-target="30">0</span>
+          <span class="stat-suffix">+</span>
+        </div>
+        <p class="stat-label">States Covered</p>
+      </div>
+ 
     </div>
-
+ 
   </section>
-
-
+ 
+ 
   <!-- ============================================================
-       PRODUCT THUMBNAIL STRIP
-       5 small product image squares in a row below the split section
+    SCROLLING PRODUCT STRIP
+    Infinite auto-scrolling row of product cards.
+    Pure CSS animation — no JS needed.
+ 
+    TO ADD / EDIT PRODUCTS:
+      Copy a .strip-card block, change the name and sub text.
+      IMPORTANT: also duplicate it in the second set below
+      (the one marked SET 2) to keep the loop seamless.
+ 
+    TO ADD REAL PRODUCT PHOTOS:
+      In style.css find .strip-c1 through .strip-c6
+      and replace gradients with background-image: url('product.jpg');
   ============================================================ -->
-  <div class="thumb-strip reveal">
-    <div class="thumb-card thumb-1"><div class="thumb-inner">💡</div></div>
-    <div class="thumb-card thumb-2"><div class="thumb-inner">🔆</div></div>
-    <div class="thumb-card thumb-3"><div class="thumb-inner">✨</div></div>
-    <div class="thumb-card thumb-4"><div class="thumb-inner">🕯️</div></div>
-    <div class="thumb-card thumb-5"><div class="thumb-inner">💎</div></div>
-  </div>
-
-
-  <!-- ============================================================
-       CATEGORY MOSAIC GRID
-       A photo grid showing different product categories.
-       Left column is tall (spans 2 rows), others are square.
-  ============================================================ -->
-  <section class="mosaic reveal">
-    <div class="mosaic-grid">
-
-      <!-- Tall left tile (spans 2 rows) -->
-      <div class="mosaic-cell mosaic-tall mosaic-bg-1">
-        <div class="mosaic-img">🪔</div>
-        <span class="mosaic-label">Wall lights</span>
-      </div>
-
-      <!-- Top-right tiles -->
-      <div class="mosaic-cell mosaic-bg-2">
-        <div class="mosaic-img">🔆</div>
-        <span class="mosaic-label">Reading lights</span>
-      </div>
-
-      <div class="mosaic-cell mosaic-bg-3">
-        <div class="mosaic-img">✨</div>
-        <!-- no label on this one, matching the real site -->
-      </div>
-
-      <!-- Bottom-right tiles -->
-      <div class="mosaic-cell mosaic-bg-4">
-        <div class="mosaic-img">💡</div>
-        <span class="mosaic-label">Spotlights</span>
-      </div>
-
-      <div class="mosaic-cell mosaic-bg-5">
-        <div class="mosaic-img">🏠</div>
-        <span class="mosaic-label">Ceiling lights</span>
-      </div>
-
+  <section class="strip-section" id="products">
+ 
+    <!-- Optional heading above the strip -->
+    <div class="strip-heading reveal">
+      <p class="strip-eyebrow">Our Range</p>
+      <h2>Featured Products</h2>
     </div>
+ 
+    <div class="strip-wrapper">
+      <div class="strip-track">
+ 
+        <!-- ── SET 1 (original cards) ── -->
+        <div class="strip-card">
+          <div class="strip-img strip-c1"><div class="strip-ph">💡</div></div>
+          <p class="strip-name">COB Spotlight 30W</p>
+          <p class="strip-sub">Warm White · Ra90</p>
+        </div>
+        <div class="strip-card">
+          <div class="strip-img strip-c2"><div class="strip-ph">🔦</div></div>
+          <p class="strip-name">Flood Pro 100W</p>
+          <p class="strip-sub">IP66 · Cool White</p>
+        </div>
+        <div class="strip-card">
+          <div class="strip-img strip-c3"><div class="strip-ph">🔆</div></div>
+          <p class="strip-name">Slim Downlight 12W</p>
+          <p class="strip-sub">Recessed · Dimmable</p>
+        </div>
+        <div class="strip-card">
+          <div class="strip-img strip-c4"><div class="strip-ph">⬜</div></div>
+          <p class="strip-name">Panel Light 40W</p>
+          <p class="strip-sub">595×595 · Neutral White</p>
+        </div>
+        <div class="strip-card">
+          <div class="strip-img strip-c5"><div class="strip-ph">🌿</div></div>
+          <p class="strip-name">Garden Spike 10W</p>
+          <p class="strip-sub">Solar Ready · IP67</p>
+        </div>
+        <div class="strip-card">
+          <div class="strip-img strip-c6"><div class="strip-ph">🏙️</div></div>
+          <p class="strip-name">Street Light 80W</p>
+          <p class="strip-sub">Cobra Head · IK10</p>
+        </div>
+ 
+        <!-- ── SET 2 (exact copy — required for seamless infinite loop) ── -->
+        <div class="strip-card">
+          <div class="strip-img strip-c1"><div class="strip-ph">💡</div></div>
+          <p class="strip-name">COB Spotlight 30W</p>
+          <p class="strip-sub">Warm White · Ra90</p>
+        </div>
+        <div class="strip-card">
+          <div class="strip-img strip-c2"><div class="strip-ph">🔦</div></div>
+          <p class="strip-name">Flood Pro 100W</p>
+          <p class="strip-sub">IP66 · Cool White</p>
+        </div>
+        <div class="strip-card">
+          <div class="strip-img strip-c3"><div class="strip-ph">🔆</div></div>
+          <p class="strip-name">Slim Downlight 12W</p>
+          <p class="strip-sub">Recessed · Dimmable</p>
+        </div>
+        <div class="strip-card">
+          <div class="strip-img strip-c4"><div class="strip-ph">⬜</div></div>
+          <p class="strip-name">Panel Light 40W</p>
+          <p class="strip-sub">595×595 · Neutral White</p>
+        </div>
+        <div class="strip-card">
+          <div class="strip-img strip-c5"><div class="strip-ph">🌿</div></div>
+          <p class="strip-name">Garden Spike 10W</p>
+          <p class="strip-sub">Solar Ready · IP67</p>
+        </div>
+        <div class="strip-card">
+          <div class="strip-img strip-c6"><div class="strip-ph">🏙️</div></div>
+          <p class="strip-name">Street Light 80W</p>
+          <p class="strip-sub">Cobra Head · IK10</p>
+        </div>
+ 
+      </div>
+    </div>
+ 
   </section>
-
-
+ 
+ 
   <!-- ============================================================
-       SUSTAINABILITY BANNER
-       Dark green section with scrolling EcoVadis badge strip in bg,
-       and a white card in the center with sustainability message.
+    ABOUT US SECTION
+    Left: text. Right: dark accent panel with a quote.
+    Change all text to match your brand story.
   ============================================================ -->
-  <section class="sust-banner reveal">
-
-    <!-- Background: scrolling badges (purely decorative) -->
-    <div class="sust-bg-scroll">
-      <div class="sust-track">
-        <!-- These badges repeat to create a seamless infinite scroll -->
-        <!-- First set -->
-        <div class="badge-item">
-          <div class="badge-circle">
-            <strong>SILVER</strong>Top 15%<br/>ecovadis<br/><span>APR 2026</span>
-          </div>
-        </div>
-        <span class="badge-word">ecovadis</span>
-        <div class="badge-item">
-          <div class="badge-circle">
-            <strong>SILVER</strong>Top 15%<br/>ecovadis<br/><span>APR 2026</span>
-          </div>
-        </div>
-        <span class="badge-word">ecovadis</span>
-        <div class="badge-item">
-          <div class="badge-circle">
-            <strong>SILVER</strong>Top 15%<br/>ecovadis<br/><span>APR 2026</span>
-          </div>
-        </div>
-        <span class="badge-word">ecovadis</span>
-        <div class="badge-item">
-          <div class="badge-circle">
-            <strong>SILVER</strong>Top 15%<br/>ecovadis<br/><span>APR 2026</span>
-          </div>
-        </div>
-        <span class="badge-word">ecovadis</span>
-        <!-- Second set (duplicate) — needed for seamless loop -->
-        <div class="badge-item">
-          <div class="badge-circle">
-            <strong>SILVER</strong>Top 15%<br/>ecovadis<br/><span>APR 2026</span>
-          </div>
-        </div>
-        <span class="badge-word">ecovadis</span>
-        <div class="badge-item">
-          <div class="badge-circle">
-            <strong>SILVER</strong>Top 15%<br/>ecovadis<br/><span>APR 2026</span>
-          </div>
-        </div>
-        <span class="badge-word">ecovadis</span>
-        <div class="badge-item">
-          <div class="badge-circle">
-            <strong>SILVER</strong>Top 15%<br/>ecovadis<br/><span>APR 2026</span>
-          </div>
-        </div>
-        <span class="badge-word">ecovadis</span>
-        <div class="badge-item">
-          <div class="badge-circle">
-            <strong>SILVER</strong>Top 15%<br/>ecovadis<br/><span>APR 2026</span>
-          </div>
-        </div>
-        <span class="badge-word">ecovadis</span>
-      </div>
+  <section class="about reveal" id="about">
+ 
+    <!-- Left side: brand story text -->
+    <div class="about-text">
+      <p class="about-eyebrow">About Us</p>
+      <h2>Built on quality.<br>Driven by light.</h2>
+      <p class="about-body">
+        We are a dedicated lighting solutions company committed to bringing precision-engineered, energy-efficient lighting to homes, businesses, and public spaces across India. From COB chips to large-scale street lighting, every product we create is built to last and designed to perform.
+      </p>
+      <p class="about-body">
+        Our team combines deep technical expertise with a passion for great design — delivering products that don't just illuminate, but transform a space.
+      </p>
+      <a href="#contact" class="link-arrow">Get in touch</a>
     </div>
-
-    <!-- Centered white card with sustainability text -->
-    <div class="sust-content">
-      <h2>Sustainability isn't a passing trend</h2>
-      <p class="sust-sub">Discover what we are doing to lead meaningful change.</p>
-      <p>Our vision is a future where business, people, and the planet can live more harmoniously together. It's rarely simple, but small acts that challenge the way we do things today, will ultimately lead to real and meaningful change tomorrow.</p>
-      <a href="#" class="link-arrow">View our Sustainability Report 2025</a>
+ 
+    <!-- Right side: dark decorative panel -->
+    <div class="about-panel">
+      <p class="about-quote">"Every light we make carries a promise — to last, to perform, to inspire."</p>
+      <p class="about-since">Trusted by 500+ dealers across 30+ states</p>
     </div>
-
+ 
   </section>
-
-
+ 
+ 
   <!-- ============================================================
-       GET SOCIAL SECTION
-       Left: text + Instagram handle | Right: grid of 5 photos
+    CONTACT SECTION
+    Clean centered form. Does not send emails by default.
+ 
+    TO MAKE IT ACTUALLY SEND EMAILS (free & easy):
+      1. Go to formspree.io and create a free account
+      2. Create a new form, copy your form ID
+      3. Change the <form> tag to:
+         <form action="https://formspree.io/f/YOUR_ID" method="POST">
+      4. Remove the id="contactForm" and the JS submit handler
+         (it will auto-redirect on submit)
   ============================================================ -->
-  <section class="social-section reveal">
-
-    <!-- Left text -->
-    <div class="social-text">
-      <h2>Get social</h2>
-      <div class="social-handle">@ASTROLIGHTING</div>
-      <a href="#" class="link-arrow">Follow us on social</a>
+  <section class="contact reveal" id="contact">
+ 
+    <div class="contact-inner">
+      <p class="contact-eyebrow">Let's talk</p>
+      <h2>Contact us</h2>
+      <p class="contact-sub">Have a project in mind or want to become a dealer? We'd love to hear from you.</p>
+ 
+      <form class="contact-form" id="contactForm">
+ 
+        <div class="form-row">
+          <!-- Name -->
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" placeholder="Your name" required />
+          </div>
+          <!-- Email -->
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="your@email.com" required />
+          </div>
+        </div>
+ 
+        <!-- Phone (optional but useful for B2B) -->
+        <div class="form-group">
+          <label for="phone">Phone <span class="optional">(optional)</span></label>
+          <input type="tel" id="phone" name="phone" placeholder="+91 00000 00000" />
+        </div>
+ 
+        <!-- Message -->
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" rows="5" placeholder="Tell us about your project or enquiry..." required></textarea>
+        </div>
+ 
+        <button type="submit" class="btn-submit">Send message</button>
+ 
+      </form>
+ 
+      <!-- Success message — hidden until form is submitted -->
+      <p class="form-success" id="formSuccess">Thank you! We'll be in touch soon.</p>
+ 
     </div>
-
-    <!-- Right: 5 photo tiles (1 big + 4 small) -->
-    <div class="social-grid">
-      <!-- Big tile on the left (spans 2 rows) -->
-      <div class="social-tile social-tall soc-1"><div class="soc-inner">🪔</div></div>
-      <!-- 4 smaller tiles on the right -->
-      <div class="social-tile soc-2"><div class="soc-inner">💡</div></div>
-      <div class="social-tile soc-3"><div class="soc-inner">🔆</div></div>
-      <div class="social-tile soc-4"><div class="soc-inner">🏠</div></div>
-      <div class="social-tile soc-5"><div class="soc-inner">✨</div></div>
-    </div>
-
+ 
   </section>
-
-
+ 
+ 
   <!-- ============================================================
-       FOOTER
-       Black background, 5 columns of links + social icons.
-       Copyright line at the very bottom.
+    FOOTER
+    Black background. 5 link columns + copyright bar.
+    Change column headings and links to match your site structure.
   ============================================================ -->
   <footer>
+ 
     <div class="footer-cols">
-
-      <!-- Column 1: Astro company links -->
+ 
       <div class="footer-col">
-        <h4>Astro</h4>
+        <h4>Company</h4>
         <ul>
+          <li><a href="#">About Us</a></li>
           <li><a href="#">Careers</a></li>
           <li><a href="#">Sustainability</a></li>
-          <li><a href="#">Terms of Sale</a></li>
           <li><a href="#">Privacy Policy</a></li>
-          <li><a href="#">Cookie Policy</a></li>
-          <li><a href="#">Modern Slavery Act</a></li>
-          <li><a href="#">Applicant Privacy Policy</a></li>
-          <li><a href="#">Website Terms and Conditions</a></li>
+          <li><a href="#">Terms of Sale</a></li>
         </ul>
       </div>
-
-      <!-- Column 2: Support links -->
+ 
+      <div class="footer-col">
+        <h4>Products</h4>
+        <ul>
+          <li><a href="#">COB Lights</a></li>
+          <li><a href="#">Flood Lights</a></li>
+          <li><a href="#">Downlights</a></li>
+          <li><a href="#">Panel Lights</a></li>
+          <li><a href="#">Garden Lights</a></li>
+          <li><a href="#">Street Lights</a></li>
+        </ul>
+      </div>
+ 
       <div class="footer-col">
         <h4>Support</h4>
         <ul>
           <li><a href="#">Catalogues</a></li>
-          <li><a href="#">DoC Search</a></li>
           <li><a href="#">FAQs</a></li>
-          <li><a href="#">Technical Assistance</a></li>
-          <li><a href="#">Technical Downloads</a></li>
-          <li><a href="#">Warranty and Returns</a></li>
+          <li><a href="#">Technical Docs</a></li>
+          <li><a href="#">Warranty</a></li>
         </ul>
       </div>
-
-      <!-- Column 3: Tools links -->
-      <div class="footer-col">
-        <h4>Tools</h4>
-        <ul>
-          <li><a href="#">Downlight Selector</a></li>
-          <li><a href="#">Track Configurator</a></li>
-          <li><a href="#">Driver Calculator</a></li>
-        </ul>
-      </div>
-
-      <!-- Column 4: Contact links -->
+ 
       <div class="footer-col">
         <h4>Contact</h4>
         <ul>
-          <li><a href="#">Where to Buy</a></li>
-          <li><a href="#">Get in Touch</a></li>
+          <li><a href="#">Find a Dealer</a></li>
+          <li><a href="#contact">Get in Touch</a></li>
         </ul>
       </div>
-
-      <!-- Column 5: Social media icons -->
+ 
       <div class="footer-col">
         <h4>Follow us</h4>
-        <div class="social-icons">
-          <a href="#" title="Instagram">📷</a>
-          <a href="#" title="LinkedIn">💼</a>
-          <a href="#" title="Facebook">📘</a>
-          <a href="#" title="Pinterest">📌</a>
+        <!-- Replace # with real social URLs -->
+        <div class="footer-socials">
+          <a href="#" title="Instagram">IG</a>
+          <a href="#" title="LinkedIn">LI</a>
+          <a href="#" title="Facebook">FB</a>
+          <a href="#" title="YouTube">YT</a>
         </div>
       </div>
-
+ 
     </div>
-
-    <!-- Bottom copyright bar -->
+ 
     <div class="footer-bottom">
-      <p>© ASTRO LIGHTING</p>
-      <p>SITE BY D3R</p>
+      <p>© 2025 Your Brand. All rights reserved.</p>
     </div>
+ 
   </footer>
-
-
-  <!-- Load our JavaScript file last so the page loads faster -->
+ 
+ 
+  <!-- Scripts — loaded last so page renders before JS runs -->
   <script src="script.js"></script>
-
+ 
 </body>
 </html>
+ 

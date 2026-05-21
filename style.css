@@ -1,258 +1,54 @@
 /* ================================================================
-   ASTRO LIGHTING — style.css
-   All the visual styling for the website.
-   Sections are clearly labeled so you can find things easily.
+   YOUR BRAND — style.css
+   All visual styling in one place.
+   Find any section by searching the label in ALL CAPS.
 ================================================================ */
 
 
 /* ----------------------------------------------------------------
-   CSS VARIABLES (your color palette + fonts in one place)
-   Change these to restyle the whole site quickly.
+   CSS VARIABLES — change these to restyle the whole site
 ---------------------------------------------------------------- */
 :root {
-  --white:        #ffffff;
-  --off-white:    #f2f0ec;   /* slightly warm white for section backgrounds */
-  --light-bg:     #f5f3ef;   /* very light beige for product tiles */
-  --black:        #0a0a0a;   /* footer background */
-  --dark-green:   #1b3028;   /* sustainability section background */
-  --text:         #1a1a1a;   /* main body text color */
-  --mid-gray:     #666666;   /* secondary / description text */
-  --border:       #e0ddd8;   /* light line borders */
+  /* Colors */
+  --white:       #ffffff;
+  --off-white:   #f4f2ee;      /* warm background for sections */
+  --light-bg:    #f0ede8;      /* slightly darker warm bg */
+  --black:       #0a0a0a;      /* footer + dark panels */
+  --text:        #1a1a1a;      /* main body text */
+  --mid:         #666666;      /* secondary/description text */
+  --border:      #e0ddd8;      /* light dividing lines */
+
+  /* Accent color for numbers, underlines, hover states */
+  /* Change this one value to re-accent the whole site */
+  --accent:      #1a1a1a;      /* currently matches text (neutral luxury) */
+
+  /* Stats panel dark color */
+  --stats-bg:    #111418;      /* very dark blue-black for stat cards */
+  --stats-glow:  #c8f563;      /* bright green number color — matches ref image */
 }
 
 /* ----------------------------------------------------------------
-   RESET & BASE STYLES
-   Remove default browser spacing, set consistent box model.
+   RESET & BASE
 ---------------------------------------------------------------- */
 *, *::before, *::after {
   margin: 0;
   padding: 0;
-  box-sizing: border-box; /* padding doesn't add to element width */
+  box-sizing: border-box;
 }
 
-html {
-  scroll-behavior: smooth; /* smooth scrolling when clicking anchor links */
-}
+html { scroll-behavior: smooth; }
 
 body {
   font-family: 'Lato', sans-serif;
   background: var(--white);
   color: var(--text);
   font-weight: 300;
-  overflow-x: hidden; /* prevent horizontal scroll */
+  overflow-x: hidden;
 }
-
 
 /* ----------------------------------------------------------------
-   TOP BAR
-   Thin bar at the very top — language selector + login
----------------------------------------------------------------- */
-.top-bar {
-  background: var(--white);
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  justify-content: space-between; /* language left, login right */
-  align-items: center;
-  padding: 8px 40px;
-  font-size: 12px;
-  color: var(--mid-gray);
-}
-
-/* The language dropdown */
-.top-bar select {
-  border: none;
-  background: none;
-  font-size: 12px;
-  color: var(--mid-gray);
-  cursor: pointer;
-  font-family: 'Lato', sans-serif;
-}
-
-/* Login link */
-.top-bar a {
-  color: var(--mid-gray);
-  text-decoration: none;
-  font-size: 12px;
-}
-.top-bar a:hover {
-  color: var(--text); /* darken on hover */
-}
-
-
-/* ----------------------------------------------------------------
-   NAVIGATION BAR
-   Sticky (stays visible when scrolling).
-   Logo far left, nav links centered, search on right.
----------------------------------------------------------------- */
-nav {
-  background: var(--white);
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  padding: 0 40px;
-  height: 64px;
-  position: sticky; /* sticks to top of screen as you scroll */
-  top: 0;
-  z-index: 200;      /* stays on top of everything else */
-}
-
-/* "astro" logo in serif font */
-.nav-logo {
-  font-family: 'Libre Baskerville', serif;
-  font-size: 26px;
-  font-weight: 400;
-  color: var(--text);
-  text-decoration: none;
-  letter-spacing: 0.02em;
-  margin-right: auto; /* pushes nav links to the right */
-}
-
-/* List of navigation links */
-.nav-links {
-  display: flex;
-  gap: 36px;
-  list-style: none;
-  margin-right: 24px;
-}
-
-.nav-links a {
-  font-size: 13px;
-  font-weight: 400;
-  color: var(--text);
-  text-decoration: none;
-  letter-spacing: 0.03em;
-  transition: opacity 0.2s;
-}
-.nav-links a:hover {
-  opacity: 0.5; /* fade slightly on hover */
-}
-
-/* Search link with magnifying glass icon */
-.nav-search {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 13px;
-  color: var(--text);
-  text-decoration: none;
-}
-.nav-search svg {
-  width: 16px;
-  height: 16px;
-}
-
-
-/* ----------------------------------------------------------------
-   HERO SECTION (SLIDESHOW)
-   Full-width dark banner at the top of the page.
-   Slides stack on top of each other; only .active is visible.
----------------------------------------------------------------- */
-.hero {
-  position: relative;
-  width: 100%;
-  height: 420px;
-  overflow: hidden;
-  background: #2a2a2a; /* fallback color while slides load */
-}
-
-/* Each slide is positioned absolutely to fill the hero */
-.hero-slide {
-  position: absolute;
-  inset: 0; /* shorthand for top/right/bottom/left: 0 */
-  display: flex;
-  align-items: flex-end;    /* text sits at the bottom */
-  padding: 48px 56px;
-  opacity: 0;
-  transition: opacity 0.7s ease; /* fade in/out transition */
-  pointer-events: none;          /* inactive slides can't be clicked */
-}
-.hero-slide.active {
-  opacity: 1;
-  pointer-events: all; /* active slide is clickable */
-}
-
-/* Background color/image for each slide */
-.hero-slide-bg {
-  position: absolute;
-  inset: 0;
-  background-size: cover;
-  background-position: center;
-  transition: transform 6s ease; /* slow zoom effect */
-}
-.hero-slide.active .hero-slide-bg {
-  transform: scale(1.03); /* subtle zoom when slide is active */
-}
-
-/* Individual slide background colors (replace with background-image for real photos) */
-.slide-bg-1 { background: linear-gradient(120deg, #2e2c28 0%, #4a4540 100%); }
-.slide-bg-2 { background: linear-gradient(120deg, #252830 0%, #3a4048 100%); }
-.slide-bg-3 { background: linear-gradient(120deg, #222824 0%, #3a4038 100%); }
-
-/* Dark gradient over each slide so text is easy to read */
-.hero-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.1) 60%, transparent 100%);
-}
-
-/* Text content on each slide */
-.hero-text {
-  position: relative;
-  z-index: 2;
-  max-width: 420px;
-}
-
-.hero-text h1 {
-  font-family: 'Lato', sans-serif;
-  font-size: clamp(28px, 3.5vw, 44px); /* scales with screen width */
-  font-weight: 700;
-  color: #fff;
-  line-height: 1.15;
-  margin-bottom: 16px;
-}
-
-/* "Discover XYZ ›" link on each slide */
-.hero-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 13px;
-  color: #fff;
-  text-decoration: none;
-  border-bottom: 1px solid rgba(255,255,255,0.5);
-  padding-bottom: 2px;
-  transition: border-color 0.2s;
-}
-.hero-link:hover { border-color: #fff; }
-.hero-link::after { content: '›'; font-size: 16px; } /* arrow character */
-
-/* Dot indicators at bottom-right of the hero */
-.hero-dots {
-  position: absolute;
-  bottom: 20px;
-  right: 40px;
-  display: flex;
-  gap: 10px;
-  z-index: 10;
-}
-
-.hero-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  border: 1px solid rgba(255,255,255,0.6);
-  background: transparent;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-.hero-dot.active {
-  background: rgba(255,255,255,0.8); /* filled dot = current slide */
-}
-
-
-/* ----------------------------------------------------------------
-   REUSABLE: LINK WITH ARROW
-   Used throughout the site for "Explore X ›" style links
+   REUSABLE: link with arrow "Text ›"
+   Used throughout for "Explore X" style CTAs.
 ---------------------------------------------------------------- */
 .link-arrow {
   display: inline-flex;
@@ -263,608 +59,846 @@ nav {
   color: var(--text);
   text-decoration: none;
   border-bottom: 1px solid var(--text);
-  padding-bottom: 1px;
+  padding-bottom: 2px;
   transition: opacity 0.2s;
 }
-.link-arrow:hover { opacity: 0.55; }
 .link-arrow::after { content: '›'; font-size: 16px; }
+.link-arrow:hover  { opacity: 0.5; }
 
-
-/* ----------------------------------------------------------------
-   INTRO SECTION
-   "Modern lighting designed in the UK"
-   Two-column: text left, product tiles right.
----------------------------------------------------------------- */
-.intro-section {
-  display: grid;
-  grid-template-columns: 300px 1fr; /* fixed text column, flexible tiles column */
-  gap: 0;
-  padding: 60px 40px;
-  align-items: start;
-  background: var(--white);
-}
-
-/* Left text column */
-.intro-text {
-  padding-right: 40px;
-  padding-top: 12px;
-}
-.intro-text h2 {
-  font-size: clamp(22px, 2.5vw, 30px);
-  font-weight: 700;
-  line-height: 1.25;
-  margin-bottom: 16px;
-}
-.intro-text p {
-  font-size: 13px;
-  line-height: 1.7;
-  color: var(--mid-gray);
-  margin-bottom: 20px;
-}
-
-/* Right carousel wrapper */
-.intro-carousel {
-  position: relative;
-}
-
-/* Prev/Next arrow buttons above the tiles */
-.carousel-nav {
-  position: absolute;
-  top: -40px;
-  right: 0;
-  display: flex;
-  gap: 8px;
-  z-index: 2;
-}
-
-/* Small circular arrow buttons */
-.carousel-btn {
-  width: 32px;
-  height: 32px;
-  border: 1px solid #ccc;
-  background: var(--white);
-  cursor: pointer;
-  font-size: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: border-color 0.2s;
-  border-radius: 50%;
-}
-.carousel-btn:hover { border-color: var(--text); }
-
-/* Grid of 4 product category tiles */
-.prod-tiles {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 2px; /* very small gap between tiles like the real site */
-}
-
-/* Individual product tile */
-.prod-tile {
-  aspect-ratio: 3 / 4; /* portrait ratio */
-  position: relative;
-  overflow: hidden;
-  cursor: pointer;
-}
-
-/* The colored background inside each tile */
-.prod-tile-img {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.5s ease;
-}
-.prod-tile:hover .prod-tile-img {
-  transform: scale(1.04); /* slight zoom on hover */
-}
-
-/* Background colors for each tile — swap with background-image for real photos */
-.tile-bathroom { background: linear-gradient(145deg, #c8d0cc, #a0b0aa); }
-.tile-interior  { background: linear-gradient(145deg, #e0dbd0, #c8c0b0); }
-.tile-exterior  { background: linear-gradient(145deg, #b0b8bc, #8898a0); }
-.tile-coastal   { background: linear-gradient(145deg, #c8b89a, #a89070); }
-
-/* Emoji icon placeholder — remove when you add real photos */
-.prod-tile-icon { font-size: 36px; opacity: 0.35; }
-
-/* Category label at bottom of tile */
-.prod-tile-label {
-  position: absolute;
-  bottom: 14px;
-  left: 14px;
-  font-size: 13px;
-  font-weight: 400;
-  color: var(--text);
-}
-
-
-/* ----------------------------------------------------------------
-   FEATURE SPLIT — "Statement Pendants"
-   Two-column: text on left, large image on right.
-   Background is a warm off-white.
----------------------------------------------------------------- */
-.feature-split {
-  display: grid;
-  grid-template-columns: 1fr 1.2fr; /* image column slightly wider */
-  min-height: 480px;
-}
-
-/* Left text panel */
-.feature-split-text {
-  padding: 80px 56px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  background: var(--off-white);
-}
-
-/* Small uppercase label above heading */
-.feature-eyebrow {
+/* Eyebrow labels — small uppercase text above section headings */
+.about-eyebrow,
+.contact-eyebrow,
+.strip-eyebrow {
   font-size: 11px;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--mid-gray);
-  margin-bottom: 14px;
-}
-
-.feature-split-text h2 {
-  font-size: clamp(26px, 3vw, 38px);
-  font-weight: 700;
-  line-height: 1.2;
-  margin-bottom: 20px;
-}
-
-.feature-split-text p {
-  font-size: 13px;
-  line-height: 1.8;
-  color: var(--mid-gray);
-  max-width: 360px;
-  margin-bottom: 28px;
-}
-
-/* Right image panel */
-.feature-split-img {
-  position: relative;
-  overflow: hidden;
-}
-
-/* Placeholder for the pendant photo — replace with <img> */
-.img-placeholder {
-  width: 100%;
-  height: 100%;
-  min-height: 480px;
-  background: linear-gradient(135deg, #b8c5bc 0%, #8fa898 40%, #6e8a76 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 60px;
-  opacity: 0.5;
-}
-
-/* Carousel arrows overlaid on the image */
-.feature-carousel-nav {
-  position: absolute;
-  bottom: 20px;
-  right: 20px;
-  display: flex;
-  gap: 8px;
+  color: var(--mid);
+  margin-bottom: 12px;
+  display: block;
 }
 
 
-/* ----------------------------------------------------------------
-   PRODUCT THUMBNAIL STRIP
-   5 small square tiles in a row beneath the feature split.
----------------------------------------------------------------- */
-.thumb-strip {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 2px;
+/* ================================================================
+   TOP BAR
+   Thin bar at very top. Delete the HTML block if not needed.
+================================================================ */
+.top-bar {
   background: var(--white);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 7px 48px;
+  font-size: 12px;
+  color: var(--mid);
 }
 
-/* Individual thumbnail */
-.thumb-card {
-  aspect-ratio: 1 / 1.1; /* slightly taller than square */
+.top-bar select {
+  border: none;
+  background: none;
+  font-size: 12px;
+  color: var(--mid);
+  cursor: pointer;
+  font-family: 'Lato', sans-serif;
+}
+
+.top-bar a {
+  color: var(--mid);
+  text-decoration: none;
+  font-size: 12px;
+}
+.top-bar a:hover { color: var(--text); }
+
+
+/* ================================================================
+   NAVIGATION
+   Sits on top of the hero (position: fixed).
+   Starts transparent. Becomes white on hover or scroll.
+   JS adds class .nav-solid which triggers the white background.
+================================================================ */
+nav {
+  position: fixed;         /* floats above everything */
+  top: 36px;               /* sits below the top-bar (36px = top-bar height) */
+  left: 0;
+  right: 0;
+  z-index: 300;
   display: flex;
   align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  overflow: hidden;
-  transition: opacity 0.3s;
+  padding: 0 40px;
+  height: 68px;
+  background: transparent; /* invisible by default */
+  transition: background 0.35s ease, box-shadow 0.35s ease;
 }
-.thumb-card:hover { opacity: 0.8; }
 
-/* Background colors — replace with real product images */
-.thumb-1 { background: #eae7e0; }
-.thumb-2 { background: #e8e5de; }
-.thumb-3 { background: #eae8e2; }
-.thumb-4 { background: #e5e2da; }
-.thumb-5 { background: #e8e4dc; }
-
-/* Emoji icon placeholder */
-.thumb-inner { font-size: 32px; opacity: 0.3; }
-
-
-/* ----------------------------------------------------------------
-   CATEGORY MOSAIC GRID
-   Left column is tall (spans 2 rows), rest are normal height.
----------------------------------------------------------------- */
-.mosaic {
-  padding: 60px 40px;
+/* When JS adds this class (on scroll / hover), nav becomes white */
+nav.nav-solid {
   background: var(--white);
+  box-shadow: 0 1px 0 var(--border);
 }
 
-.mosaic-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: auto auto;
-  gap: 4px;
+/* Logo image — size it here */
+.nav-logo-link { margin-right: auto; }
+
+.nav-logo-img {
+  height: 90px;   /* change this to resize your logo */
+  width: auto;
+  display: block;
+  transform: translateY(-6px);
+  /* Fallback text if image is missing */
 }
 
-/* A single mosaic cell */
-.mosaic-cell {
+/* Nav links */
+.nav-links {
+  display: flex;
+  gap: 40px;
+  list-style: none;
+  margin-right: 28px;
+}
+
+.nav-links a {
+  font-size: 13.5px;
+  font-weight: 400;
+  color: var(--white);    /* white text over dark hero */
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  transition: opacity 0.2s, color 0.35s;
+}
+
+/* When nav is solid (white bg), links turn dark */
+nav.nav-solid .nav-links a { color: var(--text); }
+
+.nav-links a:hover { opacity: 0.55; }
+
+/* Search link */
+.nav-search {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13.5px;
+  color: var(--white);
+  text-decoration: none;
+  transition: color 0.35s;
+}
+nav.nav-solid .nav-search { color: var(--text); }
+
+.nav-search svg { width: 16px; height: 16px; }
+
+
+/* ================================================================
+   HERO SECTION
+   Full-viewport-height slideshow.
+   Slides stack on top of each other; .active one is visible.
+================================================================ */
+.hero {
   position: relative;
-  overflow: hidden;
-  cursor: pointer;
-  min-height: 200px;
-}
-
-/* The tall left cell spans 2 rows */
-.mosaic-tall {
-  grid-row: span 2;
-  min-height: 404px;
-}
-
-/* Image/color inside each cell */
-.mosaic-img {
   width: 100%;
-  height: 100%;
-  min-height: inherit;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 40px;
-  opacity: 0.25;
-  transition: transform 0.5s ease;
-}
-.mosaic-cell:hover .mosaic-img { transform: scale(1.04); }
-
-/* Background colors per cell — replace with background-image: url('...') */
-.mosaic-bg-1 { background: linear-gradient(145deg, #3a2e1e, #5a4830); }
-.mosaic-bg-2 { background: linear-gradient(145deg, #2a2e30, #404850); }
-.mosaic-bg-3 { background: linear-gradient(145deg, #1e2820, #303e32); }
-.mosaic-bg-4 { background: linear-gradient(145deg, #2c2420, #3e3028); }
-.mosaic-bg-5 { background: linear-gradient(145deg, #282830, #384040); }
-
-/* Category label in white at bottom of each cell */
-.mosaic-label {
-  position: absolute;
-  bottom: 16px;
-  left: 16px;
-  font-size: 14px;
-  font-weight: 700;
-  color: #fff;
-  text-shadow: 0 1px 4px rgba(0,0,0,0.4);
-}
-
-
-/* ----------------------------------------------------------------
-   SUSTAINABILITY BANNER
-   Dark green section. Scrolling badge strip behind a white card.
----------------------------------------------------------------- */
-.sust-banner {
-  position: relative;
-  background: var(--dark-green);
+  height: 100vh;           /* full screen height */
+  min-height: 520px;
   overflow: hidden;
-  padding: 80px 0;
-  min-height: 320px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  background: #1a1a18;     /* dark fallback while images load */
 }
 
-/* The scrolling background track (purely decorative) */
-.sust-bg-scroll {
+/* Each slide fills the hero completely */
+.hero-slide {
   position: absolute;
   inset: 0;
   display: flex;
-  align-items: center;
-  overflow: hidden;
-  opacity: 0.85;
+  align-items: flex-end;   /* text anchored to bottom */
+  padding: 72px 80px;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+  pointer-events: none;    /* only the active slide is clickable */
+}
+.hero-slide.active {
+  opacity: 1;
+  pointer-events: all;
 }
 
-/* The inner track that moves via CSS animation */
-.sust-track {
-  display: flex;
-  gap: 80px;
-  align-items: center;
-  animation: scrollLeft 20s linear infinite; /* defined in @keyframes below */
-  white-space: nowrap;
+/* Slide background — replace gradients with real photos in .slide-bg-X below */
+.hero-slide-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transition: transform 7s ease;
+}
+/* Subtle slow zoom when slide is active */
+.hero-slide.active .hero-slide-bg { transform: scale(1.04); }
+
+/* ── SLIDE BACKGROUND COLORS (replace with real photos) ──
+   Example: .slide-bg-1 { background-image: url('hero1.jpg'); }
+*/
+.slide-bg-1 {
+  background: linear-gradient(160deg, #2a2620 0%, #3e3830 50%, #4a4035 100%);
+}
+.slide-bg-2 {
+  background: linear-gradient(160deg, #1c2028 0%, #2a3040 50%, #363c50 100%);
+}
+.slide-bg-3 {
+  background: linear-gradient(160deg, #1a2018 0%, #283028 50%, #303c2e 100%);
 }
 
-/* Individual badge circle */
-.badge-item { display: flex; align-items: center; justify-content: center; }
-
-.badge-circle {
-  width: 90px;
-  height: 90px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.12);
-  border: 1px solid rgba(255,255,255,0.2);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: 9px;
-  color: rgba(255,255,255,0.6);
-  text-align: center;
-  line-height: 1.4;
-}
-.badge-circle strong {
-  font-size: 11px;
-  display: block;
-  margin-bottom: 2px;
-  color: rgba(255,255,255,0.8);
-}
-.badge-circle span { font-size: 8px; }
-
-/* "ecovadis" text between badges */
-.badge-word {
-  font-size: 16px;
-  font-weight: 300;
-  color: rgba(255,255,255,0.2);
-  letter-spacing: 0.05em;
+/* Dark left-fade overlay so white text is always readable */
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(0,0,0,0.55) 0%,
+    rgba(0,0,0,0.2)  55%,
+    transparent      100%
+  );
 }
 
-/* Keyframe: moves the track to the left continuously */
-@keyframes scrollLeft {
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(-50%); } /* -50% because content is doubled for seamless loop */
-}
-
-/* White card in the center */
-.sust-content {
+/* The text block on each slide */
+.hero-text {
   position: relative;
-  z-index: 2; /* sits on top of the scrolling background */
-  background: rgba(255,255,255,0.97);
-  padding: 48px 56px;
-  max-width: 560px;
-  width: 90%;
+  z-index: 2;
+  max-width: 500px;
+}
+
+.hero-text h1 {
+  font-family: 'Lato', sans-serif;
+  font-size: clamp(36px, 5vw, 64px);  /* responsive font size */
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.12;
+  margin-bottom: 24px;
+  letter-spacing: -0.01em;
+}
+
+/* "Explore ›" link on the slide */
+.hero-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 400;
+  color: #fff;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255,255,255,0.55);
+  padding-bottom: 3px;
+  letter-spacing: 0.03em;
+  transition: border-color 0.2s;
+}
+.hero-link::after { content: '›'; font-size: 18px; }
+.hero-link:hover  { border-color: #fff; }
+
+/* Slide dot indicators — bottom right of hero */
+.hero-dots {
+  position: absolute;
+  bottom: 32px;
+  right: 56px;
+  display: flex;
+  gap: 10px;
+  z-index: 10;
+}
+
+.hero-dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255,255,255,0.65);
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.25s;
+  padding: 0;
+}
+.hero-dot.active { background: rgba(255,255,255,0.85); }
+
+
+/* ================================================================
+   CATEGORY MOSAIC GRID
+   Asymmetric luxury grid — 6 categories.
+   Uses CSS Grid with named areas for the uneven layout.
+
+   Grid layout (desktop):
+   ┌───────────┬──────────┬──────────┐
+   │           │ Flood    │ Down     │
+   │   COB     ├──────────┴──────────┤
+   │  (tall)   │   Panel Lights      │
+   ├───────────┤   (tall, center)    │
+   │  Garden   ├──────────┬──────────┤
+   │           │ Street Lights (wide)│
+   └───────────┴──────────┴──────────┘
+================================================================ */
+.categories {
+  padding: 0;              /* grid goes edge to edge */
+  background: var(--white);
+}
+
+.cat-grid {
+  display: grid;
+  /* 3 columns: left is narrower, center and right are equal */
+  grid-template-columns: 1.1fr 1fr 1fr;
+  /* 2 rows of equal height */
+  grid-template-rows: 340px 340px;
+  gap: 3px;                /* thin gap between cells — luxury feel */
+}
+
+/* Default cell styles */
+.cat-cell {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+/* Hover: image zooms in slightly */
+.cat-cell .cat-img-inner {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.cat-cell:hover .cat-img-inner { transform: scale(1.05); }
+
+/* ── GRID PLACEMENT — special cells ──
+   COB: tall left column, spans both rows
+   Panel: tall center, spans both rows
+   Street: wide bottom-right, spans 2 columns
+*/
+.cat-tall-left   { grid-row: span 2; }          /* COB spans 2 rows */
+.cat-tall-center { grid-column: 2; grid-row: span 2; } /* Panel spans 2 rows */
+.cat-wide-right  { grid-column: 3; }            /* Street light, normal */
+
+/* ── CELL BACKGROUND COLORS ──
+   Replace each gradient with:
+   background-image: url('your-category-photo.jpg');
+   on the .cat-img-inner element using inline style or a new CSS class.
+*/
+.cat-bg-1 .cat-img-inner {
+  background: linear-gradient(160deg, #1e1a14 0%, #332b1e 50%, #4a3e28 100%);
+}
+.cat-bg-2 .cat-img-inner {
+  background: linear-gradient(160deg, #141820 0%, #1e2430 50%, #283040 100%);
+}
+.cat-bg-3 .cat-img-inner {
+  background: linear-gradient(160deg, #181614 0%, #2a2420 50%, #38322a 100%);
+}
+.cat-bg-4 .cat-img-inner {
+  background: linear-gradient(160deg, #101410 0%, #182018 50%, #202c20 100%);
+}
+.cat-bg-5 .cat-img-inner {
+  background: linear-gradient(160deg, #1c1410 0%, #2e2018 50%, #3c2c20 100%);
+}
+.cat-bg-6 .cat-img-inner {
+  background: linear-gradient(160deg, #0e1216 0%, #181c24 50%, #20262e 100%);
+}
+
+/* ── LABEL OVERLAY ──
+   Sits at the bottom of each cell.
+   Semi-transparent gradient behind the text for readability.
+*/
+.cat-label-wrap {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 40px 28px 28px;
+  background: linear-gradient(transparent, rgba(0,0,0,0.65));
+  z-index: 2;
+}
+
+.cat-label {
+  display: block;
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.01em;
+  margin-bottom: 4px;
+}
+
+.cat-sub {
+  display: block;
+  font-size: 11px;
+  font-weight: 300;
+  color: rgba(255,255,255,0.6);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+
+/* ================================================================
+   STATS / NUMBERS PANEL
+   Dark background. 4 cards side by side.
+   Numbers glow green (matches reference image).
+   JS animates the count-up when section scrolls into view.
+================================================================ */
+.stats {
+  background: var(--stats-bg);
+  padding: 72px 48px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Individual dark card */
+.stat-card {
+  background: #181c20;           /* slightly lighter than section bg */
+  border: 1px solid #2a2e34;
+  border-radius: 12px;
+  padding: 40px 32px;
   text-align: center;
+  transition: border-color 0.3s, transform 0.3s;
+}
+.stat-card:hover {
+  border-color: var(--stats-glow);
+  transform: translateY(-4px);   /* subtle lift on hover */
 }
 
-.sust-content h2 {
-  font-size: clamp(22px, 2.8vw, 32px);
-  font-weight: 700;
-  margin-bottom: 12px;
-}
-
-.sust-sub {
-  font-size: 13px;
-  font-weight: 700;
+/* The big number */
+.stat-number {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 2px;
   margin-bottom: 14px;
 }
 
-.sust-content p {
-  font-size: 13px;
-  line-height: 1.8;
-  color: var(--mid-gray);
-  margin-bottom: 24px;
-}
-
-
-/* ----------------------------------------------------------------
-   GET SOCIAL SECTION
-   Light beige background. Text left, photo grid right.
----------------------------------------------------------------- */
-.social-section {
-  display: grid;
-  grid-template-columns: 260px 1fr;
-  gap: 0;
-  padding: 60px 40px;
-  background: var(--light-bg);
-  align-items: center;
-}
-
-.social-text h2 {
-  font-size: 28px;
+.stat-count {
+  font-family: 'Libre Baskerville', serif;
+  font-size: clamp(40px, 5vw, 60px);
   font-weight: 700;
-  margin-bottom: 12px;
+  color: var(--stats-glow);       /* green glow color */
+  line-height: 1;
+  /* text-shadow creates the subtle glow effect */
+  text-shadow: 0 0 30px rgba(200, 245, 99, 0.4);
 }
 
-/* Instagram handle with camera emoji */
-.social-handle {
+.stat-suffix {
+  font-size: clamp(28px, 3vw, 38px);
+  font-weight: 700;
+  color: var(--stats-glow);
+  text-shadow: 0 0 20px rgba(200, 245, 99, 0.3);
+}
+
+/* Label below the number */
+.stat-label {
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  font-weight: 400;
+}
+
+
+/* ================================================================
+   SCROLLING PRODUCT STRIP
+   Infinite auto-scroll using CSS animation.
+   strip-track contains 2 identical sets of cards.
+   The animation moves it left by 50% (= 1 full set width),
+   then jumps back to 0 — creating a seamless loop.
+================================================================ */
+.strip-section {
+  background: var(--off-white);
+  padding-top: 72px;
+  padding-bottom: 0;
+  overflow: hidden;
+}
+
+/* Optional heading above the strip */
+.strip-heading {
+  text-align: center;
+  padding: 0 48px 48px;
+}
+.strip-heading h2 {
+  font-size: clamp(28px, 3vw, 40px);
+  font-weight: 700;
+  margin-top: 8px;
+}
+
+/* Outer wrapper — clips the scrolling track */
+.strip-wrapper {
+  overflow: hidden;
+  width: 100%;
+}
+
+/* The moving track — contains 2 sets of cards */
+.strip-track {
   display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 13px;
-  color: var(--mid-gray);
-  margin-bottom: 20px;
+  gap: 20px;
+  width: max-content;            /* as wide as its content */
+  animation: scrollStrip 30s linear infinite;  /* speed: change 30s */
+  padding: 0 10px 48px;
 }
-.social-handle::before { content: '📷'; font-size: 14px; }
+/* Pause scroll when user hovers the strip */
+.strip-track:hover { animation-play-state: paused; }
 
-/* Grid of 5 social photos */
-.social-grid {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  gap: 4px;
+/* Keyframe: moves track left by half its total width (= 1 set of cards) */
+@keyframes scrollStrip {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 
-/* Individual social tile */
-.social-tile {
-  aspect-ratio: 1 / 1;
+/* Individual product card */
+.strip-card {
+  flex-shrink: 0;              /* cards don't compress */
+  width: 220px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: box-shadow 0.3s, transform 0.3s;
+}
+.strip-card:hover {
+  box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+  transform: translateY(-4px);
+}
+
+/* Product image area inside the card */
+.strip-img {
+  width: 100%;
+  height: 220px;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  cursor: pointer;
-  transition: opacity 0.3s;
 }
-.social-tile:hover { opacity: 0.8; }
 
-/* Big tile spans 2 rows */
-.social-tall { grid-row: span 2; aspect-ratio: auto; }
+/* Background colors per card — replace with background-image: url() */
+.strip-c1 { background: linear-gradient(145deg, #e8e2d8, #d0c8ba); }
+.strip-c2 { background: linear-gradient(145deg, #d8dce0, #c0c8d0); }
+.strip-c3 { background: linear-gradient(145deg, #e4dfd6, #ccc4b8); }
+.strip-c4 { background: linear-gradient(145deg, #dde0d8, #c8ccc0); }
+.strip-c5 { background: linear-gradient(145deg, #d8e0d4, #bccab8); }
+.strip-c6 { background: linear-gradient(145deg, #d4d8de, #bcc0c8); }
 
-/* Background colors — replace with real Instagram photos */
-.soc-1 { background: linear-gradient(135deg, #6a5c48, #8a7860); }
-.soc-2 { background: linear-gradient(135deg, #3a3830, #505048); }
-.soc-3 { background: linear-gradient(135deg, #4a4840, #5a5850); }
-.soc-4 { background: linear-gradient(135deg, #383530, #504c45); }
-.soc-5 { background: linear-gradient(135deg, #303830, #404840); }
+/* Emoji placeholder — delete when you add real product photos */
+.strip-ph { font-size: 40px; opacity: 0.3; }
 
-/* Emoji placeholder inside each tile */
-.soc-inner { font-size: 28px; opacity: 0.3; }
+/* Product name and sub-label below the image */
+.strip-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+  padding: 16px 16px 4px;
+}
+.strip-sub {
+  font-size: 12px;
+  color: var(--mid);
+  padding: 0 16px 16px;
+}
 
 
-/* ----------------------------------------------------------------
+/* ================================================================
+   ABOUT US SECTION
+   Two columns: text left, dark accent panel right.
+================================================================ */
+.about {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 500px;
+}
+
+/* Left text column */
+.about-text {
+  padding: 96px 80px;
+  background: var(--white);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.about-text h2 {
+  font-size: clamp(30px, 3.5vw, 48px);
+  font-weight: 700;
+  line-height: 1.18;
+  margin-bottom: 28px;
+}
+
+.about-body {
+  font-size: 15px;
+  line-height: 1.85;
+  color: var(--mid);
+  max-width: 440px;
+  margin-bottom: 16px;
+}
+
+/* Right dark panel */
+.about-panel {
+  background: #111418;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 96px 72px;
+}
+
+.about-quote {
+  font-family: 'Libre Baskerville', serif;
+  font-size: clamp(20px, 2.2vw, 28px);
+  font-weight: 400;
+  font-style: italic;
+  color: rgba(255,255,255,0.85);
+  line-height: 1.55;
+  max-width: 380px;
+  margin-bottom: 32px;
+}
+
+.about-since {
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+}
+
+
+/* ================================================================
+   CONTACT SECTION
+   Centered form on a warm background.
+================================================================ */
+.contact {
+  background: var(--light-bg);
+  padding: 96px 48px;
+}
+
+.contact-inner {
+  max-width: 660px;
+  margin: 0 auto;
+}
+
+.contact-inner h2 {
+  font-size: clamp(30px, 3.5vw, 44px);
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.contact-sub {
+  font-size: 15px;
+  color: var(--mid);
+  line-height: 1.7;
+  margin-bottom: 48px;
+}
+
+/* Side-by-side row for name + email */
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 24px;
+}
+
+.form-group label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+/* Optional label inside "(optional)" */
+.optional {
+  font-weight: 300;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--mid);
+}
+
+/* Text inputs and textarea */
+.form-group input,
+.form-group textarea {
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  background: var(--white);
+  font-family: 'Lato', sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.2s;
+  border-radius: 2px;
+}
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: var(--text);    /* darkens border on focus */
+}
+
+textarea { resize: vertical; }
+
+/* Submit button */
+.btn-submit {
+  display: inline-block;
+  padding: 16px 48px;
+  background: var(--text);
+  color: var(--white);
+  border: none;
+  font-family: 'Lato', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.25s, transform 0.2s;
+  border-radius: 2px;
+}
+.btn-submit:hover {
+  background: #333;
+  transform: translateY(-2px);
+}
+
+/* Success message — hidden until form submitted */
+.form-success {
+  display: none;           /* JS changes this to 'block' on submit */
+  margin-top: 24px;
+  font-size: 15px;
+  color: #2a7a4a;          /* green for success */
+  font-weight: 400;
+}
+
+
+/* ================================================================
    FOOTER
-   Black background, 5 columns of links, copyright bar at bottom.
----------------------------------------------------------------- */
+   Black background. 5 link columns + bottom copyright line.
+================================================================ */
 footer {
   background: var(--black);
-  color: rgba(255,255,255,0.55);
-  padding: 56px 40px 32px;
+  color: rgba(255,255,255,0.5);
+  padding: 64px 48px 36px;
 }
 
-/* The 5-column grid */
 .footer-cols {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1.2fr;
-  gap: 32px;
-  padding-bottom: 40px;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
+  gap: 36px;
+  padding-bottom: 48px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
 }
 
-/* Column heading */
 .footer-col h4 {
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
   color: #fff;
-  margin-bottom: 16px;
-  letter-spacing: 0.04em;
+  margin-bottom: 18px;
 }
 
-/* List of links in each column */
 .footer-col ul { list-style: none; }
-.footer-col li { margin-bottom: 10px; }
+.footer-col li { margin-bottom: 11px; }
 
 .footer-col a {
-  font-size: 12px;
-  color: rgba(255,255,255,0.5);
+  font-size: 13px;
+  color: rgba(255,255,255,0.45);
   text-decoration: none;
   transition: color 0.2s;
 }
 .footer-col a:hover { color: #fff; }
 
-/* Social media icons row */
-.social-icons {
+/* Social icon row */
+.footer-socials {
   display: flex;
-  gap: 14px;
+  gap: 16px;
+  flex-wrap: wrap;
 }
-.social-icons a {
-  font-size: 18px;
-  color: rgba(255,255,255,0.6);
+.footer-socials a {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: rgba(255,255,255,0.45);
   text-decoration: none;
   transition: color 0.2s;
 }
-.social-icons a:hover { color: #fff; }
+.footer-socials a:hover { color: #fff; }
 
-/* Copyright bar */
+/* Bottom copyright line */
 .footer-bottom {
-  padding-top: 24px;
+  padding-top: 28px;
   display: flex;
   justify-content: space-between;
-  align-items: center;
   flex-wrap: wrap;
   gap: 12px;
 }
 .footer-bottom p {
   font-size: 11px;
-  color: rgba(255,255,255,0.3);
+  color: rgba(255,255,255,0.25);
 }
 
 
-/* ----------------------------------------------------------------
+/* ================================================================
    SCROLL REVEAL ANIMATION
-   Elements with .reveal start invisible and slide up into view
-   when they enter the viewport. JavaScript adds .visible class.
----------------------------------------------------------------- */
+   Elements with .reveal start hidden and slide up when visible.
+   JS adds .visible class via IntersectionObserver.
+================================================================ */
 .reveal {
   opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
+  transform: translateY(28px);
+  transition: opacity 0.75s ease, transform 0.75s ease;
 }
 .reveal.visible {
   opacity: 1;
-  transform: translateY(0); /* slides into normal position */
+  transform: translateY(0);
 }
 
 
-/* ----------------------------------------------------------------
-   RESPONSIVE — TABLET (max 900px)
-   Adjust grid layouts for smaller screens.
----------------------------------------------------------------- */
-@media (max-width: 900px) {
-  /* Stack intro section vertically */
-  .intro-section {
-    grid-template-columns: 1fr;
-    padding: 40px 24px;
+/* ================================================================
+   RESPONSIVE STYLES
+================================================================ */
+
+/* ── Tablet (max 1024px) ── */
+@media (max-width: 1024px) {
+  nav { padding: 0 28px; }
+  .top-bar { padding: 7px 28px; }
+
+  /* Mosaic: drop to 2 columns, everything stacks */
+  .cat-grid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 280px 280px 280px;
   }
-  .intro-text {
-    padding-right: 0;
-    margin-bottom: 32px;
-  }
+  .cat-tall-left   { grid-row: span 1; }
+  .cat-tall-center { grid-column: auto; grid-row: span 1; }
+  .cat-wide-right  { grid-column: span 2; }
 
-  /* 2 columns instead of 4 for product tiles */
-  .prod-tiles { grid-template-columns: repeat(2, 1fr); }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .about { grid-template-columns: 1fr; }
+  .about-text  { padding: 64px 40px; }
+  .about-panel { padding: 56px 40px; min-height: 280px; }
+  .footer-cols { grid-template-columns: 1fr 1fr 1fr; }
+}
 
-  /* Stack feature split vertically */
-  .feature-split { grid-template-columns: 1fr; }
-
-  /* 3 thumbnails per row */
-  .thumb-strip { grid-template-columns: repeat(3, 1fr); }
-
-  /* 2 column mosaic */
-  .mosaic-grid { grid-template-columns: 1fr 1fr; }
-  .mosaic-tall { grid-row: span 1; } /* no more tall on small screens */
-
-  /* Stack social section */
-  .social-section {
-    grid-template-columns: 1fr;
-    padding: 40px 24px;
-  }
-  .social-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
-  .social-tall { grid-row: span 1; }
-
-  /* 2-column footer */
-  .footer-cols { grid-template-columns: 1fr 1fr; }
-
-  nav { padding: 0 20px; }
+/* ── Mobile (max 700px) ── */
+@media (max-width: 700px) {
+  nav { top: 32px; padding: 0 20px; }
   .top-bar { padding: 6px 20px; }
-}
+  .nav-links { display: none; }   /* hide links — add hamburger menu if needed */
 
+  .hero { height: 100svh; }
+  .hero-slide { padding: 48px 28px; }
+  .hero-text h1 { font-size: 36px; }
+  .hero-dots { right: 24px; bottom: 24px; }
 
-/* ----------------------------------------------------------------
-   RESPONSIVE — MOBILE (max 600px)
-   Further simplify for small phone screens.
----------------------------------------------------------------- */
-@media (max-width: 600px) {
-  /* Hide nav links on mobile (you'd normally add a hamburger menu) */
-  .nav-links { display: none; }
+  /* Mosaic: single column on mobile */
+  .cat-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(6, 220px);
+  }
+  .cat-tall-left,
+  .cat-tall-center,
+  .cat-wide-right { grid-column: auto; grid-row: auto; }
 
-  /* 2 product tiles per row */
-  .prod-tiles { grid-template-columns: repeat(2, 1fr); }
+  .stats { padding: 48px 20px; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .stat-card { padding: 28px 20px; }
 
-  /* 2 thumbnails per row */
-  .thumb-strip { grid-template-columns: repeat(2, 1fr); }
+  .strip-card { width: 180px; }
+  .strip-img  { height: 180px; }
 
-  /* Single column mosaic */
-  .mosaic-grid { grid-template-columns: 1fr; }
+  .about-text  { padding: 56px 24px; }
+  .about-panel { padding: 48px 24px; }
 
-  /* Single column footer */
-  .footer-cols { grid-template-columns: 1fr; }
+  .contact { padding: 64px 24px; }
+  .form-row { grid-template-columns: 1fr; }
+
+  footer { padding: 48px 24px 28px; }
+  .footer-cols { grid-template-columns: 1fr 1fr; }
 }

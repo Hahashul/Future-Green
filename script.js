@@ -40,7 +40,7 @@ function goSlide(n) {
 setInterval(function () {
   const nextSlide = (currentSlide + 1) % slides.length;
   goSlide(nextSlide);
-}, 5000);
+}, 4000);
 
 
 /* ----------------------------------------------------------------
