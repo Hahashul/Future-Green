@@ -505,28 +505,28 @@ nav.nav-solid .hamburger span { background: var(--text); }
 ================================================================ */
 .stats {
   background: var(--white);
-  padding:40px 40px 80px 40px;
+  padding:40px 40px 80px;
 }
 
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
-  max-width: auto;
+  max-width: 100%;
   margin: 0 auto;
 }
 
 /* Individual dark card */
 .stat-card {
-  background: var(--off-white);           
+  background: var(--off-white);
   border: 1px solid var(--off-white);
   border-radius: 12px;
-  padding: 40px 100px;
+  padding: 40px 20px;
   text-align: center;
   transition: border-color 0.3s, transform 0.3s;
 }
 .stat-card:hover {
-  border-color: #78b728;
+  border-color: var(--accent);
   transform: translateY(-4px);   /* subtle lift on hover */
 }
 
@@ -543,29 +543,27 @@ nav.nav-solid .hamburger span { background: var(--text); }
   font-family: 'Libre Baskerville', serif;
   font-size: clamp(40px, 5vw, 60px);
   font-weight: 700;
-  color:#78b728;       /* green glow color */
+  color: var(--accent);
   line-height: 1;
-  /* text-shadow creates the subtle glow effect */
-  text-shadow: 0 0 30px rgba(101, 245, 99, 0.4);
+  text-shadow: 0 0 30px rgba(120, 183, 40, 0.3);
 }
 
 .stat-suffix {
   font-size: clamp(28px, 3vw, 38px);
   font-weight: 700;
-  color: #78b728;
-  text-shadow: 0 0 20px rgba(150, 245, 99, 0.3);
+  color: var(--accent);
+  text-shadow: 0 0 20px rgba(120, 183, 40, 0.2);
 }
 
 /* Label below the number */
 .stat-label {
   font-size: 11px;
-  justify-content: center;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: rgba(15, 3, 3, 0.45);
   font-weight: 700;
 }
-
+ 
 
 /* ================================================================
    SCROLLING PRODUCT STRIP
@@ -591,6 +589,7 @@ nav.nav-solid .hamburger span { background: var(--text); }
   font-weight: 700;
   margin-top: 8px;
 }
+ 
 
 /* Outer wrapper — clips the scrolling track */
 .strip-wrapper {
@@ -668,13 +667,13 @@ nav.nav-solid .hamburger span { background: var(--text); }
    ABOUT US SECTION
    Two columns: text left, dark accent panel right.
 ================================================================ */
+
 .about {
   display: grid;
   grid-template-columns: 1fr 1fr;
   min-height: 500px;
 }
-
-/* Left text column */
+ 
 .about-text {
   padding: 96px 80px;
   background: var(--white);
@@ -682,14 +681,14 @@ nav.nav-solid .hamburger span { background: var(--text); }
   flex-direction: column;
   justify-content: center;
 }
-
+ 
 .about-text h2 {
   font-size: clamp(30px, 3.5vw, 48px);
   font-weight: 700;
   line-height: 1.18;
   margin-bottom: 28px;
 }
-
+ 
 .about-body {
   font-size: 15px;
   line-height: 1.85;
@@ -697,8 +696,7 @@ nav.nav-solid .hamburger span { background: var(--text); }
   max-width: 440px;
   margin-bottom: 16px;
 }
-
-/* Right dark panel */
+ 
 .about-panel {
   background: #111418;
   display: flex;
@@ -707,7 +705,7 @@ nav.nav-solid .hamburger span { background: var(--text); }
   align-items: flex-start;
   padding: 96px 72px;
 }
-
+ 
 .about-quote {
   font-family: 'Libre Baskerville', serif;
   font-size: clamp(20px, 2.2vw, 28px);
@@ -718,14 +716,14 @@ nav.nav-solid .hamburger span { background: var(--text); }
   max-width: 380px;
   margin-bottom: 32px;
 }
-
+ 
 .about-since {
   font-size: 12px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: rgba(255,255,255,0.35);
 }
-
+ 
 
 /* ================================================================
    CONTACT SECTION
@@ -753,6 +751,41 @@ nav.nav-solid .hamburger span { background: var(--text); }
   line-height: 1.7;
   margin-bottom: 48px;
 }
+
+/* Quick contact links (phone + WhatsApp) */
+.contact-quick {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+ 
+.contact-quick-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  text-decoration: none;
+  background: var(--white);
+  border: 1px solid var(--border);
+  padding: 10px 20px;
+  border-radius: 24px;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.contact-quick-item:hover {
+  border-color: var(--text);
+  transform: translateY(-2px);
+}
+ 
+.contact-quick-wa {
+  background: var(--wa-green);
+  color: var(--white);
+  border-color: var(--wa-green);
+}
+.contact-quick-wa:hover { border-color: var(--wa-green); opacity: 0.9; }
+ 
 
 /* Side-by-side row for name + email */
 .form-row {
@@ -854,7 +887,7 @@ footer {
   border-bottom: 1px solid rgba(255,255,255,0.08);
 }
 
-.footer-col h4 {
+.footer-col h3 {
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.18em;
@@ -877,18 +910,9 @@ footer {
 /* Social icon row */
 .footer-socials {
   display: flex;
-  gap: 16px;
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 11px;
 }
-.footer-socials a {
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  color: rgba(255,255,255,0.45);
-  text-decoration: none;
-  transition: color 0.2s;
-}
-.footer-socials a:hover { color: #fff; }
 
 /* Bottom copyright line */
 .footer-bottom {
@@ -902,8 +926,14 @@ footer {
   font-size: 11px;
   color: rgba(255,255,255,0.25);
 }
-
-
+.footer-bottom a {
+  color: rgba(255,255,255,0.35);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.footer-bottom a:hover { color: #fff; }
+ 
+ 
 /* ================================================================
    SCROLL REVEAL ANIMATION
    Elements with .reveal start hidden and slide up when visible.
@@ -919,6 +949,47 @@ footer {
   transform: translateY(0);
 }
 
+/* ================================================================
+   FLOATING WHATSAPP BUTTON
+================================================================ */
+.whatsapp-float {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  width: 56px;
+  height: 56px;
+  background: var(--wa-green);
+  color: var(--white);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+  z-index: 500;
+  transition: transform 0.25s, box-shadow 0.25s;
+  text-decoration: none;
+}
+.whatsapp-float:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 28px rgba(37, 211, 102, 0.5);
+}
+ 
+/* Pulse ring animation */
+.whatsapp-float::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 2px solid var(--wa-green);
+  opacity: 0;
+  animation: waPulse 2.5s ease-out infinite;
+}
+@keyframes waPulse {
+  0%   { inset: 0; opacity: 0.6; }
+  100% { inset: -14px; opacity: 0; }
+}
+ 
+ 
 
 /* ================================================================
    RESPONSIVE STYLES
