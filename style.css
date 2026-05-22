@@ -275,7 +275,7 @@ nav.nav-solid .nav-links a { color: var(--text); }
    └───────────┴──────────┴──────────┘
 ================================================================ */
 .categories {
-  padding:80px 40px 80px 40px;              /* grid goes edge to edge */
+  padding:80px 40px 80px 40px;              
   background: var(--white);
 }
 
