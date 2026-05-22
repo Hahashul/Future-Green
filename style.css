@@ -998,56 +998,99 @@ footer {
 /* ── Tablet (max 1024px) ── */
 @media (max-width: 1024px) {
   nav { padding: 0 28px; }
-  .top-bar { padding: 7px 28px; }
-
-  /* Mosaic: drop to 2 columns, everything stacks */
+ 
+  /* Mosaic: 2 columns on tablet */
   .cat-grid {
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 280px 280px 280px;
+    grid-template-rows: repeat(3, 260px);
   }
-  .cat-tall-left   { grid-row: span 1; }
-  .cat-tall-center { grid-column: auto; grid-row: span 1; }
-  .cat-wide-right  { grid-column: span 2; }
-
-  .stats-grid { grid-template-columns: repeat(2, 1fr); }
-  .about { grid-template-columns: 1fr; }
-  .about-text  { padding: 64px 40px; }
-  .about-panel { padding: 56px 40px; min-height: 280px; }
-  .footer-cols { grid-template-columns: 1fr 1fr 1fr; }
+  .cat-tall-left   { grid-column: 1;      grid-row: 1; }
+  .cat-bg-2        { grid-column: 2;      grid-row: 1; }
+  .cat-bg-3        { grid-column: 1;      grid-row: 2; }
+  .cat-tall-center { grid-column: 2;      grid-row: 2; }
+  .cat-bg-5        { grid-column: 1;      grid-row: 3; }
+  .cat-wide-right  { grid-column: 2;      grid-row: 3; }
+ 
+  .stats-grid      { grid-template-columns: repeat(2, 1fr); }
+  .about           { grid-template-columns: 1fr; }
+  .about-text      { padding: 64px 40px; }
+  .about-panel     { padding: 56px 40px; min-height: 280px; }
+  .footer-cols     { grid-template-columns: 1fr 1fr 1fr; }
+ 
+  /* Hide nav WhatsApp text on tablet */
+  .nav-whatsapp span { display: none; }
+  .nav-whatsapp { padding: 8px 12px; border-radius: 50%; }
 }
+ 
 
 /* ── Mobile (max 700px) ── */
 @media (max-width: 700px) {
-  nav { top: 32px; padding: 0 20px; }
-  .top-bar { padding: 6px 20px; }
-  .nav-links { display: none; }   /* hide links — add hamburger menu if needed */
-
-  .hero { height: 100svh; }
-  .hero-slide { padding: 48px 28px; }
-  .hero-text h1 { font-size: 36px; }
-  .hero-dots { right: 24px; bottom: 24px; }
-
-  /* Mosaic: single column on mobile */
+ 
+  :root { --nav-height: 64px; }
+ 
+  /* ── NAV ── */
+  nav {
+    padding: 0 20px;
+    height: var(--nav-height);
+  }
+  .nav-links    { display: none; }   /* hidden — hamburger takes over */
+  .nav-whatsapp { display: none; }   /* hidden — in mobile menu instead */
+  .hamburger    { display: flex; }   /* show hamburger */
+ 
+  .nav-logo-img { height: 60px; }
+ 
+  /* ── HERO ── */
+  .hero { height: 100svh; min-height: 480px; }
+  .hero-slide { padding: 48px 24px; }
+  .hero-text h1,
+  .hero-text .hero-h2 { font-size: clamp(32px, 9vw, 48px); }
+  .hero-dots  { right: 24px; bottom: 24px; }
+ 
+  /* ── CATEGORIES — single column ── */
   .cat-grid {
     grid-template-columns: 1fr;
-    grid-template-rows: repeat(6, 220px);
+    grid-template-rows: repeat(6, 200px);
+    padding: 0;
   }
   .cat-tall-left,
+  .cat-bg-2,
+  .cat-bg-3,
   .cat-tall-center,
-  .cat-wide-right { grid-column: auto; grid-row: auto; }
-
+  .cat-bg-5,
+  .cat-wide-right {
+    grid-column: 1;
+    grid-row: auto;
+  }
+ 
+  .categories { padding: 40px 0; }
+ 
+  /* ── STATS ── */
   .stats { padding: 48px 20px; }
-  .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
-  .stat-card { padding: 28px 20px; }
-
-  .strip-card { width: 180px; }
-  .strip-img  { height: 180px; }
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  .stat-card { padding: 28px 16px; }
+ 
+  /* ── STRIP ── */
+  .strip-card { width: 170px; }
+  .strip-img  { height: 170px; }
+ 
+  /* ── ABOUT ── */
   .about-text  { padding: 56px 24px; }
   .about-panel { padding: 48px 24px; }
-
-  .contact { padding: 64px 24px; }
+ 
+  /* ── CONTACT ── */
+  .contact { padding: 64px 20px; }
   .form-row { grid-template-columns: 1fr; }
-
+  .contact-quick { flex-direction: column; }
+  .contact-quick-item { justify-content: center; }
+ 
+  /* ── FOOTER ── */
   footer { padding: 48px 24px 28px; }
-  .footer-cols { grid-template-columns: 1fr 1fr; }
+  .footer-cols { grid-template-columns: 1fr 1fr; gap: 28px; }
+  .footer-bottom { flex-direction: column; text-align: center; }
+ 
+  /* ── WHATSAPP FLOAT — move up so it doesn't block content ── */
+  .whatsapp-float { bottom: 20px; right: 20px; width: 50px; height: 50px; }
 }
