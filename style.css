@@ -1,37 +1,57 @@
 /* ================================================================
    YOUR BRAND — style.css
-   All visual styling in one place.
-   Find any section by searching the label in ALL CAPS.
+
+   HOW THIS FILE IS ORGANISED:
+   1.  CSS Variables      — colours, sizes used everywhere
+   2.  Reset & Base       — clears browser defaults
+   3.  Utilities          — reusable helpers (.sr-only, .reveal etc)
+   4.  Navigation         — fixed top nav + mobile drawer
+   5.  Hero               — full-screen slideshow
+   6.  Category Grid      — mosaic layout
+   7.  Stats Panel        — count-up numbers
+   8.  Product Strip      — infinite scroll row
+   9.  About Us           — two photos + text
+   10. Contact            — form section
+   11. Get Social         — Instagram grid
+   12. Footer             — link columns + copyright
+   13. WhatsApp Float     — fixed bottom-right button
+   14. Responsive         — tablet (1024px) and mobile (700px)
+
+   SEARCH TIP: jump to any section by searching its number, e.g. "6."
 ================================================================ */
 
 
-/* ----------------------------------------------------------------
-   CSS VARIABLES — change these to restyle the whole site
----------------------------------------------------------------- */
+/* ================================================================
+   1. CSS VARIABLES
+   Change these to restyle the whole site instantly.
+   --accent is your brand green — change it here and it updates everywhere.
+================================================================ */
 :root {
-  --white:       #ffffff;
-  --off-white:   #f4f2ee;
-  --light-bg:    #f0ede8;
-  --black:       #0a0a0a;
-  --text:        #1a1a1a;
-  --mid:         #666666;
-  --border:      #e0ddd8;
-  --accent:      #78b728;        /* green accent */
-  --stats-bg:    #111418;
-  --wa-green:    #25D366;
- 
-  --nav-height:  80px;
+  --white:      #ffffff;
+  --off-white:  #f4f2ee;
+  --light-bg:   #f0ede8;
+  --black:      #0a0a0a;
+  --text:       #1a1a1a;
+  --mid:        #666666;
+  --border:     #e0ddd8;
+  --accent:     #78b728;   /* brand green — used on stats numbers, hover accents */
+  --wa-green:   #25D366;   /* WhatsApp's official green */
+  --nav-height: 80px;      /* used in JS scroll offset too */
 }
- 
-/* ----------------------------------------------------------------
-   RESET & BASE
----------------------------------------------------------------- */
+
+
+/* ================================================================
+   2. RESET & BASE
+   Removes browser default margins/padding.
+   box-sizing: border-box means padding is included in width, not added to it.
+================================================================ */
 *, *::before, *::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+/* Smooth scrolling when clicking anchor links */
 html { scroll-behavior: smooth; }
 
 body {
@@ -39,10 +59,17 @@ body {
   background: var(--white);
   color: var(--text);
   font-weight: 300;
-  overflow-x: hidden;
+  overflow-x: hidden; /* prevents horizontal scroll on mobile */
 }
 
-/* Visually hidden — for screen readers / SEO headings */
+
+/* ================================================================
+   3. UTILITIES
+   Small reusable classes used across multiple sections.
+================================================================ */
+
+/* Visually hidden but readable by Google and screen readers.
+   Used on section headings that shouldn't appear on screen. */
 .sr-only {
   position: absolute;
   width: 1px; height: 1px;
@@ -52,8 +79,9 @@ body {
   white-space: nowrap;
   border: 0;
 }
- 
-/* Skip link — accessibility */
+
+/* Skip link — appears only when keyboard user presses Tab.
+   Lets them jump straight to main content, bypassing the nav. */
 .skip-link {
   position: absolute;
   top: -100%;
@@ -67,12 +95,9 @@ body {
   border-radius: 0 0 4px 4px;
   transition: top 0.2s;
 }
-.skip-link:focus { top: 0; }
+.skip-link:focus { top: 0; } /* slides down into view on focus */
 
-/* ----------------------------------------------------------------
-   REUSABLE: link with arrow "Text ›"
-   Used throughout for "Explore X" style CTAs.
----------------------------------------------------------------- */
+/* "Text ›" style CTA links used in About and Social sections */
 .link-arrow {
   display: inline-flex;
   align-items: center;
@@ -88,7 +113,7 @@ body {
 .link-arrow::after { content: '›'; font-size: 16px; }
 .link-arrow:hover  { opacity: 0.5; }
 
-/* Eyebrow labels — small uppercase text above section headings */
+/* Small uppercase label above section headings — e.g. "ABOUT US" */
 .about-eyebrow,
 .contact-eyebrow,
 .strip-eyebrow {
@@ -100,67 +125,77 @@ body {
   display: block;
 }
 
+/* Scroll reveal — elements start invisible and slide up.
+   JS adds .visible when element enters the viewport. */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.75s ease, transform 0.75s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
 /* ================================================================
-   NAVIGATION
-   Sits on top of the hero (position: fixed).
-   Starts transparent. Becomes white on hover or scroll.
-   JS adds class .nav-solid which triggers the white background.
+   4. NAVIGATION
+   Fixed to top of screen. Transparent over hero, white on scroll.
+   JS adds .nav-solid class to trigger the white background.
 ================================================================ */
 nav {
-  position: fixed;         /* floats above everything */
-  top: 0;               /* sits below the top-bar (36px = top-bar height) */
+  position: fixed;
+  top: 0;
   left: 0;
   right: 0;
   z-index: 300;
   display: flex;
   align-items: center;
-  padding: 60px 50px;
+  padding: 0 50px;           /* left/right padding only — no vertical */
   height: var(--nav-height);
-  background: transparent; /* invisible by default */
+  background: transparent;
   transition: background 0.35s ease, box-shadow 0.35s ease;
 }
 
-/* When JS adds this class (on scroll / hover), nav becomes white */
+/* Added by JS on scroll or hover */
 nav.nav-solid {
   background: var(--white);
   box-shadow: 0 1px 0 var(--border);
 }
 
-/* Logo image — size it here */
+/* Logo pushed to the left via margin-right: auto */
 .nav-logo-link { margin-right: auto; }
 
 .nav-logo-img {
-  height: 100px;   /* change this to resize your logo */
+  height: 70px;   /* adjust to resize your logo */
   width: auto;
   display: block;
-  
 }
 
-/* Nav links */
+/* Desktop nav links */
 .nav-links {
   display: flex;
-  gap: 60px;
+  gap: 40px;
   list-style: none;
-  margin-right: 28px;
 }
 
 .nav-links a {
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 500;
-  color: var(--white);    /* white text over dark hero */
+  color: var(--white);       /* white over dark hero */
   text-decoration: none;
   letter-spacing: 0.02em;
   transition: opacity 0.2s, color 0.35s;
 }
-
-/* When nav is solid (white bg), links turn dark */
+/* When nav turns white, links turn dark */
 nav.nav-solid .nav-links a { color: var(--text); }
-
 .nav-links a:hover { opacity: 0.55; }
 
-/* ── HAMBURGER ── */
+/* ── HAMBURGER BUTTON (mobile only) ──
+   Three horizontal lines that animate into an X when open.
+   display:none on desktop — shown via media query at bottom. */
 .hamburger {
-  display: none;          /* hidden on desktop */
+  display: none;
   flex-direction: column;
   justify-content: space-between;
   width: 28px;
@@ -172,7 +207,6 @@ nav.nav-solid .nav-links a { color: var(--text); }
   margin-left: 16px;
   z-index: 400;
 }
- 
 .hamburger span {
   display: block;
   width: 100%;
@@ -182,53 +216,43 @@ nav.nav-solid .nav-links a { color: var(--text); }
   transition: transform 0.3s, opacity 0.3s, background 0.35s;
 }
 nav.nav-solid .hamburger span { background: var(--text); }
- 
-/* Hamburger → X when open */
+
+/* Animate into X when .is-open is added by JS */
 .hamburger.is-open span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
 .hamburger.is-open span:nth-child(2) { opacity: 0; }
 .hamburger.is-open span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
- 
-/* ── MOBILE MENU DRAWER ── */
+
+/* ── MOBILE MENU DRAWER ──
+   Full-screen overlay. Slides down from above.
+   JS adds .open to bring it into view. */
 .mobile-menu {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  inset: 0;
   background: var(--white);
   z-index: 250;
   display: flex;
   align-items: center;
   justify-content: center;
-  transform: translateY(-100%);
+  transform: translateY(-100%);  /* hidden above screen */
   transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   pointer-events: none;
 }
- 
 .mobile-menu.open {
-  transform: translateY(0);
+  transform: translateY(0);      /* slides into view */
   pointer-events: all;
 }
- 
-.mobile-menu ul {
-  list-style: none;
-  text-align: center;
-}
- 
-.mobile-menu li {
-  margin-bottom: 32px;
-}
- 
-.mobile-menu a {
+.mobile-menu ul  { list-style: none; text-align: center; }
+.mobile-menu li  { margin-bottom: 32px; }
+.mobile-menu a   {
   font-size: 28px;
   font-weight: 700;
   color: var(--text);
   text-decoration: none;
-  letter-spacing: -0.01em;
   transition: opacity 0.2s;
 }
 .mobile-menu a:hover { opacity: 0.5; }
- 
+
+/* WhatsApp button inside the mobile menu */
 .mobile-whatsapp {
   display: inline-flex !important;
   align-items: center;
@@ -239,39 +263,41 @@ nav.nav-solid .hamburger span { background: var(--text); }
   border-radius: 32px;
   font-size: 18px !important;
 }
- 
+
 
 /* ================================================================
-   HERO SECTION
-   Full-viewport-height slideshow.
-   Slides stack on top of each other; .active one is visible.
+   5. HERO SECTION
+   Full-screen slideshow. Slides stack on top of each other.
+   Only the .active slide is visible (opacity: 1).
+   JS switches the .active class to change slides.
 ================================================================ */
 .hero {
   position: relative;
   width: 100%;
-  height: 78vh;           /* full screen height */
+  height: 78vh;
   min-height: 520px;
   overflow: hidden;
-  background: #1a1a18;     /* dark fallback while images load */
+  background: #1a1a18; /* dark fallback while images load */
 }
 
-/* Each slide fills the hero completely */
+/* Each slide fills the entire hero */
 .hero-slide {
   position: absolute;
   inset: 0;
   display: flex;
-  align-items: flex-end;   /* text anchored to bottom */
+  align-items: flex-end;  /* text anchored to bottom-left */
   padding: 72px 80px;
   opacity: 0;
   transition: opacity 0.8s ease;
-  pointer-events: none;    /* only the active slide is clickable */
+  pointer-events: none;   /* only active slide is clickable */
 }
 .hero-slide.active {
   opacity: 1;
   pointer-events: all;
 }
 
-/* Slide background — replace gradients with real photos in .slide-bg-X below */
+/* Background image layer inside each slide.
+   Replace gradients with real photos in .slide-bg-1/2/3 below. */
 .hero-slide-bg {
   position: absolute;
   inset: 0;
@@ -279,23 +305,18 @@ nav.nav-solid .hamburger span { background: var(--text); }
   background-position: center;
   transition: transform 7s ease;
 }
-/* Subtle slow zoom when slide is active */
+/* Slow Ken Burns zoom when slide becomes active */
 .hero-slide.active .hero-slide-bg { transform: scale(1.04); }
 
-/* ── SLIDE BACKGROUND COLORS (replace with real photos) ──
-   Example: .slide-bg-1 { background-image: url('hero1.jpg'); }
+/* ── SLIDE BACKGROUNDS ──
+   Replace each gradient with: background-image: url('hero1.jpg');
 */
-.slide-bg-1 {
-  background: linear-gradient(160deg, #2a2620 0%, #3e3830 50%, #4a4035 100%);
-}
-.slide-bg-2 {
-  background: linear-gradient(160deg, #1c2028 0%, #2a3040 50%, #363c50 100%);
-}
-.slide-bg-3 {
-  background: linear-gradient(160deg, #1a2018 0%, #283028 50%, #303c2e 100%);
-}
+.slide-bg-1 { background: linear-gradient(160deg, #2a2620 0%, #3e3830 50%, #4a4035 100%); }
+.slide-bg-2 { background: linear-gradient(160deg, #1c2028 0%, #2a3040 50%, #363c50 100%); }
+.slide-bg-3 { background: linear-gradient(160deg, #1a2018 0%, #283028 50%, #303c2e 100%); }
 
-/* Dark left-fade overlay so white text is always readable */
+/* Dark gradient overlay — ensures white text is always readable
+   regardless of the photo brightness */
 .hero-overlay {
   position: absolute;
   inset: 0;
@@ -307,17 +328,16 @@ nav.nav-solid .hamburger span { background: var(--text); }
   );
 }
 
-/* The text block on each slide */
 .hero-text {
   position: relative;
   z-index: 2;
   max-width: 500px;
 }
 
-/* Only slide 1 uses H1 — others use .hero-h2 (styled identically, not H1) */
+/* Slide 1 uses a real H1. Slides 2 and 3 use .hero-h2 (a <p> tag)
+   to avoid having multiple H1s — bad for SEO. Both look identical. */
 .hero-text h1,
 .hero-text .hero-h2 {
-  font-family: 'Lato', sans-serif;
   font-size: clamp(36px, 5vw, 64px);
   font-weight: 700;
   color: #fff;
@@ -326,24 +346,22 @@ nav.nav-solid .hamburger span { background: var(--text); }
   letter-spacing: -0.01em;
 }
 
-/* "Explore ›" link on the slide */
+/* "Explore ›" link on each slide */
 .hero-link {
   display: inline-flex;
   align-items: center;
   gap: 8px;
   font-size: 14px;
-  font-weight: 400;
   color: #fff;
   text-decoration: none;
   border-bottom: 1px solid rgba(255,255,255,0.55);
   padding-bottom: 3px;
-  letter-spacing: 0.03em;
   transition: border-color 0.2s;
 }
 .hero-link::after { content: '›'; font-size: 18px; }
 .hero-link:hover  { border-color: #fff; }
 
-/* Slide dot indicators — bottom right of hero */
+/* Dot indicators — bottom right of hero */
 .hero-dots {
   position: absolute;
   bottom: 32px;
@@ -352,10 +370,8 @@ nav.nav-solid .hamburger span { background: var(--text); }
   gap: 10px;
   z-index: 10;
 }
-
 .hero-dot {
-  width: 11px;
-  height: 11px;
+  width: 11px; height: 11px;
   border-radius: 50%;
   border: 1.5px solid rgba(255,255,255,0.65);
   background: transparent;
@@ -367,24 +383,17 @@ nav.nav-solid .hamburger span { background: var(--text); }
 
 
 /* ================================================================
-   CATEGORY MOSAIC GRID  ← THE BIG FIX
-   
-   Correct layout:
-   Col:  [  1.1fr  ] [   1fr   ] [   1fr   ]
-   Row1: [ COB      ] [Flood    ] [Downlights]
-   Row2: [ Garden   ] [Panel────────────────]  ← Panel spans col 2+3
-   
-   Wait — looking at the screenshot the user shared:
-   The grid shows COB (tall left), Flood+Down (top row right 2),
-   Panel (bottom center), Garden Lights (bottom right).
-   Street lights is cut off. The original intent was:
-   
-   Col:  [  1.1fr  ] [   1fr   ] [   1fr   ]
-   Row1: [ COB(×2) ] [Flood    ] [Down      ]
-   Row2: [ COB(×2) ] [Panel(×2)] [Garden    ]  ← Garden bottom-right
-         (Street spans col 2+3 at bottom somehow)
-   
-   The real fix: explicit grid-area placement so nothing auto-flows wrong.
+   6. CATEGORY MOSAIC GRID
+   Uses explicit grid placement — no auto-flow.
+
+   Desktop layout (3 cols, 3 rows):
+   ┌──────────────┬──────────┬──────────┐
+   │ COB (r1+r2)  │ Flood    │ Down     │  ← row 1 (340px)
+   │              ├──────────┼──────────┤
+   │              │ Panel    │ Garden   │  ← row 2 (340px)
+   ├──────────────┴──────────┴──────────┤
+   │ Street Lights — full width         │  ← row 3 (220px)
+   └────────────────────────────────────┘
 ================================================================ */
 .categories {
   padding: 80px 40px;
@@ -393,43 +402,29 @@ nav.nav-solid .hamburger span { background: var(--text); }
 
 .cat-grid {
   display: grid;
-  /* 3 columns: left is narrower, center and right are equal */
   grid-template-columns: 1.1fr 1fr 1fr;
-  /* 2 rows of equal height */
   grid-template-rows: 340px 340px 220px;
-  gap: 10px;                /* thin gap between cells — luxury feel */
+  gap: 10px;
 }
 
-/*
-  Explicit placement — no auto-flow, no named areas:
- 
-  Desktop (3 cols):
-  ┌──────────────┬──────────┬──────────┐
-  │ COB (r1–2)   │ Flood    │ Down     │  row 1
-  ├──────────────┼──────────┼──────────┤
-  │ COB (r1–2)   │ Panel    │ Garden   │  row 2
-  ├──────────────┴──────────┴──────────┤
-  │ Street Lights (full width)         │  row 3
-  └────────────────────────────────────┘
-*/
-.cat-tall-left   { grid-column: 1; grid-row: 1 / 3; }   /* COB: col1, both rows */
-.cat-bg-2        { grid-column: 2; grid-row: 1; }        /* Flood: col2, row1 */
-.cat-bg-3        { grid-column: 3; grid-row: 1; }        /* Down: col3, row1 */
-.cat-tall-center { grid-column: 2; grid-row: 2; }        /* Panel: col2, row2 */
-.cat-bg-5        { grid-column: 3; grid-row: 2; }        /* Garden: col3, row2 */
-/* Street spans full width as row 3 */
-.cat-wide-right  { grid-column: 1 / 4; grid-row: 3; }
- 
-/* Default cell styles */
+/* Each cell is placed explicitly — grid-column and grid-row set the position */
+.cat-tall-left  { grid-column: 1; grid-row: 1 / 3; } /* COB: spans rows 1 & 2 */
+.cat-bg-2       { grid-column: 2; grid-row: 1; }      /* Flood */
+.cat-bg-3       { grid-column: 3; grid-row: 1; }      /* Down */
+.cat-tall-center{ grid-column: 2; grid-row: 2; }      /* Panel */
+.cat-bg-5       { grid-column: 3; grid-row: 2; }      /* Garden */
+.cat-wide-right { grid-column: 1 / 4; grid-row: 3; } /* Street: spans all 3 cols */
+
+/* All cells share these base styles */
 .cat-cell {
   position: relative;
   overflow: hidden;
   cursor: pointer;
-  text-decoration: none;   /* cells are now <a> tags */
+  text-decoration: none;
   display: block;
 }
 
-/* Hover: image zooms in slightly */
+/* The background image/gradient — zooms on hover */
 .cat-cell .cat-img-inner {
   position: absolute;
   inset: 0;
@@ -439,54 +434,32 @@ nav.nav-solid .hamburger span { background: var(--text); }
 }
 .cat-cell:hover .cat-img-inner { transform: scale(1.05); }
 
-/* ── CELL BACKGROUND COLORS ──
-   Replace each gradient with:
-   background-image: url('your-category-photo.jpg');
-   on the .cat-img-inner element using inline style or a new CSS class.
+/* ── CELL BACKGROUND GRADIENTS ──
+   Replace with real photos when ready:
+   .cat-bg-1 .cat-img-inner { background-image: url('cob.jpg'); }
 */
-.cat-bg-1 .cat-img-inner {
-  background: linear-gradient(160deg, #1e1a14 0%, #332b1e 50%, #4a3e28 100%);
-}
-.cat-bg-2 .cat-img-inner {
-  background: linear-gradient(160deg, #141820 0%, #1e2430 50%, #283040 100%);
-}
-.cat-bg-3 .cat-img-inner {
-  background: linear-gradient(160deg, #181614 0%, #2a2420 50%, #38322a 100%);
-}
-.cat-bg-4 .cat-img-inner {
-  background: linear-gradient(160deg, #101410 0%, #182018 50%, #202c20 100%);
-}
-.cat-bg-5 .cat-img-inner {
-  background: linear-gradient(160deg, #1c1410 0%, #2e2018 50%, #3c2c20 100%);
-}
-.cat-bg-6 .cat-img-inner {
-  background: linear-gradient(160deg, #0e1216 0%, #181c24 50%, #20262e 100%);
-}
+.cat-bg-1 .cat-img-inner { background: linear-gradient(160deg, #1e1a14 0%, #332b1e 50%, #4a3e28 100%); }
+.cat-bg-2 .cat-img-inner { background: linear-gradient(160deg, #141820 0%, #1e2430 50%, #283040 100%); }
+.cat-bg-3 .cat-img-inner { background: linear-gradient(160deg, #181614 0%, #2a2420 50%, #38322a 100%); }
+.cat-bg-4 .cat-img-inner { background: linear-gradient(160deg, #101410 0%, #182018 50%, #202c20 100%); }
+.cat-bg-5 .cat-img-inner { background: linear-gradient(160deg, #1c1410 0%, #2e2018 50%, #3c2c20 100%); }
+.cat-bg-6 .cat-img-inner { background: linear-gradient(160deg, #0e1216 0%, #181c24 50%, #20262e 100%); }
 
-/* ── LABEL OVERLAY ──
-   Sits at the bottom of each cell.
-   Semi-transparent gradient behind the text for readability.
-*/
-
+/* Label overlay — gradient behind text for readability */
 .cat-label-wrap {
   position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  bottom: 0; left: 0; right: 0;
   padding: 40px 28px 28px;
   background: linear-gradient(transparent, rgba(0,0,0,0.65));
   z-index: 2;
 }
- 
 .cat-label {
   display: block;
   font-size: 18px;
   font-weight: 700;
   color: #fff;
-  letter-spacing: 0.01em;
   margin-bottom: 4px;
 }
- 
 .cat-sub {
   display: block;
   font-size: 11px;
@@ -495,28 +468,24 @@ nav.nav-solid .hamburger span { background: var(--text); }
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
- 
+
 
 /* ================================================================
-   STATS / NUMBERS PANEL
-   Dark background. 4 cards side by side.
-   Numbers glow green (matches reference image).
-   JS animates the count-up when section scrolls into view.
+   7. STATS PANEL
+   4 cards side by side. Numbers glow in brand green.
+   Count-up animation triggered by JS when scrolled into view.
 ================================================================ */
 .stats {
   background: var(--white);
-  padding:40px 40px 80px;
+  padding: 40px 40px 80px;
 }
 
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
-  max-width: 100%;
-  margin: 0 auto;
 }
 
-/* Individual dark card */
 .stat-card {
   background: var(--off-white);
   border: 1px solid var(--off-white);
@@ -525,12 +494,12 @@ nav.nav-solid .hamburger span { background: var(--text); }
   text-align: center;
   transition: border-color 0.3s, transform 0.3s;
 }
+/* Subtle lift + green border on hover */
 .stat-card:hover {
   border-color: var(--accent);
-  transform: translateY(-4px);   /* subtle lift on hover */
+  transform: translateY(-4px);
 }
 
-/* The big number */
 .stat-number {
   display: flex;
   align-items: baseline;
@@ -539,6 +508,7 @@ nav.nav-solid .hamburger span { background: var(--text); }
   margin-bottom: 14px;
 }
 
+/* The big number — JS writes the count-up value here */
 .stat-count {
   font-family: 'Libre Baskerville', serif;
   font-size: clamp(40px, 5vw, 60px);
@@ -547,15 +517,11 @@ nav.nav-solid .hamburger span { background: var(--text); }
   line-height: 1;
   text-shadow: 0 0 30px rgba(120, 183, 40, 0.3);
 }
-
 .stat-suffix {
   font-size: clamp(28px, 3vw, 38px);
   font-weight: 700;
   color: var(--accent);
-  text-shadow: 0 0 20px rgba(120, 183, 40, 0.2);
 }
-
-/* Label below the number */
 .stat-label {
   font-size: 11px;
   letter-spacing: 0.22em;
@@ -563,23 +529,21 @@ nav.nav-solid .hamburger span { background: var(--text); }
   color: rgba(15, 3, 3, 0.45);
   font-weight: 700;
 }
- 
+
 
 /* ================================================================
-   SCROLLING PRODUCT STRIP
-   Infinite auto-scroll using CSS animation.
-   strip-track contains 2 identical sets of cards.
-   The animation moves it left by 50% (= 1 full set width),
-   then jumps back to 0 — creating a seamless loop.
+   8. SCROLLING PRODUCT STRIP
+   Pure CSS infinite scroll — no JS needed.
+   The strip-track contains 2 identical sets of cards.
+   Animation moves it left by 50% (= 1 set width), then
+   instantly resets to 0 — creating a seamless loop.
 ================================================================ */
 .strip-section {
   background: var(--off-white);
   padding-top: 72px;
-  padding-bottom: 0;
   overflow: hidden;
 }
 
-/* Optional heading above the strip */
 .strip-heading {
   text-align: center;
   padding: 0 48px 48px;
@@ -589,34 +553,27 @@ nav.nav-solid .hamburger span { background: var(--text); }
   font-weight: 700;
   margin-top: 8px;
 }
- 
 
-/* Outer wrapper — clips the scrolling track */
-.strip-wrapper {
-  overflow: hidden;
-  width: 100%;
-}
+/* Clips the scrolling track so cards don't overflow */
+.strip-wrapper { overflow: hidden; width: 100%; }
 
-/* The moving track — contains 2 sets of cards */
 .strip-track {
   display: flex;
   gap: 20px;
-  width: max-content;            /* as wide as its content */
-  animation: scrollStrip 30s linear infinite;  /* speed: change 30s */
+  width: max-content;
+  animation: scrollStrip 30s linear infinite;
   padding: 0 10px 48px;
 }
-/* Pause scroll when user hovers the strip */
-.strip-track:hover { animation-play-state: paused; }
+/* Pause when user hovers — lets them read a product */
+.strip-wrapper:hover .strip-track { animation-play-state: paused; }
 
-/* Keyframe: moves track left by half its total width (= 1 set of cards) */
 @keyframes scrollStrip {
   0%   { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  100% { transform: translateX(-50%); } /* moves by 1 full set width */
 }
 
-/* Individual product card */
 .strip-card {
-  flex-shrink: 0;              /* cards don't compress */
+  flex-shrink: 0;
   width: 220px;
   background: var(--white);
   border: 1px solid var(--border);
@@ -628,17 +585,15 @@ nav.nav-solid .hamburger span { background: var(--text); }
   transform: translateY(-4px);
 }
 
-/* Product image area inside the card */
 .strip-img {
   width: 100%;
   height: 220px;
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
 }
 
-/* Background colors per card — replace with background-image: url() */
+/* Card image backgrounds — replace with product photos */
 .strip-c1 { background: linear-gradient(145deg, #e8e2d8, #d0c8ba); }
 .strip-c2 { background: linear-gradient(145deg, #d8dce0, #c0c8d0); }
 .strip-c3 { background: linear-gradient(145deg, #e4dfd6, #ccc4b8); }
@@ -646,10 +601,9 @@ nav.nav-solid .hamburger span { background: var(--text); }
 .strip-c5 { background: linear-gradient(145deg, #d8e0d4, #bccab8); }
 .strip-c6 { background: linear-gradient(145deg, #d4d8de, #bcc0c8); }
 
-/* Emoji placeholder — delete when you add real product photos */
+/* Emoji placeholder icon — delete when you add real photos */
 .strip-ph { font-size: 40px; opacity: 0.3; }
 
-/* Product name and sub-label below the image */
 .strip-name {
   font-size: 14px;
   font-weight: 700;
@@ -664,87 +618,100 @@ nav.nav-solid .hamburger span { background: var(--text); }
 
 
 /* ================================================================
-   ABOUT US SECTION
-   Two columns: text left, dark accent panel right.
-================================================================ */
+   9. ABOUT US
+   Two photos side by side on the left, text block on the right.
 
+   TO ADD REAL PHOTOS:
+     .about-img-1 { background-image: url('factory.jpg'); }
+     .about-img-2 { background-image: url('product.jpg'); }
+================================================================ */
 .about {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  min-height: 500px;
+  min-height: 480px;
+  background: var(--off-white);
 }
- 
+
+/* Photo container: two columns side by side */
+.about-images {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  overflow: hidden;
+}
+
+/* Each photo — placeholders until real images added */
+.about-img {
+  background-size: cover;
+  background-position: center;
+  min-height: 420px;
+  transition: transform 0.6s ease;
+}
+.about-img:hover { transform: scale(1.02); }
+
+/* Placeholder gradients — replace with real photos */
+.about-img-1 { background: linear-gradient(160deg, #2a2620 0%, #4a3e2e 100%); }
+.about-img-2 { background: linear-gradient(160deg, #1e2428 0%, #2e3840 100%); }
+
+/* Text side */
 .about-text {
-  padding: 96px 80px;
-  background: var(--white);
+  padding: 80px 72px;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  gap: 24px;
+  background: var(--off-white);
 }
- 
 .about-text h2 {
-  font-size: clamp(30px, 3.5vw, 48px);
+  font-size: clamp(32px, 3.5vw, 52px);
   font-weight: 700;
-  line-height: 1.18;
-  margin-bottom: 28px;
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+  margin: 0;
 }
- 
 .about-body {
   font-size: 15px;
   line-height: 1.85;
   color: var(--mid);
-  max-width: 440px;
-  margin-bottom: 16px;
+  max-width: 400px;
+  margin: 0;
 }
- 
-.about-panel {
-  background: #111418;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  padding: 96px 72px;
-}
- 
-.about-quote {
-  font-family: 'Libre Baskerville', serif;
-  font-size: clamp(20px, 2.2vw, 28px);
-  font-weight: 400;
-  font-style: italic;
-  color: rgba(255,255,255,0.85);
-  line-height: 1.55;
-  max-width: 380px;
-  margin-bottom: 32px;
-}
- 
-.about-since {
+
+/* "Become a dealer" button */
+.btn-about {
+  display: inline-block;
+  align-self: flex-start;
+  padding: 14px 32px;
+  background: var(--text);
+  color: var(--white);
   font-size: 12px;
-  letter-spacing: 0.18em;
+  font-weight: 700;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.35);
+  text-decoration: none;
+  border-radius: 2px;
+  transition: background 0.2s, transform 0.2s;
+  margin-top: 8px;
 }
- 
+.btn-about:hover { background: #333; transform: translateY(-2px); }
+
 
 /* ================================================================
-   CONTACT SECTION
-   Centered form on a warm background.
+   10. CONTACT SECTION
 ================================================================ */
 .contact {
   background: var(--light-bg);
   padding: 96px 48px;
 }
-
 .contact-inner {
   max-width: 660px;
   margin: 0 auto;
 }
-
 .contact-inner h2 {
   font-size: clamp(30px, 3.5vw, 44px);
   font-weight: 700;
   margin-bottom: 12px;
 }
-
 .contact-sub {
   font-size: 15px;
   color: var(--mid);
@@ -752,14 +719,13 @@ nav.nav-solid .hamburger span { background: var(--text); }
   margin-bottom: 48px;
 }
 
-/* Quick contact links (phone + WhatsApp) */
+/* Phone + WhatsApp quick-tap links above the form */
 .contact-quick {
   display: flex;
   gap: 16px;
   flex-wrap: wrap;
   margin-bottom: 40px;
 }
- 
 .contact-quick-item {
   display: inline-flex;
   align-items: center;
@@ -774,32 +740,23 @@ nav.nav-solid .hamburger span { background: var(--text); }
   border-radius: 24px;
   transition: border-color 0.2s, transform 0.2s;
 }
-.contact-quick-item:hover {
-  border-color: var(--text);
-  transform: translateY(-2px);
-}
- 
-.contact-quick-wa {
-  background: var(--wa-green);
-  color: var(--white);
-  border-color: var(--wa-green);
-}
-.contact-quick-wa:hover { border-color: var(--wa-green); opacity: 0.9; }
- 
+.contact-quick-item:hover { border-color: var(--text); transform: translateY(-2px); }
 
-/* Side-by-side row for name + email */
+/* WhatsApp variant — green background */
+.contact-quick-wa { background: var(--wa-green); color: var(--white); border-color: var(--wa-green); }
+.contact-quick-wa:hover { opacity: 0.9; border-color: var(--wa-green); }
+
+/* Name + Email side by side */
 .form-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 20px;
 }
-
 .form-group {
   display: flex;
   flex-direction: column;
   margin-bottom: 24px;
 }
-
 .form-group label {
   font-size: 12px;
   font-weight: 700;
@@ -808,16 +765,12 @@ nav.nav-solid .hamburger span { background: var(--text); }
   color: var(--text);
   margin-bottom: 8px;
 }
-
-/* Optional label inside "(optional)" */
 .optional {
   font-weight: 300;
   text-transform: none;
   letter-spacing: 0;
   color: var(--mid);
 }
-
-/* Text inputs and textarea */
 .form-group input,
 .form-group textarea {
   padding: 14px 16px;
@@ -832,13 +785,9 @@ nav.nav-solid .hamburger span { background: var(--text); }
   border-radius: 2px;
 }
 .form-group input:focus,
-.form-group textarea:focus {
-  border-color: var(--text);    /* darkens border on focus */
-}
-
+.form-group textarea:focus { border-color: var(--text); }
 textarea { resize: vertical; }
 
-/* Submit button */
 .btn-submit {
   display: inline-block;
   padding: 16px 48px;
@@ -854,31 +803,103 @@ textarea { resize: vertical; }
   transition: background 0.25s, transform 0.2s;
   border-radius: 2px;
 }
-.btn-submit:hover {
-  background: #333;
-  transform: translateY(-2px);
-}
+.btn-submit:hover { background: #333; transform: translateY(-2px); }
 
-/* Success message — hidden until form submitted */
+/* Hidden until JS shows it after form submit */
 .form-success {
-  display: none;           /* JS changes this to 'block' on submit */
+  display: none;
   margin-top: 24px;
   font-size: 15px;
-  color: #2a7a4a;          /* green for success */
-  font-weight: 400;
+  color: #2a7a4a;
 }
 
 
 /* ================================================================
-   FOOTER
-   Black background. 5 link columns + bottom copyright line.
+   11. GET SOCIAL
+   Left panel: text. Right panel: photo grid.
+   Grid layout: 1 tall photo + 2×2 photos (mirrors reference design).
+================================================================ */
+.social-section {
+  background: var(--off-white);
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  min-height: 480px;
+  overflow: hidden;
+}
+
+.social-left {
+  padding: 72px 56px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+  border-right: 1px solid var(--border);
+}
+.social-left h2 {
+  font-size: clamp(28px, 3vw, 40px);
+  font-weight: 700;
+  line-height: 1.1;
+  margin: 0;
+}
+
+/* Instagram handle link — "@yourbrand" with icon */
+.social-handle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--mid);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.social-handle:hover { color: var(--text); }
+
+/* Photo grid: 1 tall left col + 2 right cols with 2 rows each */
+.social-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 4px;
+  overflow: hidden;
+}
+.social-img {
+  position: relative;
+  overflow: hidden;
+}
+/* First photo spans both rows */
+.social-img-tall { grid-row: 1 / 3; grid-column: 1; }
+
+.social-img-inner {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.5s ease;
+}
+.social-img:hover .social-img-inner { transform: scale(1.04); }
+
+/* Placeholder tones — replace with real images:
+   <img src="photo.jpg" alt="describe it" loading="lazy"
+        style="width:100%;height:100%;object-fit:cover;" />
+*/
+.social-ph-1 { background: linear-gradient(160deg, #2a2620 0%, #3e3428 100%); }
+.social-ph-2 { background: linear-gradient(160deg, #e8e4de 0%, #d0ccc4 100%); }
+.social-ph-3 { background: linear-gradient(160deg, #c8d0d4 0%, #b0bcc4 100%); }
+.social-ph-4 { background: linear-gradient(160deg, #d8d4cc 0%, #c0bab0 100%); }
+.social-ph-5 { background: linear-gradient(160deg, #dce0d8 0%, #c4c8bc 100%); }
+
+
+/* ================================================================
+   12. FOOTER
 ================================================================ */
 footer {
   background: var(--black);
   color: rgba(255,255,255,0.5);
   padding: 64px 48px 36px;
 }
-
 .footer-cols {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1.2fr;
@@ -886,7 +907,6 @@ footer {
   padding-bottom: 48px;
   border-bottom: 1px solid rgba(255,255,255,0.08);
 }
-
 .footer-col h3 {
   font-size: 11px;
   font-weight: 700;
@@ -895,26 +915,17 @@ footer {
   color: #fff;
   margin-bottom: 18px;
 }
-
-.footer-col ul { list-style: none; }
-.footer-col li { margin-bottom: 11px; }
-
-.footer-col a {
+.footer-col ul  { list-style: none; }
+.footer-col li  { margin-bottom: 11px; }
+.footer-col a   {
   font-size: 13px;
   color: rgba(255,255,255,0.45);
   text-decoration: none;
   transition: color 0.2s;
 }
 .footer-col a:hover { color: #fff; }
+.footer-socials { display: flex; flex-direction: column; gap: 11px; }
 
-/* Social icon row */
-.footer-socials {
-  display: flex;
-  flex-direction: column;
-  gap: 11px;
-}
-
-/* Bottom copyright line */
 .footer-bottom {
   padding-top: 28px;
   display: flex;
@@ -922,42 +933,21 @@ footer {
   flex-wrap: wrap;
   gap: 12px;
 }
-.footer-bottom p {
-  font-size: 11px;
-  color: rgba(255,255,255,0.25);
-}
-.footer-bottom a {
-  color: rgba(255,255,255,0.35);
-  text-decoration: none;
-  transition: color 0.2s;
-}
+.footer-bottom p   { font-size: 11px; color: rgba(255,255,255,0.25); }
+.footer-bottom a   { color: rgba(255,255,255,0.35); text-decoration: none; transition: color 0.2s; }
 .footer-bottom a:hover { color: #fff; }
- 
- 
-/* ================================================================
-   SCROLL REVEAL ANIMATION
-   Elements with .reveal start hidden and slide up when visible.
-   JS adds .visible class via IntersectionObserver.
-================================================================ */
-.reveal {
-  opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 0.75s ease, transform 0.75s ease;
-}
-.reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
+
 
 /* ================================================================
-   FLOATING WHATSAPP BUTTON
+   13. FLOATING WHATSAPP BUTTON
+   Fixed to bottom-right. Always visible.
+   Pulse ring animates outward every 2.5 seconds.
 ================================================================ */
 .whatsapp-float {
   position: fixed;
   bottom: 28px;
   right: 28px;
-  width: 56px;
-  height: 56px;
+  width: 56px; height: 56px;
   background: var(--wa-green);
   color: var(--white);
   border-radius: 50%;
@@ -973,8 +963,7 @@ footer {
   transform: scale(1.1);
   box-shadow: 0 6px 28px rgba(37, 211, 102, 0.5);
 }
- 
-/* Pulse ring animation */
+/* Expanding ring animation */
 .whatsapp-float::before {
   content: '';
   position: absolute;
@@ -988,109 +977,135 @@ footer {
   0%   { inset: 0; opacity: 0.6; }
   100% { inset: -14px; opacity: 0; }
 }
- 
- 
+
 
 /* ================================================================
-   RESPONSIVE STYLES
+   14. RESPONSIVE STYLES
+
+   Two breakpoints:
+   Tablet  — max-width: 1024px
+   Mobile  — max-width: 700px
+
+   Rule: never override layout inside a section's own CSS block.
+   All responsive overrides live here so they're easy to find.
 ================================================================ */
 
-/* ── Tablet (max 1024px) ── */
+/* ── TABLET (max 1024px) ──────────────────────────────────────── */
 @media (max-width: 1024px) {
+
   nav { padding: 0 28px; }
- 
-  /* Mosaic: 2 columns on tablet */
+
+  /* Category grid: 2 equal columns, 3 rows */
   .cat-grid {
     grid-template-columns: 1fr 1fr;
     grid-template-rows: repeat(3, 260px);
   }
-  .cat-tall-left   { grid-column: 1;      grid-row: 1; }
-  .cat-bg-2        { grid-column: 2;      grid-row: 1; }
-  .cat-bg-3        { grid-column: 1;      grid-row: 2; }
-  .cat-tall-center { grid-column: 2;      grid-row: 2; }
-  .cat-bg-5        { grid-column: 1;      grid-row: 3; }
-  .cat-wide-right  { grid-column: 2;      grid-row: 3; }
- 
-  .stats-grid      { grid-template-columns: repeat(2, 1fr); }
-  .about           { grid-template-columns: 1fr; }
-  .about-text      { padding: 64px 40px; }
-  .about-panel     { padding: 56px 40px; min-height: 280px; }
-  .footer-cols     { grid-template-columns: 1fr 1fr 1fr; }
- 
-  /* Hide nav WhatsApp text on tablet */
-  .nav-whatsapp span { display: none; }
-  .nav-whatsapp { padding: 8px 12px; border-radius: 50%; }
-}
- 
+  /* Re-place all cells for 2-column layout */
+  .cat-tall-left  { grid-column: 1; grid-row: 1; }
+  .cat-bg-2       { grid-column: 2; grid-row: 1; }
+  .cat-bg-3       { grid-column: 1; grid-row: 2; }
+  .cat-tall-center{ grid-column: 2; grid-row: 2; }
+  .cat-bg-5       { grid-column: 1; grid-row: 3; }
+  .cat-wide-right { grid-column: 2; grid-row: 3; }
 
-/* ── Mobile (max 700px) ── */
+  /* Stats: 2 columns instead of 4 */
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+
+  /* About: stack images above text */
+  .about             { grid-template-columns: 1fr; }
+  .about-images      { min-height: 320px; }
+  .about-img         { min-height: 320px; }
+  .about-text        { padding: 64px 40px; }
+
+  /* Social: narrower left panel */
+  .social-section { grid-template-columns: 220px 1fr; }
+  .social-left    { padding: 56px 32px; }
+
+  /* Footer: 3 columns instead of 5 */
+  .footer-cols { grid-template-columns: 1fr 1fr 1fr; }
+}
+
+
+/* ── MOBILE (max 700px) ───────────────────────────────────────── */
 @media (max-width: 700px) {
- 
+
   :root { --nav-height: 64px; }
- 
-  /* ── NAV ── */
-  nav {
-    padding: 0 20px;
-    height: var(--nav-height);
-  }
-  .nav-links    { display: none; }   /* hidden — hamburger takes over */
-  .nav-whatsapp { display: none; }   /* hidden — in mobile menu instead */
-  .hamburger    { display: flex; }   /* show hamburger */
- 
-  .nav-logo-img { height: 60px; }
- 
-  /* ── HERO ── */
-  .hero { height: 100svh; min-height: 480px; }
-  .hero-slide { padding: 48px 24px; }
-  .hero-text h1,
-  .hero-text .hero-h2 { font-size: clamp(32px, 9vw, 48px); }
-  .hero-dots  { right: 24px; bottom: 24px; }
- 
-  /* ── CATEGORIES — single column ── */
+
+  /* NAV: hide links, show hamburger */
+  nav           { padding: 0 20px; height: var(--nav-height); }
+  .nav-links    { display: none; }
+  .hamburger    { display: flex; }
+  .nav-logo-img { height: 55px; }
+
+  /* HERO: full screen height on mobile */
+  .hero                          { height: 100svh; min-height: 480px; }
+  .hero-slide                    { padding: 48px 24px; }
+  .hero-text h1, .hero-text .hero-h2 { font-size: clamp(32px, 9vw, 48px); }
+  .hero-dots                     { right: 24px; bottom: 24px; }
+
+  /* CATEGORIES: horizontal swipe carousel
+     Each card = 75vw wide so ~25% of next card peeks through */
+  .categories { padding: 40px 0; overflow: hidden; }
   .cat-grid {
-    grid-template-columns: 1fr;
-    grid-template-rows: repeat(6, 200px);
-    padding: 0;
+    display: flex;
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch; /* smooth momentum scroll on iOS */
+    gap: 10px;
+    padding: 0 24px 16px;
+    scrollbar-width: none; /* hide scrollbar on Firefox */
   }
+  .cat-grid::-webkit-scrollbar { display: none; } /* hide scrollbar on Chrome/Safari */
+  /* All cells become equal swipeable cards */
   .cat-tall-left,
   .cat-bg-2,
   .cat-bg-3,
   .cat-tall-center,
   .cat-bg-5,
   .cat-wide-right {
-    grid-column: 1;
-    grid-row: auto;
+    flex: 0 0 75vw;
+    height: 300px;
+    grid-column: unset;
+    grid-row: unset;
+    scroll-snap-align: start;
+    border-radius: 4px;
+    overflow: hidden;
   }
- 
-  .categories { padding: 40px 0; }
- 
-  /* ── STATS ── */
-  .stats { padding: 48px 20px; }
-  .stats-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-  }
-  .stat-card { padding: 28px 16px; }
- 
-  /* ── STRIP ── */
+  .cat-wide-right { margin-right: 24px; } /* breathing room after last card */
+
+  /* STATS: 2 columns */
+  .stats      { padding: 48px 20px; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .stat-card  { padding: 28px 16px; }
+
+  /* PRODUCT STRIP: smaller cards */
   .strip-card { width: 170px; }
   .strip-img  { height: 170px; }
- 
-  /* ── ABOUT ── */
-  .about-text  { padding: 56px 24px; }
-  .about-panel { padding: 48px 24px; }
- 
-  /* ── CONTACT ── */
-  .contact { padding: 64px 20px; }
-  .form-row { grid-template-columns: 1fr; }
-  .contact-quick { flex-direction: column; }
+
+  /* ABOUT: hide images, show text only */
+  .about-images { display: none; }
+  .about        { grid-template-columns: 1fr; }
+  .about-text   { padding: 40px 24px 48px; gap: 16px; }
+  .about-text h2{ font-size: 28px; }
+  .about-body   { font-size: 14px; max-width: 100%; }
+
+  /* CONTACT: stack form fields */
+  .contact            { padding: 64px 20px; }
+  .form-row           { grid-template-columns: 1fr; }
+  .contact-quick      { flex-direction: column; }
   .contact-quick-item { justify-content: center; }
- 
-  /* ── FOOTER ── */
-  footer { padding: 48px 24px 28px; }
-  .footer-cols { grid-template-columns: 1fr 1fr; gap: 28px; }
-  .footer-bottom { flex-direction: column; text-align: center; }
- 
-  /* ── WHATSAPP FLOAT — move up so it doesn't block content ── */
+
+  /* SOCIAL: stack sections, grid gets padding */
+  .social-section { grid-template-columns: 1fr; }
+  .social-left    { padding: 48px 24px 40px; border-right: none; border-bottom: 1px solid var(--border); }
+  .social-grid    { grid-template-columns: 1fr 1fr; grid-template-rows: 180px 180px 180px; gap: 6px; padding: 24px; }
+  .social-img-tall{ grid-row: 1 / 3; }
+
+  /* FOOTER: 2 columns */
+  footer        { padding: 48px 24px 28px; }
+  .footer-cols  { grid-template-columns: 1fr 1fr; gap: 28px; }
+  .footer-bottom{ flex-direction: column; text-align: center; }
+
+  /* WHATSAPP FLOAT: slightly smaller on mobile */
   .whatsapp-float { bottom: 20px; right: 20px; width: 50px; height: 50px; }
 }

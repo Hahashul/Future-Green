@@ -3,21 +3,34 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
- 
-  <!-- ═══════════════════════════════════════════════════
-       SEO — PRIMARY META TAGS
-       Change "Your Brand" to your real company name.
-       Keep the description under 160 characters.
+
+  <!-- ═══════════════════════════════════════════════
+       PAGE TITLE
+       Format: Brand | Main keyword — secondary keyword
+       Keep under 60 characters total.
   ═══════════════════════════════════════════════════ -->
   <title>Your Brand | LED Lighting Manufacturer — COB, Flood & Street Lights India</title>
+
+  <!-- ═══════════════════════════════════════════════
+       META DESCRIPTION
+       What Google shows under your link in search results.
+       Keep under 160 characters.
+  ═══════════════════════════════════════════════════ -->
   <meta name="description" content="Your Brand offers precision-engineered LED lighting solutions across India — COB spotlights, flood lights, downlights, panel lights, garden & street lights. 500+ dealers, 30+ states." />
+
+  <!-- Keywords (less important today but still worth having) -->
   <meta name="keywords" content="LED lights India, COB lights, flood lights, downlights, panel lights, street lights, garden lights, LED manufacturer India, energy efficient lighting" />
+
   <meta name="author" content="Your Brand" />
+
+  <!-- Canonical: tells Google this is the "real" version of the page.
+       Prevents duplicate content penalties. -->
   <link rel="canonical" href="https://yourdomain.com/" />
- 
-  <!-- ═══════════════════════════════════════════════════
-       SEO — OPEN GRAPH (WhatsApp, LinkedIn, Facebook previews)
-       Change URL, image path, and brand name.
+
+  <!-- ═══════════════════════════════════════════════
+       OPEN GRAPH — controls how your page looks
+       when shared on WhatsApp, LinkedIn, Facebook.
+       Replace yourdomain.com and og-image.jpg with real values.
   ═══════════════════════════════════════════════════ -->
   <meta property="og:type"        content="website" />
   <meta property="og:url"         content="https://yourdomain.com/" />
@@ -26,18 +39,20 @@
   <meta property="og:image"       content="https://yourdomain.com/og-image.jpg" />
   <meta property="og:locale"      content="en_IN" />
   <meta property="og:site_name"   content="Your Brand" />
- 
-  <!-- ═══════════════════════════════════════════════════
-       SEO — TWITTER CARD
+
+  <!-- ═══════════════════════════════════════════════
+       TWITTER CARD
+       Controls preview on Twitter/X.
   ═══════════════════════════════════════════════════ -->
   <meta name="twitter:card"        content="summary_large_image" />
   <meta name="twitter:title"       content="Your Brand | Premium LED Lighting Solutions India" />
   <meta name="twitter:description" content="COB, Flood, Downlights, Panel, Garden & Street Lights. 500+ dealers across India." />
   <meta name="twitter:image"       content="https://yourdomain.com/og-image.jpg" />
- 
-  <!-- ═══════════════════════════════════════════════════
-       SEO — STRUCTURED DATA (Schema.org)
-       Helps Google show rich results. Update all values.
+
+  <!-- ═══════════════════════════════════════════════
+       SCHEMA.ORG STRUCTURED DATA
+       Helps Google show rich results (business info, ratings etc).
+       Fill in your real address, phone, and social URLs.
   ═══════════════════════════════════════════════════ -->
   <script type="application/ld+json">
   {
@@ -49,10 +64,15 @@
     "description": "Precision-engineered LED lighting solutions manufacturer in India — COB, Flood Lights, Downlights, Panel Lights, Garden Lights and Street Lights.",
     "address": {
       "@type": "PostalAddress",
+      "streetAddress": "Your Street Address",
+      "addressLocality": "Your City",
+      "addressRegion": "Your State",
+      "postalCode": "000000",
       "addressCountry": "IN"
     },
     "contactPoint": {
       "@type": "ContactPoint",
+      "telephone": "+91-99999-99999",
       "contactType": "sales",
       "availableLanguage": ["English", "Hindi"]
     },
@@ -63,449 +83,547 @@
     ]
   }
   </script>
- 
-  <!-- Performance: preconnect for Google Fonts -->
+
+  <!-- ═══════════════════════════════════════════════
+       GOOGLE FONTS
+       preconnect = tells browser to connect early (faster load).
+       display=swap = page text shows immediately, font swaps in.
+  ═══════════════════════════════════════════════════ -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
- 
-  <!-- Google Fonts — font-display:swap prevents render-blocking -->
   <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
- 
-  <!-- Stylesheet -->
+
+  <!-- Main stylesheet -->
   <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
-  <!-- Skip to main content — accessibility & SEO -->
+
+  <!-- ─────────────────────────────────────────────
+    SKIP LINK
+    Hidden link that appears on keyboard Tab press.
+    Lets screen-reader / keyboard users skip straight
+    to the main content without tabbing through the nav.
+  ────────────────────────────────────────────────── -->
   <a href="#main-content" class="skip-link">Skip to main content</a>
 
- 
-  <!-- ============================================================
-    NAVIGATION
-    - Over the hero: fully transparent (invisible)
-    - On hover or scroll: white background appears
-    - Logo: replace logo.png with your actual logo file name
-    - Links scroll to sections using #id anchors
-    - Hamburger menu on mobile (fully functional).
-  ============================================================ -->
+
+  <!-- ═══════════════════════════════════════════════
+       NAVIGATION
+       - Fixed to top of screen at all times
+       - Transparent over the hero, white on scroll/hover
+       - Desktop: logo left, links center, nothing right
+       - Mobile: logo left, hamburger right (links hidden)
+
+       TO CHANGE YOUR LOGO:
+         Replace logo.png with your actual file name.
+         Resize in style.css → .nav-logo-img { height: 52px; }
+  ═══════════════════════════════════════════════════ -->
   <nav id="mainNav" role="navigation" aria-label="Main navigation">
- 
+
+    <!-- Logo — clicking goes to top of page -->
     <a href="/" class="nav-logo-link" aria-label="Your Brand — go to homepage">
       <img src="logo.png" alt="Your Brand logo" class="nav-logo-img" />
     </a>
- 
-    <!-- Desktop nav links -->
+
+    <!-- Desktop navigation links -->
     <ul class="nav-links" role="list">
       <li><a href="#categories">Categories</a></li>
       <li><a href="#products">Products</a></li>
       <li><a href="#about">About</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
-  
-    <!-- Hamburger button — mobile only -->
-    <button id="hamburger" class="hamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobileMenu">
+
+    <!-- Hamburger button — only visible on mobile.
+         JS toggles .is-open to animate it into an X. -->
+    <button
+      id="hamburger"
+      class="hamburger"
+      aria-label="Open navigation menu"
+      aria-expanded="false"
+      aria-controls="mobileMenu">
       <span></span>
       <span></span>
       <span></span>
     </button>
- 
+
   </nav>
- 
-  <!-- Mobile menu drawer -->
+
+  <!-- ─────────────────────────────────────────────
+    MOBILE MENU DRAWER
+    Hidden off-screen by default.
+    JS adds .open class to slide it down into view.
+    Closes on: link click, Escape key.
+  ────────────────────────────────────────────────── -->
   <div id="mobileMenu" class="mobile-menu" role="dialog" aria-label="Mobile navigation" aria-hidden="true">
     <ul role="list">
       <li><a href="#categories">Categories</a></li>
       <li><a href="#products">Products</a></li>
       <li><a href="#about">About</a></li>
       <li><a href="#contact">Contact</a></li>
+      <li>
+        <!-- WhatsApp link inside mobile menu -->
+        <a href="https://wa.me/919999999999" class="mobile-whatsapp" target="_blank" rel="noopener">
+          WhatsApp Us
+        </a>
+      </li>
     </ul>
   </div>
- 
- 
-  <!-- ============================================================
-    HERO SECTION
-    Full-screen slideshow. Text bottom-left. Dots bottom-right.
-    3 slides auto-rotate every 5 seconds.
- 
-    HOW TO ADD REAL PHOTOS:
-      In style.css, find .slide-bg-1 / .slide-bg-2 / .slide-bg-3
-      and replace the gradient with:
-      background-image: url('hero1.jpg');
-      background-size: cover;
-      background-position: center;
-  ============================================================ -->
-   <main id="main-content">
-  <section class="hero" id="hero" aria-label="Hero slideshow">
- 
-    <!-- Slide 1 — no CTA on first slide was a gap, now fixed -->
-    <div class="hero-slide active" role="group" aria-label="Slide 1 of 3">
-      <div class="hero-slide-bg slide-bg-1" aria-hidden="true"></div>
-      <div class="hero-overlay" aria-hidden="true"></div>
-      <div class="hero-text">
-        <h1>Light every space<br>with precision</h1>
-        <a href="#categories" class="hero-link">Explore our range</a>
+
+
+  <!-- ═══════════════════════════════════════════════
+       MAIN CONTENT
+       Everything between <main> and </main> is the
+       primary content Google indexes and screen readers
+       navigate to via the skip link above.
+  ═══════════════════════════════════════════════════ -->
+  <main id="main-content">
+
+
+    <!-- ═══════════════════════════════════════════
+         HERO SLIDESHOW
+         3 slides, auto-rotate every 5 seconds.
+         Text bottom-left. Dot controls bottom-right.
+
+         TO ADD REAL PHOTOS:
+           In style.css find .slide-bg-1 / .slide-bg-2 / .slide-bg-3
+           Replace the gradient with:
+           background-image: url('your-hero-photo.jpg');
+    ═══════════════════════════════════════════════ -->
+    <section class="hero" id="hero" aria-label="Hero slideshow">
+
+      <!-- SLIDE 1 — uses H1 (only one H1 per page, for SEO) -->
+      <div class="hero-slide active" role="group" aria-label="Slide 1 of 3">
+        <div class="hero-slide-bg slide-bg-1" aria-hidden="true"></div>
+        <div class="hero-overlay" aria-hidden="true"></div>
+        <div class="hero-text">
+          <h1>Light every space<br>with precision</h1>
+          <a href="#categories" class="hero-link">Explore our range</a>
+        </div>
       </div>
-    </div>
- 
-    <!-- Slide 2 -->
-    <div class="hero-slide" role="group" aria-label="Slide 2 of 3">
-      <div class="hero-slide-bg slide-bg-2" aria-hidden="true"></div>
-      <div class="hero-overlay" aria-hidden="true"></div>
-      <div class="hero-text">
-        <h2 class="hero-h2">COB &amp; Flood<br>collections</h2>
-        <a href="#categories" class="hero-link">View all categories</a>
+
+      <!-- SLIDE 2 — uses .hero-h2 (styled like H1 but not H1, avoids duplicate H1) -->
+      <div class="hero-slide" role="group" aria-label="Slide 2 of 3">
+        <div class="hero-slide-bg slide-bg-2" aria-hidden="true"></div>
+        <div class="hero-overlay" aria-hidden="true"></div>
+        <div class="hero-text">
+          <p class="hero-h2">COB &amp; Flood<br>collections</p>
+          <a href="#categories" class="hero-link">View all categories</a>
+        </div>
       </div>
-    </div>
- 
-    <!-- Slide 3 -->
-    <div class="hero-slide" role="group" aria-label="Slide 3 of 3">
-      <div class="hero-slide-bg slide-bg-3" aria-hidden="true"></div>
-      <div class="hero-overlay" aria-hidden="true"></div>
-      <div class="hero-text">
-        <h2 class="hero-h2">Engineered for<br>the outdoors</h2>
-        <a href="#categories" class="hero-link">Garden &amp; Street lights</a>
+
+      <!-- SLIDE 3 -->
+      <div class="hero-slide" role="group" aria-label="Slide 3 of 3">
+        <div class="hero-slide-bg slide-bg-3" aria-hidden="true"></div>
+        <div class="hero-overlay" aria-hidden="true"></div>
+        <div class="hero-text">
+          <p class="hero-h2">Engineered for<br>the outdoors</p>
+          <a href="#categories" class="hero-link">Garden &amp; Street lights</a>
+        </div>
       </div>
-    </div>
- 
-    <!-- Slide dots -->
-    <div class="hero-dots" role="tablist" aria-label="Slideshow controls">
-      <button class="hero-dot active" onclick="goSlide(0)" role="tab" aria-selected="true"  aria-label="Go to slide 1"></button>
-      <button class="hero-dot"        onclick="goSlide(1)" role="tab" aria-selected="false" aria-label="Go to slide 2"></button>
-      <button class="hero-dot"        onclick="goSlide(2)" role="tab" aria-selected="false" aria-label="Go to slide 3"></button>
-    </div>
- 
-  </section>
- 
- 
- 
-  <!-- ============================================================
-    CATEGORY MOSAIC GRID
-    Luxury uneven asymmetric layout — 6 categories:
-    COB · Flood Lights · Downlights · Panel Lights · Garden Lights · Street Lights
- 
-    ┌─────────────┬──────────┬──────────┐
-    │             │  Flood   │  Down    │
-    │   COB       ├──────────┴──────────┤  ← row 1
-    │  (2 rows)   │  Panel (2 rows)     │
-    ├─────────────┤                     │
-    │   Garden    ├──────────┬──────────┤  ← row 2
-    │             │  Street (span 2 col)│
-    └─────────────┴──────────┴──────────┘
- 
-    HOW TO ADD REAL PHOTOS:
-      In style.css find .cat-bg-1 through .cat-bg-6
-      Replace gradient with: background-image: url('category.jpg');
-  ============================================================ -->
-   <section class="categories" id="categories" aria-labelledby="categories-heading">
-    <h2 id="categories-heading" class="sr-only">Product Categories</h2>
- 
-    <div class="cat-grid">
- 
-      <!-- CELL 1: COB — spans 2 rows, left column -->
-      <a href="#products" class="cat-cell cat-tall-left cat-bg-1" aria-label="COB Lights — Chip on Board">
-        <div class="cat-img-inner" aria-hidden="true"></div>
-        <div class="cat-label-wrap">
-          <span class="cat-label">COB</span>
-          <span class="cat-sub">Chip on Board</span>
-        </div>
-      </a>
- 
-      <!-- CELL 2: Flood Lights — top center -->
-      <a href="#products" class="cat-cell cat-bg-2" aria-label="Flood Lights — High-output beam">
-        <div class="cat-img-inner" aria-hidden="true"></div>
-        <div class="cat-label-wrap">
-          <span class="cat-label">Flood Lights</span>
-          <span class="cat-sub">High-output beam</span>
-        </div>
-      </a>
- 
-      <!-- CELL 3: Downlights — top right -->
-      <a href="#products" class="cat-cell cat-bg-3" aria-label="Downlights — Recessed precision">
-        <div class="cat-img-inner" aria-hidden="true"></div>
-        <div class="cat-label-wrap">
-          <span class="cat-label">Downlights</span>
-          <span class="cat-sub">Recessed precision</span>
-        </div>
-      </a>
- 
-      <!-- CELL 4: Panel Lights — spans 2 rows, center column -->
-      <a href="#products" class="cat-cell cat-tall-center cat-bg-4" aria-label="Panel Lights — Even surface glow">
-        <div class="cat-img-inner" aria-hidden="true"></div>
-        <div class="cat-label-wrap">
-          <span class="cat-label">Panel Lights</span>
-          <span class="cat-sub">Even surface glow</span>
-        </div>
-      </a>
- 
-      <!-- CELL 5: Garden Lights — bottom left -->
-      <a href="#products" class="cat-cell cat-bg-5" aria-label="Garden Lights — Outdoor ambiance">
-        <div class="cat-img-inner" aria-hidden="true"></div>
-        <div class="cat-label-wrap">
-          <span class="cat-label">Garden Lights</span>
-          <span class="cat-sub">Outdoor ambiance</span>
-        </div>
-      </a>
- 
-      <!-- CELL 6: Street Lights — bottom right, spans 2 columns -->
-      <a href="#products" class="cat-cell cat-wide-right cat-bg-6" aria-label="Street Lights — Urban infrastructure">
-        <div class="cat-img-inner" aria-hidden="true"></div>
-        <div class="cat-label-wrap">
-          <span class="cat-label">Street Lights</span>
-          <span class="cat-sub">Urban infrastructure</span>
-        </div>
-      </a>
- 
-    </div>
-  </section>
- 
- 
- 
-  <!-- ============================================================
-    STATS / NUMBERS PANEL
-    Dark cards. Numbers count up from 0 when scrolled into view.
- 
-    TO CHANGE VALUES:
-      Find data-target="27" and change the number.
-      Change the text in <p class="stat-label"> for the label.
-      Change <span class="stat-suffix"> for "+", "yrs" etc.
-  ============================================================ -->
-   <section class="stats" id="stats" aria-labelledby="stats-heading">
-    <h2 id="stats-heading" class="sr-only">Company Statistics</h2>
- 
-    <div class="stats-grid">
- 
-      <div class="stat-card">
-        <div class="stat-number">
-          <span class="stat-count" data-target="15">0</span>
-          <span class="stat-suffix" aria-hidden="true">+</span>
-        </div>
-        <p class="stat-label">Years Experience</p>
+
+      <!-- Dot controls — clicking jumps to that slide -->
+      <div class="hero-dots" role="tablist" aria-label="Slideshow controls">
+        <button class="hero-dot active" onclick="goSlide(0)" role="tab" aria-selected="true"  aria-label="Go to slide 1"></button>
+        <button class="hero-dot"        onclick="goSlide(1)" role="tab" aria-selected="false" aria-label="Go to slide 2"></button>
+        <button class="hero-dot"        onclick="goSlide(2)" role="tab" aria-selected="false" aria-label="Go to slide 3"></button>
       </div>
- 
-      <div class="stat-card">
-        <div class="stat-number">
-          <span class="stat-count" data-target="200">0</span>
-          <span class="stat-suffix" aria-hidden="true">+</span>
-        </div>
-        <p class="stat-label">Product Variants</p>
-      </div>
- 
-      <div class="stat-card">
-        <div class="stat-number">
-          <span class="stat-count" data-target="500">0</span>
-          <span class="stat-suffix" aria-hidden="true">+</span>
-        </div>
-        <p class="stat-label">Dealer Partners</p>
-      </div>
- 
-      <div class="stat-card">
-        <div class="stat-number">
-          <span class="stat-count" data-target="30">0</span>
-          <span class="stat-suffix" aria-hidden="true">+</span>
-        </div>
-        <p class="stat-label">States Covered</p>
-      </div>
- 
-    </div>
-  </section>
- 
- 
-  <!-- ============================================================
-    SCROLLING PRODUCT STRIP
-    Infinite auto-scrolling row of product cards.
-    Pure CSS animation — no JS needed.
- 
-    TO ADD / EDIT PRODUCTS:
-      Copy a .strip-card block, change the name and sub text.
-      IMPORTANT: also duplicate it in the second set below
-      (the one marked SET 2) to keep the loop seamless.
- 
-    TO ADD REAL PRODUCT PHOTOS:
-      In style.css find .strip-c1 through .strip-c6
-      and replace gradients with background-image: url('product.jpg');
-  ============================================================ -->
-  <section class="strip-section" id="products" aria-labelledby="products-heading">
- 
-    <div class="strip-heading reveal">
-      <p class="strip-eyebrow">Our Range</p>
-      <h2 id="products-heading">Featured Products</h2>
-    </div>
- 
-    <div class="strip-wrapper" aria-label="Scrolling product showcase" role="region">
-      <div class="strip-track" aria-hidden="true">
- 
-        <!-- SET 1 -->
-        <div class="strip-card">
-          <div class="strip-img strip-c1"><div class="strip-ph" aria-hidden="true">💡</div></div>
-          <p class="strip-name">COB Spotlight 30W</p>
-          <p class="strip-sub">Warm White · Ra90</p>
-        </div>
-        <div class="strip-card">
-          <div class="strip-img strip-c2"><div class="strip-ph" aria-hidden="true">🔦</div></div>
-          <p class="strip-name">Flood Pro 100W</p>
-          <p class="strip-sub">IP66 · Cool White</p>
-        </div>
-        <div class="strip-card">
-          <div class="strip-img strip-c3"><div class="strip-ph" aria-hidden="true">🔆</div></div>
-          <p class="strip-name">Slim Downlight 12W</p>
-          <p class="strip-sub">Recessed · Dimmable</p>
-        </div>
-        <div class="strip-card">
-          <div class="strip-img strip-c4"><div class="strip-ph" aria-hidden="true">⬜</div></div>
-          <p class="strip-name">Panel Light 40W</p>
-          <p class="strip-sub">595×595 · Neutral White</p>
-        </div>
-        <div class="strip-card">
-          <div class="strip-img strip-c5"><div class="strip-ph" aria-hidden="true">🌿</div></div>
-          <p class="strip-name">Garden Spike 10W</p>
-          <p class="strip-sub">Solar Ready · IP67</p>
-        </div>
-        <div class="strip-card">
-          <div class="strip-img strip-c6"><div class="strip-ph" aria-hidden="true">🏙️</div></div>
-          <p class="strip-name">Street Light 80W</p>
-          <p class="strip-sub">Cobra Head · IK10</p>
-        </div>
- 
-        <!-- SET 2 — exact copy for seamless loop -->
-        <div class="strip-card">
-          <div class="strip-img strip-c1"><div class="strip-ph" aria-hidden="true">💡</div></div>
-          <p class="strip-name">COB Spotlight 30W</p>
-          <p class="strip-sub">Warm White · Ra90</p>
-        </div>
-        <div class="strip-card">
-          <div class="strip-img strip-c2"><div class="strip-ph" aria-hidden="true">🔦</div></div>
-          <p class="strip-name">Flood Pro 100W</p>
-          <p class="strip-sub">IP66 · Cool White</p>
-        </div>
-        <div class="strip-card">
-          <div class="strip-img strip-c3"><div class="strip-ph" aria-hidden="true">🔆</div></div>
-          <p class="strip-name">Slim Downlight 12W</p>
-          <p class="strip-sub">Recessed · Dimmable</p>
-        </div>
-        <div class="strip-card">
-          <div class="strip-img strip-c4"><div class="strip-ph" aria-hidden="true">⬜</div></div>
-          <p class="strip-name">Panel Light 40W</p>
-          <p class="strip-sub">595×595 · Neutral White</p>
-        </div>
-        <div class="strip-card">
-          <div class="strip-img strip-c5"><div class="strip-ph" aria-hidden="true">🌿</div></div>
-          <p class="strip-name">Garden Spike 10W</p>
-          <p class="strip-sub">Solar Ready · IP67</p>
-        </div>
-        <div class="strip-card">
-          <div class="strip-img strip-c6"><div class="strip-ph" aria-hidden="true">🏙️</div></div>
-          <p class="strip-name">Street Light 80W</p>
-          <p class="strip-sub">Cobra Head · IK10</p>
-        </div>
- 
-      </div>
-    </div>
- 
-  </section>
- 
- 
-  <!-- ============================================================
-    ABOUT US SECTION
-    Left: text. Right: dark accent panel with a quote.
-    Change all text to match your brand story.
-  ============================================================ -->
-   <section class="about reveal" id="about" aria-labelledby="about-heading">
- 
-    <div class="about-text">
-      <p class="about-eyebrow">About Us</p>
-      <h2 id="about-heading">Built on quality.<br>Driven by light.</h2>
-      <p class="about-body">
-        We are a dedicated lighting solutions company committed to bringing precision-engineered, energy-efficient lighting to homes, businesses, and public spaces across India. From COB chips to large-scale street lighting, every product we create is built to last and designed to perform.
-      </p>
-      <p class="about-body">
-        Our team combines deep technical expertise with a passion for great design — delivering products that don't just illuminate, but transform a space.
-      </p>
-      <a href="#contact" class="link-arrow">Get in touch</a>
-    </div>
- 
-    <div class="about-panel">
-      <p class="about-quote">"Every light we make carries a promise — to last, to perform, to inspire."</p>
-      <p class="about-since">Trusted by 500+ dealers across 30+ states</p>
-    </div>
- 
-  </section>
- 
- 
-  <!-- ============================================================
-    CONTACT SECTION
-    Clean centered form. Does not send emails by default.
- 
-    TO MAKE IT ACTUALLY SEND EMAILS (free & easy):
-      1. Go to formspree.io and create a free account
-      2. Create a new form, copy your form ID
-      3. Change the <form> tag to:
-         <form action="https://formspree.io/f/YOUR_ID" method="POST">
-      4. Remove the id="contactForm" and the JS submit handler
-         (it will auto-redirect on submit)
-  ============================================================ -->
-  <section class="contact reveal" id="contact" aria-labelledby="contact-heading">
- 
-    <div class="contact-inner">
-      <p class="contact-eyebrow">Let's talk</p>
-      <h2 id="contact-heading">Contact us</h2>
-      <p class="contact-sub">Have a project in mind or want to become a dealer? We'd love to hear from you.</p>
- 
-      <!-- Quick contact bar -->
-      <div class="contact-quick">
-        <a href="tel:+919999999999" class="contact-quick-item" aria-label="Call us">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.01 1.18 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
-          +91 99999 99999
-        </a>
-        <a href="https://wa.me/919999999999" class="contact-quick-item contact-quick-wa" target="_blank" rel="noopener" aria-label="WhatsApp us">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.117.549 4.107 1.51 5.833L.057 23.032a.75.75 0 00.921.916l5.205-1.446A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.007-1.373l-.36-.214-3.724 1.034 1.053-3.635-.234-.374A9.818 9.818 0 1112 21.818z"/></svg>
-          WhatsApp
-        </a>
-      </div>
- 
-      <form class="contact-form" id="contactForm" novalidate>
- 
-        <div class="form-row">
-          <div class="form-group">
-            <label for="name">Name</label>
-            <input type="text" id="name" name="name" placeholder="Your name" required autocomplete="name" />
+
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════
+         CATEGORY MOSAIC GRID
+         Desktop layout (3 cols, 3 rows):
+         ┌──────────────┬──────────┬──────────┐
+         │ COB (r1+r2)  │ Flood    │ Down     │
+         │              ├──────────┼──────────┤
+         │              │ Panel    │ Garden   │
+         ├──────────────┴──────────┴──────────┤
+         │ Street Lights (full width, row 3)  │
+         └────────────────────────────────────┘
+
+         TO ADD REAL PHOTOS:
+           In style.css find .cat-bg-1 through .cat-bg-6
+           Replace gradient with:
+           background-image: url('your-category-photo.jpg');
+    ═══════════════════════════════════════════ -->
+    <section class="categories" id="categories" aria-labelledby="categories-heading">
+
+      <!-- sr-only heading: invisible on screen but readable by Google + screen readers -->
+      <h2 id="categories-heading" class="sr-only">Product Categories</h2>
+
+      <div class="cat-grid">
+
+        <!-- COB — spans rows 1 and 2 on the left -->
+        <a href="#products" class="cat-cell cat-tall-left cat-bg-1" aria-label="COB Lights — Chip on Board">
+          <div class="cat-img-inner" aria-hidden="true"></div>
+          <div class="cat-label-wrap">
+            <span class="cat-label">COB</span>
+            <span class="cat-sub">Chip on Board</span>
           </div>
-          <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" placeholder="your@email.com" required autocomplete="email" />
+        </a>
+
+        <!-- Flood Lights — top center -->
+        <a href="#products" class="cat-cell cat-bg-2" aria-label="Flood Lights — High-output beam">
+          <div class="cat-img-inner" aria-hidden="true"></div>
+          <div class="cat-label-wrap">
+            <span class="cat-label">Flood Lights</span>
+            <span class="cat-sub">High-output beam</span>
           </div>
+        </a>
+
+        <!-- Downlights — top right -->
+        <a href="#products" class="cat-cell cat-bg-3" aria-label="Downlights — Recessed precision">
+          <div class="cat-img-inner" aria-hidden="true"></div>
+          <div class="cat-label-wrap">
+            <span class="cat-label">Downlights</span>
+            <span class="cat-sub">Recessed precision</span>
+          </div>
+        </a>
+
+        <!-- Panel Lights — center row 2 -->
+        <a href="#products" class="cat-cell cat-tall-center cat-bg-4" aria-label="Panel Lights — Even surface glow">
+          <div class="cat-img-inner" aria-hidden="true"></div>
+          <div class="cat-label-wrap">
+            <span class="cat-label">Panel Lights</span>
+            <span class="cat-sub">Even surface glow</span>
+          </div>
+        </a>
+
+        <!-- Garden Lights — right row 2 -->
+        <a href="#products" class="cat-cell cat-bg-5" aria-label="Garden Lights — Outdoor ambiance">
+          <div class="cat-img-inner" aria-hidden="true"></div>
+          <div class="cat-label-wrap">
+            <span class="cat-label">Garden Lights</span>
+            <span class="cat-sub">Outdoor ambiance</span>
+          </div>
+        </a>
+
+        <!-- Street Lights — full width row 3 -->
+        <a href="#products" class="cat-cell cat-wide-right cat-bg-6" aria-label="Street Lights — Urban infrastructure">
+          <div class="cat-img-inner" aria-hidden="true"></div>
+          <div class="cat-label-wrap">
+            <span class="cat-label">Street Lights</span>
+            <span class="cat-sub">Urban infrastructure</span>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════
+         STATS / NUMBERS PANEL
+         Numbers count up from 0 when scrolled into view.
+
+         TO CHANGE A NUMBER:
+           Find data-target="500" and change the value.
+           Change the suffix text (+, yrs) in the HTML below.
+    ═══════════════════════════════════════════ -->
+    <section class="stats" id="stats" aria-labelledby="stats-heading">
+      <h2 id="stats-heading" class="sr-only">Company Statistics</h2>
+
+      <div class="stats-grid">
+
+        <div class="stat-card">
+          <div class="stat-number">
+            <span class="stat-count" data-target="15">0</span>
+            <span class="stat-suffix" aria-hidden="true">+</span>
+          </div>
+          <p class="stat-label">Years Experience</p>
         </div>
- 
-        <div class="form-group">
-          <label for="phone">Phone <span class="optional">(optional)</span></label>
-          <input type="tel" id="phone" name="phone" placeholder="+91 00000 00000" autocomplete="tel" />
+
+        <div class="stat-card">
+          <div class="stat-number">
+            <span class="stat-count" data-target="200">0</span>
+            <span class="stat-suffix" aria-hidden="true">+</span>
+          </div>
+          <p class="stat-label">Product Variants</p>
         </div>
- 
-        <div class="form-group">
-          <label for="message">Message</label>
-          <textarea id="message" name="message" rows="5" placeholder="Tell us about your project or enquiry..." required></textarea>
+
+        <div class="stat-card">
+          <div class="stat-number">
+            <span class="stat-count" data-target="500">0</span>
+            <span class="stat-suffix" aria-hidden="true">+</span>
+          </div>
+          <p class="stat-label">Dealer Partners</p>
         </div>
- 
-        <button type="submit" class="btn-submit">Send message</button>
- 
-      </form>
- 
-      <p class="form-success" id="formSuccess" role="alert" aria-live="polite">Thank you! We'll be in touch soon.</p>
- 
-    </div>
- 
-  </section>
- 
-  </main><!-- /main -->
- 
- 
-  <!-- ============================================================
-    FOOTER
-    Black background. 5 link columns + copyright bar.
-    Change column headings and links to match your site structure.
-  ============================================================ -->
+
+        <div class="stat-card">
+          <div class="stat-number">
+            <span class="stat-count" data-target="30">0</span>
+            <span class="stat-suffix" aria-hidden="true">+</span>
+          </div>
+          <p class="stat-label">States Covered</p>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════
+         SCROLLING PRODUCT STRIP
+         Infinite auto-scroll (CSS only, no JS).
+         Two identical sets of cards create a seamless loop.
+
+         TO ADD A PRODUCT:
+           Copy any .strip-card block.
+           Change the name and sub text.
+           IMPORTANT: Add the same card to SET 2 below
+           or the loop will look uneven.
+
+         TO ADD REAL PHOTOS:
+           In style.css find .strip-c1 through .strip-c6
+           Replace gradient with background-image: url('photo.jpg');
+    ═══════════════════════════════════════════ -->
+    <section class="strip-section" id="products" aria-labelledby="products-heading">
+
+      <div class="strip-heading reveal">
+        <p class="strip-eyebrow">Our Range</p>
+        <h2 id="products-heading">Featured Products</h2>
+      </div>
+
+      <div class="strip-wrapper" aria-label="Scrolling product showcase" role="region">
+        <div class="strip-track" aria-hidden="true">
+
+          <!-- ── SET 1 ── -->
+          <div class="strip-card">
+            <div class="strip-img strip-c1"><div class="strip-ph">💡</div></div>
+            <p class="strip-name">COB Spotlight 30W</p>
+            <p class="strip-sub">Warm White · Ra90</p>
+          </div>
+          <div class="strip-card">
+            <div class="strip-img strip-c2"><div class="strip-ph">🔦</div></div>
+            <p class="strip-name">Flood Pro 100W</p>
+            <p class="strip-sub">IP66 · Cool White</p>
+          </div>
+          <div class="strip-card">
+            <div class="strip-img strip-c3"><div class="strip-ph">🔆</div></div>
+            <p class="strip-name">Slim Downlight 12W</p>
+            <p class="strip-sub">Recessed · Dimmable</p>
+          </div>
+          <div class="strip-card">
+            <div class="strip-img strip-c4"><div class="strip-ph">⬜</div></div>
+            <p class="strip-name">Panel Light 40W</p>
+            <p class="strip-sub">595×595 · Neutral White</p>
+          </div>
+          <div class="strip-card">
+            <div class="strip-img strip-c5"><div class="strip-ph">🌿</div></div>
+            <p class="strip-name">Garden Spike 10W</p>
+            <p class="strip-sub">Solar Ready · IP67</p>
+          </div>
+          <div class="strip-card">
+            <div class="strip-img strip-c6"><div class="strip-ph">🏙️</div></div>
+            <p class="strip-name">Street Light 80W</p>
+            <p class="strip-sub">Cobra Head · IK10</p>
+          </div>
+
+          <!-- ── SET 2 — exact copy of Set 1 for seamless loop ── -->
+          <div class="strip-card">
+            <div class="strip-img strip-c1"><div class="strip-ph">💡</div></div>
+            <p class="strip-name">COB Spotlight 30W</p>
+            <p class="strip-sub">Warm White · Ra90</p>
+          </div>
+          <div class="strip-card">
+            <div class="strip-img strip-c2"><div class="strip-ph">🔦</div></div>
+            <p class="strip-name">Flood Pro 100W</p>
+            <p class="strip-sub">IP66 · Cool White</p>
+          </div>
+          <div class="strip-card">
+            <div class="strip-img strip-c3"><div class="strip-ph">🔆</div></div>
+            <p class="strip-name">Slim Downlight 12W</p>
+            <p class="strip-sub">Recessed · Dimmable</p>
+          </div>
+          <div class="strip-card">
+            <div class="strip-img strip-c4"><div class="strip-ph">⬜</div></div>
+            <p class="strip-name">Panel Light 40W</p>
+            <p class="strip-sub">595×595 · Neutral White</p>
+          </div>
+          <div class="strip-card">
+            <div class="strip-img strip-c5"><div class="strip-ph">🌿</div></div>
+            <p class="strip-name">Garden Spike 10W</p>
+            <p class="strip-sub">Solar Ready · IP67</p>
+          </div>
+          <div class="strip-card">
+            <div class="strip-img strip-c6"><div class="strip-ph">🏙️</div></div>
+            <p class="strip-name">Street Light 80W</p>
+            <p class="strip-sub">Cobra Head · IK10</p>
+          </div>
+
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════
+         ABOUT US
+         Two side-by-side photos on left, text on right.
+         Photos are placeholders — add real ones in style.css.
+
+         TO ADD REAL PHOTOS:
+           In style.css find .about-img-1 and .about-img-2
+           Replace gradient with:
+           background-image: url('your-photo.jpg');
+    ═══════════════════════════════════════════ -->
+    <section class="about reveal" id="about" aria-labelledby="about-heading">
+
+      <!-- Left: two stacked photos -->
+      <div class="about-images">
+        <div class="about-img about-img-1" role="img" aria-label="Our manufacturing facility"></div>
+        <div class="about-img about-img-2" role="img" aria-label="LED product installation"></div>
+      </div>
+
+      <!-- Right: text content -->
+      <div class="about-text">
+        <p class="about-eyebrow">About Us</p>
+        <h2 id="about-heading">India's trusted<br>lighting partner.</h2>
+        <p class="about-body">
+          We've been manufacturing precision-engineered LED lighting for over 15 years. 500+ dealer partners across 30+ states trust us because we don't cut corners — on materials, on testing, or on service.
+        </p>
+        <a href="#contact" class="btn-about">Become a dealer</a>
+      </div>
+
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════
+         CONTACT SECTION
+         Form does NOT send emails by default.
+
+         TO MAKE IT ACTUALLY SEND EMAILS (free):
+           1. Go to formspree.io → create account → new form
+           2. Copy your form ID
+           3. Change the <form> opening tag to:
+              <form action="https://formspree.io/f/YOUR_ID" method="POST">
+           4. Remove id="contactForm" from the form
+           5. Delete section 6 from script.js
+    ═══════════════════════════════════════════ -->
+    <section class="contact reveal" id="contact" aria-labelledby="contact-heading">
+
+      <div class="contact-inner">
+        <p class="contact-eyebrow">Let's talk</p>
+        <h2 id="contact-heading">Contact us</h2>
+        <p class="contact-sub">Have a project in mind or want to become a dealer? We'd love to hear from you.</p>
+
+        <!-- Quick-tap contact options above the form -->
+        <div class="contact-quick">
+          <a href="tel:+919999999999" class="contact-quick-item" aria-label="Call us">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.01 1.18 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
+            </svg>
+            +91 99999 99999
+          </a>
+          <a href="https://wa.me/919999999999" class="contact-quick-item contact-quick-wa" target="_blank" rel="noopener" aria-label="WhatsApp us">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+              <path d="M12 0C5.373 0 0 5.373 0 12c0 2.117.549 4.107 1.51 5.833L.057 23.032a.75.75 0 00.921.916l5.205-1.446A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.007-1.373l-.36-.214-3.724 1.034 1.053-3.635-.234-.374A9.818 9.818 0 1112 21.818z"/>
+            </svg>
+            WhatsApp
+          </a>
+        </div>
+
+        <form class="contact-form" id="contactForm" novalidate>
+
+          <!-- Name + Email side by side on desktop, stacked on mobile -->
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" placeholder="Your name" required autocomplete="name" />
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" placeholder="your@email.com" required autocomplete="email" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="phone">Phone <span class="optional">(optional)</span></label>
+            <input type="tel" id="phone" name="phone" placeholder="+91 00000 00000" autocomplete="tel" />
+          </div>
+
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="5" placeholder="Tell us about your project or enquiry..." required></textarea>
+          </div>
+
+          <button type="submit" class="btn-submit">Send message</button>
+
+        </form>
+
+        <!-- Hidden by default. JS shows this after successful submit. -->
+        <p class="form-success" id="formSuccess" role="alert" aria-live="polite">
+          Thank you! We'll be in touch soon.
+        </p>
+
+      </div>
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════
+         GET SOCIAL
+         Left: text + Instagram handle.
+         Right: photo grid (1 tall + 2×2).
+
+         TO ADD REAL PHOTOS:
+           Replace each .social-img-inner div with:
+           <img src="your-photo.jpg" alt="describe it"
+                loading="lazy"
+                style="width:100%;height:100%;object-fit:cover;" />
+    ═══════════════════════════════════════════ -->
+    <section class="social-section reveal" aria-labelledby="social-heading">
+
+      <!-- Left panel: heading + handle + follow link -->
+      <div class="social-left">
+        <p class="about-eyebrow">Instagram</p>
+        <h2 id="social-heading">Get social</h2>
+        <a href="https://instagram.com/yourbrand" class="social-handle" target="_blank" rel="noopener" aria-label="Follow us on Instagram">
+          <!-- Instagram icon -->
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+          </svg>
+          @yourbrand
+        </a>
+        <a href="https://instagram.com/yourbrand" class="link-arrow" target="_blank" rel="noopener">Follow us on social</a>
+      </div>
+
+      <!-- Right: photo grid -->
+      <div class="social-grid" aria-label="Instagram feed preview">
+        <!-- Photo 1: tall, spans both rows on the left of the grid -->
+        <div class="social-img social-img-tall">
+          <div class="social-img-inner social-ph-1" aria-label="Instagram photo 1"></div>
+        </div>
+        <!-- Photos 2-5: 2×2 grid on the right -->
+        <div class="social-img">
+          <div class="social-img-inner social-ph-2" aria-label="Instagram photo 2"></div>
+        </div>
+        <div class="social-img">
+          <div class="social-img-inner social-ph-3" aria-label="Instagram photo 3"></div>
+        </div>
+        <div class="social-img">
+          <div class="social-img-inner social-ph-4" aria-label="Instagram photo 4"></div>
+        </div>
+        <div class="social-img">
+          <div class="social-img-inner social-ph-5" aria-label="Instagram photo 5"></div>
+        </div>
+      </div>
+
+    </section>
+
+
+  </main><!-- end #main-content -->
+
+
+  <!-- ═══════════════════════════════════════════════
+       FOOTER
+       Black background. 5 columns of links + copyright.
+       Update all links and social URLs to real pages.
+  ═══════════════════════════════════════════════════ -->
   <footer role="contentinfo">
- 
+
     <div class="footer-cols">
- 
+
       <div class="footer-col">
         <h3>Company</h3>
         <ul role="list">
@@ -516,7 +634,7 @@
           <li><a href="#">Terms of Sale</a></li>
         </ul>
       </div>
- 
+
       <div class="footer-col">
         <h3>Products</h3>
         <ul role="list">
@@ -528,7 +646,7 @@
           <li><a href="#categories">Street Lights</a></li>
         </ul>
       </div>
- 
+
       <div class="footer-col">
         <h3>Support</h3>
         <ul role="list">
@@ -538,7 +656,7 @@
           <li><a href="#">Warranty</a></li>
         </ul>
       </div>
- 
+
       <div class="footer-col">
         <h3>Contact</h3>
         <ul role="list">
@@ -547,27 +665,33 @@
           <li><a href="tel:+919999999999">+91 99999 99999</a></li>
         </ul>
       </div>
- 
+
       <div class="footer-col">
         <h3>Follow us</h3>
         <div class="footer-socials">
-          <a href="#" title="Instagram"  aria-label="Follow us on Instagram">Instagram</a>
-          <a href="#" title="LinkedIn"   aria-label="Follow us on LinkedIn">LinkedIn</a>
-          <a href="#" title="Facebook"   aria-label="Follow us on Facebook">Facebook</a>
-          <a href="#" title="YouTube"    aria-label="Subscribe on YouTube">YouTube</a>
+          <a href="#" aria-label="Follow us on Instagram">Instagram</a>
+          <a href="#" aria-label="Follow us on LinkedIn">LinkedIn</a>
+          <a href="#" aria-label="Follow us on Facebook">Facebook</a>
+          <a href="#" aria-label="Subscribe on YouTube">YouTube</a>
         </div>
       </div>
- 
+
     </div>
- 
+
     <div class="footer-bottom">
       <p>© 2025 Your Brand. All rights reserved.</p>
       <p><a href="#">Privacy Policy</a> · <a href="#">Terms</a></p>
     </div>
- 
+
   </footer>
- 
-  <!-- Floating WhatsApp button — always visible on mobile -->
+
+
+  <!-- ─────────────────────────────────────────────
+    FLOATING WHATSAPP BUTTON
+    Always visible bottom-right. Pulses gently.
+    Change the phone number in the href below.
+    Format: https://wa.me/91XXXXXXXXXX (no spaces, no dashes)
+  ────────────────────────────────────────────────── -->
   <a href="https://wa.me/919999999999"
      class="whatsapp-float"
      target="_blank"
@@ -578,9 +702,9 @@
       <path d="M12 0C5.373 0 0 5.373 0 12c0 2.117.549 4.107 1.51 5.833L.057 23.032a.75.75 0 00.921.916l5.205-1.446A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.007-1.373l-.36-.214-3.724 1.034 1.053-3.635-.234-.374A9.818 9.818 0 1112 21.818z"/>
     </svg>
   </a>
- 
+
+  <!-- JavaScript — loaded last so HTML is ready before JS runs -->
   <script src="script.js"></script>
- 
+
 </body>
 </html>
- 
