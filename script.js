@@ -36,7 +36,7 @@ function goSlide(n) {
   slides[currentSlide].classList.add('active');
   dots[currentSlide].classList.add('active');
   dots[currentSlide].setAttribute('aria-selected', 'true');
-  
+
 }
  
 // Auto-rotate every 5000ms (5 seconds)
@@ -84,10 +84,59 @@ nav.addEventListener('mouseleave', function () {
     nav.classList.remove('nav-solid');
   }
 });
+
+
+/* ================================================================
+   3. HAMBURGER MENU (MOBILE)
+================================================================ */
+const hamburger  = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobileMenu');
+ 
+if (hamburger && mobileMenu) {
+ 
+  function openMenu() {
+    hamburger.classList.add('is-open');
+    mobileMenu.classList.add('open');
+    mobileMenu.setAttribute('aria-hidden', 'false');
+    hamburger.setAttribute('aria-expanded', 'true');
+    hamburger.setAttribute('aria-label', 'Close navigation menu');
+    document.body.style.overflow = 'hidden'; // prevent background scroll
+  }
+ 
+  function closeMenu() {
+    hamburger.classList.remove('is-open');
+    mobileMenu.classList.remove('open');
+    mobileMenu.setAttribute('aria-hidden', 'true');
+    hamburger.setAttribute('aria-expanded', 'false');
+    hamburger.setAttribute('aria-label', 'Open navigation menu');
+    document.body.style.overflow = '';
+  }
+ 
+  hamburger.addEventListener('click', function () {
+    if (mobileMenu.classList.contains('open')) {
+      closeMenu();
+    } else {
+      openMenu();
+    }
+  });
+ 
+  // Close menu when a link is clicked
+  mobileMenu.querySelectorAll('a').forEach(function (link) {
+    link.addEventListener('click', closeMenu);
+  });
+ 
+  // Close on Escape key
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && mobileMenu.classList.contains('open')) {
+      closeMenu();
+      hamburger.focus();
+    }
+  });
+}
  
  
 /* ================================================================
-   3. SCROLL REVEAL ANIMATION
+   4. SCROLL REVEAL ANIMATION
    Any element with class="reveal" in the HTML will:
    - Start invisible and shifted down 28px
    - Fade + slide up into place when it enters the viewport
@@ -114,7 +163,7 @@ revealElements.forEach(function (el) {
  
  
 /* ================================================================
-   4. STATS COUNT-UP ANIMATION
+   5. STATS COUNT-UP ANIMATION
    When the stats section scrolls into view, each number
    counts up from 0 to its target value over ~1.8 seconds.
  
@@ -172,7 +221,7 @@ function animateCounters() {
  
  
 /* ================================================================
-   5. CONTACT FORM — SUBMIT HANDLER
+   6. CONTACT FORM — SUBMIT HANDLER
    Shows a success message when the form is submitted.
    The form does NOT actually send emails by default.
  
@@ -207,7 +256,7 @@ if (contactForm) {
  
  
 /* ================================================================
-   6. SMOOTH SCROLL FOR NAV LINKS
+   7. SMOOTH SCROLL FOR NAV LINKS
    When a nav link like href="#categories" is clicked,
    the page scrolls smoothly to that section.
    Accounts for the fixed nav bar height so the section
@@ -232,23 +281,3 @@ document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
   });
 });
  
- 
-/* ================================================================
-   7. OPTIONAL: MOBILE HAMBURGER MENU
-   The nav links are hidden on mobile screens (CSS does this).
-   If you want a hamburger button on mobile, add this HTML inside <nav>:
-     <button id="hamburger" class="hamburger" aria-label="Open menu">
-       <span></span><span></span><span></span>
-     </button>
-   Then uncomment the code below and add CSS for .nav-links.open.
-================================================================ */
- 
-// const hamburger = document.getElementById('hamburger');
-// const navLinks  = document.querySelector('.nav-links');
-//
-// if (hamburger) {
-//   hamburger.addEventListener('click', function () {
-//     navLinks.classList.toggle('open');
-//     this.classList.toggle('is-open');
-//   });
-// }
