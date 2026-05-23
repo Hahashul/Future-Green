@@ -306,15 +306,14 @@ nav.nav-solid .hamburger span { background: var(--text); }
   background-position: center;
   transition: transform 7s ease;
 }
-/* Slow Ken Burns zoom when slide becomes active */
-.hero-slide.active .hero-slide-bg { transform: scale(1.04); }
+
 
 /* ── SLIDE BACKGROUNDS ──
    Replace each gradient with: background-image: url('hero1.jpg');
 */
-.slide-bg-1 { background: linear-gradient(160deg, #2a2620 0%, #3e3830 50%, #4a4035 100%); }
-.slide-bg-2 { background: linear-gradient(160deg, #1c2028 0%, #2a3040 50%, #363c50 100%); }
-.slide-bg-3 { background: linear-gradient(160deg, #1a2018 0%, #283028 50%, #303c2e 100%); }
+.slide-bg-1 { background-image: url('resources/hero1.png');}
+.slide-bg-2 { background-image: url('resources/hero2.png'); }
+.slide-bg-3 { background-image: url('resources/hero3.png'); background-position: right center; }
 
 /* Dark gradient overlay — ensures white text is always readable
    regardless of the photo brightness */
@@ -439,12 +438,12 @@ nav.nav-solid .hamburger span { background: var(--text); }
    Replace with real photos when ready:
    .cat-bg-1 .cat-img-inner { background-image: url('cob.jpg'); }
 */
-.cat-bg-1 .cat-img-inner { background: linear-gradient(160deg, #1e1a14 0%, #332b1e 50%, #4a3e28 100%); }
-.cat-bg-2 .cat-img-inner { background: linear-gradient(160deg, #141820 0%, #1e2430 50%, #283040 100%); }
-.cat-bg-3 .cat-img-inner { background: linear-gradient(160deg, #181614 0%, #2a2420 50%, #38322a 100%); }
-.cat-bg-4 .cat-img-inner { background: linear-gradient(160deg, #101410 0%, #182018 50%, #202c20 100%); }
-.cat-bg-5 .cat-img-inner { background: linear-gradient(160deg, #1c1410 0%, #2e2018 50%, #3c2c20 100%); }
-.cat-bg-6 .cat-img-inner { background: linear-gradient(160deg, #0e1216 0%, #181c24 50%, #20262e 100%); }
+.cat-bg-1 .cat-img-inner { background-image: url('resources/cat-cob.png'); }
+.cat-bg-2 .cat-img-inner { background-image: url('resources/cat-flood.png'); }
+.cat-bg-3 .cat-img-inner { background-image: url('resources/cat-downlight.png'); }
+.cat-bg-4 .cat-img-inner { background-image: url('resources/cat-panel.png'); }
+.cat-bg-5 .cat-img-inner { background-image: url('resources/cat-garden.png'); }
+.cat-bg-6 .cat-img-inner { background-image: url('resources/cat-street.png'); }
 
 /* Label overlay — gradient behind text for readability */
 .cat-label-wrap {
@@ -1222,12 +1221,20 @@ footer {
     display: flex;
     overflow-x: scroll;
     scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch; /* smooth momentum scroll on iOS */
+    -webkit-overflow-scrolling: touch;
     gap: 10px;
-    padding: 0 24px 16px;
-    scrollbar-width: none; /* hide scrollbar on Firefox */
+    padding-bottom: 16px;
+    scrollbar-width: none;
+    scroll-padding-left: 10px;
   }
-  .cat-grid::-webkit-scrollbar { display: none; } /* hide scrollbar on Chrome/Safari */
+  .cat-grid::-webkit-scrollbar { display: none; }
+  /* Invisible spacers give the 20px left/right gap without breaking scroll */
+  .cat-grid::before,
+  .cat-grid::after {
+    content: '';
+    flex: 0 0 20px;
+    height: 1px;
+  }
   /* All cells become equal swipeable cards */
   .cat-tall-left,
   .cat-bg-2,
@@ -1243,7 +1250,6 @@ footer {
     border-radius: 4px;
     overflow: hidden;
   }
-  .cat-wide-right { margin-right: 24px; } /* breathing room after last card */
 
   /* STATS: 2 columns */
   .stats      { padding: 48px 20px; }
