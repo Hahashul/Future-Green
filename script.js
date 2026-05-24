@@ -1,4 +1,3 @@
-
 /* ================================================================
    YOUR BRAND — script.js
    All interactive behaviour for the website.
@@ -280,4 +279,26 @@ document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
     window.scrollTo({ top: targetTop, behavior: 'smooth' });
   });
 });
- 
+
+
+/* ================================================================
+   8. SECRET DARK MODE
+   Triggered by clicking "Harshul Adwani" in the footer.
+   Looks like a plain developer credit — no button, no underline,
+   cursor stays as default so it never feels clickable.
+   State persists across page loads via localStorage.
+================================================================ */
+
+const devCredit = document.getElementById('devCredit');
+
+// Restore dark mode if the user activated it before
+if (localStorage.getItem('fg-dark') === '1') {
+  document.body.classList.add('dark-mode');
+}
+
+if (devCredit) {
+  devCredit.addEventListener('click', function () {
+    const isDark = document.body.classList.toggle('dark-mode');
+    localStorage.setItem('fg-dark', isDark ? '1' : '0');
+  });
+}
