@@ -27,15 +27,17 @@ function goSlide(n) {
   slides[currentSlide].classList.remove('active');
   dots[currentSlide].classList.remove('active');
   dots[currentSlide].setAttribute('aria-selected', 'false');
-  
+  // Reset Ken Burns scale on outgoing slide
+  const outBg = slides[currentSlide].querySelector('.hero-slide-bg');
+  if (outBg) outBg.style.transform = 'scale(1)';
+
   // Update the tracker to the new slide
   currentSlide = n;
- 
+
   // Activate the new slide and its dot
   slides[currentSlide].classList.add('active');
   dots[currentSlide].classList.add('active');
   dots[currentSlide].setAttribute('aria-selected', 'true');
-
 }
  
 // Auto-rotate every 5000ms (5 seconds)
@@ -220,36 +222,71 @@ function animateCounters() {
  
  
 /* ================================================================
-   6. CONTACT FORM — SUBMIT HANDLER
-   Shows a success message when the form is submitted.
-   The form does NOT actually send emails by default.
- 
+   6. CONTACT FORM — VALIDATION + SUBMIT HANDLER
+   Validates required fields before showing success.
+   Shows a loading state on the button while "sending".
+
    TO MAKE IT SEND REAL EMAILS (free):
      1. Go to formspree.io → create account → new form → copy your ID
      2. In index.html change <form id="contactForm"> to:
         <form action="https://formspree.io/f/YOUR_ID" method="POST">
-     3. Delete this entire section (section 5) from script.js
+     3. Delete this entire section from script.js
         — Formspree handles submission itself
 ================================================================ */
- 
+
 const contactForm    = document.getElementById('contactForm');
 const formSuccess    = document.getElementById('formSuccess');
- 
+
 if (contactForm) {
   contactForm.addEventListener('submit', function (e) {
-    e.preventDefault();  // stop the page from reloading
- 
-    // Hide the form and show the success message
-    contactForm.style.display    = 'none';
-    formSuccess.style.display    = 'block';
- 
-    // Optional: reset form and re-show it after 4 seconds
-    // Uncomment these lines if you'd rather show a message then reset:
-    // setTimeout(function () {
-    //   contactForm.reset();
-    //   contactForm.style.display = 'block';
-    //   formSuccess.style.display = 'none';
-    // }, 4000);
+    e.preventDefault();
+
+    // ── Validation ──
+    const nameEl    = document.getElementById('name');
+    const emailEl   = document.getElementById('email');
+    const messageEl = document.getElementById('message');
+    let valid = true;
+
+    // Clear previous errors
+    [nameEl, emailEl, messageEl].forEach(function (el) {
+      el.style.borderColor = '';
+      const prev = el.parentNode.querySelector('.field-error');
+      if (prev) prev.remove();
+    });
+
+    function showError(el, msg) {
+      el.style.borderColor = '#c0392b';
+      const err = document.createElement('span');
+      err.className = 'field-error';
+      err.style.cssText = 'font-size:11px;color:#c0392b;margin-top:4px;display:block;';
+      err.textContent = msg;
+      el.parentNode.appendChild(err);
+      valid = false;
+    }
+
+    if (!nameEl.value.trim())    showError(nameEl,    'Please enter your name.');
+    if (!emailEl.value.trim())   showError(emailEl,   'Please enter your email address.');
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailEl.value.trim()))
+                                 showError(emailEl,   'Please enter a valid email address.');
+    if (!messageEl.value.trim()) showError(messageEl, 'Please enter a message.');
+
+    if (!valid) return;
+
+    // ── Loading state ──
+    const btn = contactForm.querySelector('.btn-submit');
+    const originalText = btn.textContent;
+    btn.textContent = 'Sending…';
+    btn.disabled = true;
+    btn.style.opacity = '0.7';
+
+    // Simulate a short send delay (remove this timeout when using Formspree)
+    setTimeout(function () {
+      btn.textContent = originalText;
+      btn.disabled = false;
+      btn.style.opacity = '';
+      contactForm.style.display = 'none';
+      formSuccess.style.display = 'block';
+    }, 900);
   });
 }
  
@@ -283,15 +320,10 @@ document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
 
 /* ================================================================
    8. SECRET DARK MODE
-   Triggered by clicking "Harshul Adwani" in the footer.
-   Looks like a plain developer credit — no button, no underline,
-   cursor stays as default so it never feels clickable.
-   State persists across page loads via localStorage.
 ================================================================ */
 
 const devCredit = document.getElementById('devCredit');
 
-// Restore dark mode if the user activated it before
 if (localStorage.getItem('fg-dark') === '1') {
   document.body.classList.add('dark-mode');
 }
@@ -302,3 +334,9 @@ if (devCredit) {
     localStorage.setItem('fg-dark', isDark ? '1' : '0');
   });
 }
+
+/* ================================================================
+   9. DYNAMIC COPYRIGHT YEAR
+================================================================ */
+const yearEl = document.getElementById('copyrightYear');
+if (yearEl) yearEl.textContent = new Date().getFullYear();
