@@ -651,7 +651,6 @@ nav.nav-solid .hamburger span { background: var(--text); }
 
 /* Photo container: has padding so image doesn't touch edges */
 .about-images {
-  padding: 0 24px 0 0;
   display: block;
   overflow: hidden;
 }
@@ -667,11 +666,9 @@ nav.nav-solid .hamburger span { background: var(--text); }
   box-shadow: 0 8px 40px rgba(0,0,0,0.15);
   transition: transform 0.6s ease;
 }
-.about-img:hover { transform: scale(1.02); }
 
 /* Placeholder gradient — replace with real photo */
 .about-img-1 { background: linear-gradient(160deg, #2a2620 0%, #4a3e2e 100%); }
-.about-img-2 { background: linear-gradient(160deg, #1e2428 0%, #2e3840 100%); }
 
 /* Text side */
 .about-text {
