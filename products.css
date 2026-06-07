@@ -1,0 +1,723 @@
+/* ================================================================
+   PRODUCTS PAGE — products.css
+   ─────────────────────────────────────────────────────────────
+   Styles specific to products.html only.
+   Base variables, nav, footer, WhatsApp button etc.
+   are all inherited from style.css.
+
+   SECTIONS:
+   1.  Page Header        — eyebrow, title, download button
+   2.  Mobile Filter      — filter button + drawer row
+   3.  Layout & Sidebar   — two-column grid + sticky sidebar
+   4.  Category Filter    — sidebar buttons + counts
+   5.  Product Grid       — card grid + card styles
+   6.  Detail View        — two-column product detail page
+   7.  Finish & Wattage   — swatches, chips, features list
+   8.  Related Section    — more in this category grid
+   9.  Sidebar Backdrop   — mobile overlay
+   10. Print / PDF        — clean A4 print styles
+   11. Responsive         — tablet + mobile breakpoints
+================================================================ */
+
+
+/* ================================================================
+   1. PAGE HEADER
+================================================================ */
+.prod-header {
+  padding-top: var(--nav-height);
+  background: var(--off-white);
+}
+.prod-header-inner {
+  padding: 20px 50px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  border-bottom: 1px solid var(--border);
+}
+.prod-eyebrow {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 8px;
+  display: block;
+}
+.prod-header-inner h1 {
+  font-size: clamp(22px, 2.5vw, 32px);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin: 0 0 4px;
+}
+.prod-header-sub {
+  font-size: 14px;
+  color: var(--mid);
+  max-width: 500px;
+  line-height: 1.6;
+  margin: 0;
+}
+.prod-header-actions {
+  display: flex;
+  gap: 12px;
+  flex-shrink: 0;
+  align-items: center;
+}
+.btn-pdf {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: var(--text);
+  color: var(--white);
+  font-family: 'Lato', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+.btn-pdf:hover { background: #333; transform: translateY(-2px); }
+
+
+/* ================================================================
+   2. MOBILE FILTER
+================================================================ */
+/* Row that holds the filter button — hidden on desktop */
+.mobile-filter-row {
+  display: none;
+  padding: 12px 20px;
+  border-bottom: 1px solid var(--border);
+  background: var(--off-white);
+}
+
+/* The filter button itself */
+.btn-mobile-filter {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  background: var(--white);
+  color: var(--text);
+  border: 1.5px solid var(--border);
+  border-radius: 6px;
+  font-family: 'Lato', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: border-color 0.2s, background 0.2s;
+}
+.btn-mobile-filter:hover { border-color: var(--text); background: var(--off-white); }
+.btn-mobile-filter svg { color: var(--text); }
+
+/* Backdrop overlay when sidebar drawer is open */
+.sidebar-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  z-index: 399;
+}
+.sidebar-backdrop.open { display: block; }
+
+
+/* ================================================================
+   3. LAYOUT & SIDEBAR
+================================================================ */
+.prod-layout {
+  display: grid;
+  grid-template-columns: 232px 1fr;
+  align-items: start;
+  min-height: 60vh;
+}
+
+.prod-sidebar {
+  position: sticky;
+  top: var(--nav-height);
+  height: calc(100vh - var(--nav-height));
+  overflow-y: auto;
+  padding: 28px 20px 40px;
+  border-right: 1px solid var(--border);
+  background: var(--white);
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+
+/* Sidebar header row (CATEGORIES label + close X on mobile) */
+.sidebar-mobile-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  padding: 0 8px;
+}
+.sidebar-heading {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--mid);
+  display: block;
+}
+/* Close X — only visible inside mobile drawer */
+.sidebar-close-x {
+  display: none;
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 4px 10px;
+  font-size: 14px;
+  color: var(--mid);
+  cursor: pointer;
+  line-height: 1.4;
+  transition: border-color 0.15s, color 0.15s;
+}
+.sidebar-close-x:hover { border-color: var(--text); color: var(--text); }
+
+
+/* ================================================================
+   4. CATEGORY FILTER BUTTONS
+================================================================ */
+.cat-filter-list { list-style: none; }
+.cat-filter-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-family: 'Lato', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--text);
+  text-align: left;
+  transition: background 0.15s;
+}
+.cat-filter-btn:hover { background: var(--off-white); }
+.cat-filter-btn.active {
+  background: var(--text);
+  color: var(--white);
+  font-weight: 700;
+}
+.cat-count {
+  font-size: 11px;
+  opacity: 0.45;
+  font-weight: 400;
+}
+.cat-filter-btn.active .cat-count { opacity: 0.55; }
+
+
+/* ================================================================
+   5. PRODUCT GRID & CARDS
+================================================================ */
+.prod-main {
+  padding: 28px 40px 60px;
+  background: var(--white);
+}
+.prod-results-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+  min-height: 32px;
+}
+.prod-count {
+  font-size: 13px;
+  color: var(--mid);
+  flex: 1;
+}
+.prod-count strong { color: var(--text); }
+
+.prod-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+/* Card */
+.prod-card {
+  background: var(--off-white);
+  border-radius: 10px;
+  overflow: hidden;
+  text-decoration: none;
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+  border: 1px solid transparent;
+  transition: border-color 0.25s, transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.25s;
+  cursor: pointer;
+}
+.prod-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-5px);
+  box-shadow: 0 0 0 1px var(--accent), 0 16px 48px rgba(120,183,40,0.15);
+}
+
+/* Card image area — shows placeholder SVG when image missing */
+.prod-card-img {
+  aspect-ratio: 1;
+  min-height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 28px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 24 24' fill='none' stroke='%23d0ccc5' stroke-width='1.2'%3E%3Crect x='3' y='3' width='18' height='18' rx='2'/%3E%3Ccircle cx='8.5' cy='8.5' r='1.5'/%3E%3Cpolyline points='21 15 16 10 5 21'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 48px 48px;
+}
+.prod-card-img img {
+  max-width: 85%;
+  max-height: 240px;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 20px rgba(0,0,0,0.18));
+  transition: transform 0.4s ease;
+  display: block;
+}
+.prod-card:hover .prod-card-img img {
+  transform: scale(1.07) translateY(-4px);
+}
+
+/* Card text body */
+.prod-card-body {
+  padding: 14px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+  border-top: 1px solid rgba(0,0,0,0.06);
+  background: rgba(255,255,255,0.5);
+}
+.prod-card-cat {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.prod-card-name {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--text);
+  margin: 0;
+}
+.prod-card-tagline {
+  font-size: 12px;
+  color: var(--mid);
+  line-height: 1.5;
+  flex: 1;
+}
+.prod-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 10px;
+  border-top: 1px solid rgba(0,0,0,0.06);
+  margin-top: 4px;
+}
+.prod-card-watts {
+  font-size: 11px;
+  color: var(--mid);
+}
+
+/* Finish dots (small, on card) */
+.finish-dots {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.finish-dot {
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(0,0,0,0.12);
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+/* Empty state when no products match */
+.prod-empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 80px 20px;
+  color: var(--mid);
+}
+.prod-empty p { font-size: 16px; margin-top: 8px; }
+.prod-empty-link {
+  background: none;
+  border: none;
+  color: var(--accent);
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: 'Lato', sans-serif;
+  text-decoration: underline;
+}
+
+
+/* ================================================================
+   6. DETAIL VIEW
+================================================================ */
+#detailView {
+  padding-top: var(--nav-height);
+}
+
+/* Two-column layout: image left, info right */
+.detail-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: calc(100vh - var(--nav-height) - 48px);
+}
+
+/* Left: sticky image panel */
+.detail-img-panel {
+  background: var(--off-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 64px;
+  position: sticky;
+  top: var(--nav-height);
+  height: calc(100vh - var(--nav-height));
+}
+.detail-img-panel img {
+  max-width: 100%;
+  max-height: 460px;
+  object-fit: contain;
+  filter: drop-shadow(0 24px 64px rgba(0,0,0,0.22));
+}
+
+/* Right: scrollable info panel */
+.detail-info {
+  padding: 52px 60px 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  overflow-y: auto;
+}
+.detail-eyebrow {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0;
+}
+.detail-name {
+  font-family: 'Libre Baskerville', serif;
+  font-size: clamp(26px, 3.2vw, 44px);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+.detail-tagline {
+  font-size: 16px;
+  color: var(--mid);
+  line-height: 1.7;
+  margin: 0;
+}
+.detail-desc {
+  font-size: 14px;
+  color: var(--mid);
+  line-height: 1.85;
+  margin: 0;
+}
+.detail-rule {
+  height: 1px;
+  background: var(--border);
+  border: none;
+  margin: 0;
+}
+
+
+/* ================================================================
+   7. FINISH SWATCHES, WATTAGE CHIPS, FEATURES, WARRANTY
+================================================================ */
+
+/* Section label (AVAILABLE WATTAGES, COLOUR FINISHES etc.) */
+.detail-spec-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--mid);
+  display: block;
+  margin-bottom: 12px;
+}
+
+/* Wattage chips */
+.watt-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.watt-chip {
+  font-size: 13px;
+  font-weight: 700;
+  padding: 6px 16px;
+  background: #f0f0ee;
+  border: 1.5px solid #d0cdc8;
+  border-radius: 20px;
+  color: var(--text);
+}
+
+/* Finish swatches (larger on detail page) */
+.finish-swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+.finish-swatch {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+.finish-swatch-dot {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 2px solid rgba(0,0,0,0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: default;
+}
+.finish-swatch-dot:hover {
+  transform: scale(1.18);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+.finish-swatch-code {
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--mid);
+}
+
+/* Key features list */
+.features-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+}
+.features-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  color: var(--text);
+  line-height: 1.55;
+}
+.features-list li::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+  margin-top: 7px;
+}
+
+/* Warranty badge */
+.warranty-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(120,183,40,0.07);
+  border: 1px solid rgba(120,183,40,0.22);
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 9px 16px;
+  border-radius: 6px;
+  align-self: flex-start;
+}
+
+/* Full specs accordion */
+.specs-accordion {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.specs-toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 20px;
+  background: var(--off-white);
+  border: none;
+  cursor: pointer;
+  font-family: 'Lato', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text);
+  transition: background 0.2s;
+}
+.specs-toggle:hover { background: var(--light-bg); }
+.specs-toggle svg { transition: transform 0.3s ease; }
+.specs-toggle.open svg { transform: rotate(180deg); }
+.specs-body {
+  display: none;
+  padding: 20px 20px 16px;
+  border-top: 1px solid var(--border);
+}
+.specs-body.open { display: block; }
+.specs-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.specs-table tr { border-bottom: 1px solid var(--border); }
+.specs-table tr:last-child { border-bottom: none; }
+.specs-table td { padding: 10px 0; vertical-align: top; }
+.specs-table td:first-child { color: var(--mid); width: 38%; font-weight: 400; }
+.specs-table td:last-child { color: var(--text); font-weight: 600; }
+
+/* CTA buttons */
+.detail-ctas {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.btn-wa-enquiry {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--wa-green);
+  color: #fff;
+  font-family: 'Lato', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  padding: 14px 28px;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: opacity 0.2s, transform 0.2s;
+}
+.btn-wa-enquiry:hover { opacity: 0.88; transform: translateY(-2px); }
+
+
+/* ================================================================
+   8. RELATED PRODUCTS SECTION
+================================================================ */
+.related-section {
+  padding: 60px 50px;
+  background: var(--off-white);
+  border-top: 1px solid var(--border);
+}
+.related-heading {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 28px;
+  letter-spacing: -0.01em;
+}
+.related-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+/* Active nav link highlight */
+.nav-products-active { font-weight: 700 !important; }
+
+
+/* ================================================================
+   9. PRINT / PDF STYLES
+   window.print() generates a clean A4 PDF catalogue
+================================================================ */
+@media print {
+  nav, footer, .whatsapp-float,
+  .prod-sidebar, .prod-header-actions,
+  .mobile-filter-row, .detail-ctas,
+  .specs-accordion, .prod-results-row,
+  .related-section { display: none !important; }
+
+  body { font-size: 12px; color: #000 !important; }
+
+  .prod-layout { display: block !important; }
+  .prod-header-inner { padding: 12px 0; border: none; }
+  .prod-main { padding: 0; }
+
+  .prod-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 12px !important;
+  }
+  .prod-card {
+    break-inside: avoid;
+    transform: none !important;
+    box-shadow: none !important;
+    border: 1px solid #ddd !important;
+  }
+  .prod-card-img { padding: 12px; aspect-ratio: unset; height: 120px; }
+  .prod-card-img img { max-height: 100px; }
+
+  @page { size: A4; margin: 15mm 12mm; }
+}
+
+
+/* ================================================================
+   10. RESPONSIVE
+================================================================ */
+@media (max-width: 1024px) {
+  .prod-layout { grid-template-columns: 196px 1fr; }
+  .prod-main { padding: 24px 28px 48px; }
+  .prod-grid { grid-template-columns: repeat(2, 1fr); }
+  .detail-layout { grid-template-columns: 1fr 1fr; }
+  .detail-info { padding: 40px 36px 60px; }
+  .related-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 700px) {
+  .prod-header-inner { padding: 20px 20px 16px; flex-direction: column; align-items: flex-start; }
+  .mobile-filter-row { display: block; }
+  .btn-mobile-filter { display: flex; }
+  .sidebar-close-x { display: block; }
+
+  .prod-layout { grid-template-columns: 1fr; }
+
+  .prod-sidebar {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 400;
+    height: 100vh;
+    overflow-y: auto;
+    padding: 72px 24px 40px;
+  }
+  .prod-sidebar.open { display: block; }
+
+  .prod-main { padding: 20px 16px 48px; }
+  .prod-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+
+  .detail-layout { grid-template-columns: 1fr; }
+  .detail-img-panel {
+    position: relative;
+    height: 300px;
+    padding: 32px;
+    top: 0;
+  }
+  .detail-info { padding: 28px 20px 48px; gap: 18px; }
+  .detail-name { font-size: 28px; }
+  .detail-tagline { font-size: 14px; }
+
+  .related-section { padding: 40px 20px; }
+  .related-grid { grid-template-columns: repeat(2, 1fr); }
+}

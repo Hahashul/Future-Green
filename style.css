@@ -473,6 +473,13 @@ nav.nav-solid .hamburger span { background: var(--text); }
   cursor: pointer;
   text-decoration: none;
   display: block;
+  outline: 2px solid transparent;
+  outline-offset: -2px;
+  transition: outline-color 0.35s ease, box-shadow 0.35s ease;
+}
+.cat-cell:hover {
+  outline-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent), 0 8px 32px rgba(120,183,40,0.22);
 }
 
 /* The background image/gradient — zooms on hover */
