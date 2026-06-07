@@ -23,23 +23,50 @@
 
 /* ================================================================
    1. CSS VARIABLES
-   Change these to restyle the whole site instantly.
-   --accent is your brand green — change it here and it updates everywhere.
+   ─────────────────────────────────────────────────────────────
+   CSS variables (also called "custom properties") let you define
+   a value ONCE and reuse it anywhere in this file.
+
+   HOW TO READ THEM:
+     --variable-name: value;        ← definition (here in :root)
+     color: var(--variable-name);   ← how you USE it elsewhere
+
+   WHY :root ?
+     :root means "the very top of the page" — so every element
+     in the whole site can see and use these variables.
+
+   HOW TO CUSTOMISE:
+     • Change --accent to any hex colour to update ALL green
+       accents in one go (numbers, hover borders, icons, etc.)
+     • Change --nav-height if you make the logo taller/shorter
+       (it's also read by script.js for scroll offset maths)
 ================================================================ */
 :root {
-  --white:      #ffffff;
-  --off-white:  #f4f2ee;
-  --light-bg:   #f0ede8;
-  --black:      #0a0a0a;
-  --text:       #1a1a1a;
-  --mid:        #666666;
-  --border:     #e0ddd8;
-  --accent:     #78b728;   /* brand green — used on stats numbers, hover accents */
-  --wa-green:   #25D366;   /* WhatsApp's official green */
-  --nav-height: 80px;      /* used in JS scroll offset too */
+  --white:      #ffffff;   /* pure white — page background, card backgrounds          */
+  --off-white:  #f4f2ee;   /* warm off-white — stats cards, about section bg          */
+  --light-bg:   #f0ede8;   /* slightly darker warm bg — contact form wrapper          */
+  --black:      #0a0a0a;   /* near-black — rarely used directly                       */
+  --text:       #1a1a1a;   /* main body text colour                                   */
+  --mid:        #666666;   /* secondary/muted text — captions, sub-labels             */
+  --border:     #e0ddd8;   /* light border lines between elements                     */
+  --accent:     #78b728;   /* ★ BRAND GREEN — change this to re-theme the whole site  */
+  --wa-green:   #25D366;   /* WhatsApp's official green — don't change this           */
+  --nav-height: 80px;      /* height of the top navigation bar (also used in JS)      */
 }
 
-/* Secret dark mode — toggled by clicking the developer credit in the footer */
+/* ─────────────────────────────────────────────────────────────
+   SECRET DARK MODE
+   ─────────────────────────────────────────────────────────────
+   When JS adds the class "dark-mode" to <body>, these variables
+   OVERRIDE the ones above. Because every style in this file uses
+   var(--white), var(--text), etc., swapping the variable values
+   here instantly re-skins everything with no other CSS changes.
+
+   HOW TO TRIGGER IT:
+     Click the developer credit text in the footer.
+     The preference is saved to localStorage so it persists
+     between page visits. (See Section 8 in script.js.)
+─────────────────────────────────────────────────────────────── */
 body.dark-mode {
   --white:     #111111;
   --off-white: #1a1a1a;
@@ -542,7 +569,7 @@ nav.nav-solid .hamburger span { background: var(--text); }
   font-size: 11px;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: rgba(15, 3, 3, 0.45);
+  color: var(--mid);
   font-weight: 700;
 }
 
@@ -569,6 +596,17 @@ nav.nav-solid .hamburger span { background: var(--text); }
   margin-top: 8px;
   margin-bottom: 0;
 }
+/* ─────────────────────────────────────────────────────────────
+   .strip-hint  —  the small grey line under the heading that
+   says "Hover any card to explore · Use arrows to browse".
+
+   On desktop this is a useful hint so we keep it visible.
+   On mobile (below 700px) we hide it — see the @media block
+   at the bottom of this file.
+
+   TO CHANGE THE TEXT: edit it in index.html, search for
+   class="strip-hint"
+─────────────────────────────────────────────────────────────── */
 .strip-hint {
   font-size: 12px;
   color: var(--mid);
@@ -597,9 +635,37 @@ nav.nav-solid .hamburger span { background: var(--text); }
 }
 
 
-/* Edge nav buttons hidden — user scrolls naturally */
+/* Edge nav buttons — visible on desktop, shown on section hover */
 .strip-nav {
-  display: none;
+  display: none; /* shown by hover rule below on desktop */
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 20;
+  align-items: center;
+  justify-content: center;
+  width: 44px; height: 44px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+.strip-nav:hover {
+  background: var(--text);
+  color: var(--white);
+  transform: translateY(-50%) scale(1.08);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.18);
+}
+.strip-nav svg { pointer-events: none; }
+.strip-nav-prev { left: 12px; }
+.strip-nav-next { right: 12px; }
+
+/* Show buttons when user hovers the strip area on desktop */
+.strip-outer:hover .strip-nav,
+.strip-outer:focus-within .strip-nav {
+  display: flex;
 }
 
 
@@ -809,7 +875,7 @@ nav.nav-solid .hamburger span { background: var(--text); }
   grid-template-columns: 1fr 1fr;
   min-height: 480px;
   background: var(--off-white);
-  padding: 48px 48px 48px 48px;
+  padding: 48px;
   gap: 0;
 }
 
@@ -1130,42 +1196,7 @@ textarea { resize: vertical; }
 }
 
 
-/* "VIEW MORE" TYPE LINK */
-.link-arrow {
-
-  /* space above the link */
-  margin-top: 8px;
-
-  /* flex layout */
-  display: inline-flex;
-
-  /* vertically aligns text + arrow */
-  align-items: center;
-
-  /* gap between text and arrow */
-  gap: 8px;
-
-  /* width only as big as content */
-  width: fit-content;
-
-  /* space below text before border */
-  padding-bottom: 6px;
-
-  /* bottom underline */
-  border-bottom: 1px solid #1b1b1b;
-
-  /* removes default underline */
-  text-decoration: none;
-
-  /* text color */
-  color: var(--text);
-
-  /* font size */
-  font-size: 15px;
-
-  /* medium thickness */
-  font-weight: 500;
-}
+/* "Follow us on social" link — uses .link-arrow utility defined in section 3 */
 
 
 /* IMAGE GRID */
@@ -1510,6 +1541,7 @@ a.location-link:hover { color: var(--accent); }
 
 /* ================================================================
    14. RESPONSIVE STYLES
+================================================================ */
 
 /* ── TABLET (max 1024px) ──────────────────────────────────────── */
 @media (max-width: 1024px) {
@@ -1612,6 +1644,16 @@ a.location-link:hover { color: var(--accent); }
   .stat-card  { padding: 28px 16px; }
 
   /* PRODUCT STRIP: mobile fixes */
+
+  /* ─────────────────────────────────────────────────────────
+     Hide the "Hover any card to explore" hint on mobile.
+     Hovering doesn't exist on touchscreens, so this line
+     would confuse visitors. We simply set display:none to
+     make it disappear. The arrows hint is also irrelevant
+     because .strip-nav below is already hidden on mobile.
+  ───────────────────────────────────────────────────────── */
+  .strip-hint       { display: none; }
+
   .strip-nav        { display: none; }           /* remove prev/next arrows */
   .strip-wrapper    { overflow: hidden; cursor: default; }
   .strip-card       { width: 180px; height: 260px; }
