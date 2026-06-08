@@ -2,32 +2,6 @@
 <!-- ============================================================
   products.html — Future Green Product Catalogue
   ──────────────────────────────────────────────────────────────
-  ONE FILE handles three views driven by URL params:
-
-    products.html              → all 22 products
-    products.html?cat=cob      → COB Spotlights only
-    products.html?id=lotus-concealed → product detail page
-
-  Category slug → JSON category mapping:
-    cob       → COB Spotlight
-    panel     → Recessed Slim Panel, Surface Panel
-    downlight → Downlight, Designer · Dual-Colour
-    flood     → Outdoor · Flood
-    street    → Outdoor · Street, Outdoor · Wall
-    rope      → Flexible, Power
-
-  ALSO UPDATE index.html category hrefs (search cat-cell):
-    COB        → href="products.html?cat=cob"
-    Flood      → href="products.html?cat=flood"
-    Downlights → href="products.html?cat=downlight"
-    Panels     → href="products.html?cat=panel"
-    Rope       → href="products.html?cat=rope"
-    Street     → href="products.html?cat=street"
-============================================================ -->
-<!DOCTYPE html>
-<!-- ============================================================
-  products.html — Future Green Product Catalogue
-  ──────────────────────────────────────────────────────────────
   HOW THE FILES WORK TOGETHER:
   • products.html      → structure & content (this file)
   • style.css          → shared styles (nav, footer, colours, fonts)
@@ -50,9 +24,174 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- ── Page title (JS updates this per category / product) -->
-  <title>Products — Future Green | LED Lighting India</title>
-  <meta name="description" content="Browse the complete Future Green LED catalogue — COB spotlights, panel lights, flood lights, street lights, rope light and more. 2-year warranty." />
+  <!-- ── TITLE: appears in the browser tab and Google search results
+       ★ TO CHANGE: edit the text between <title> and </title>
+       Note: products.js also updates this dynamically per category / product -->
+  <title>LED Lighting Products — Future Green | COB, Panel, Flood &amp; More</title>
+
+  <!-- ══════════════════════════════════════════════════════════
+       SEO META TAGS
+       These are invisible to visitors but Google reads them.
+       They control how your site appears in search results.
+  ══════════════════════════════════════════════════════════ -->
+
+  <!-- ── description: the text shown under your link in Google results -->
+  <meta name="description" content="Shop the complete Future Green LED catalogue — COB spotlights, slim panel lights, outdoor flood lights, street lights, downlights, rope &amp; strip lights. 2-year warranty. Dealer &amp; bulk enquiries welcome." />
+
+  <!-- ── keywords: words Google uses to understand what your page is about -->
+  <meta name="keywords" content="LED lights India, COB spotlight, LED panel light, flood light, street light, downlight, rope light, LED strip, LED catalogue Bhopal, buy LED lights India, energy saving lights, Future Green LED" />
+
+  <!-- ── author: your company name -->
+  <meta name="author" content="Future Green" />
+
+  <!-- ── robots: allows Google to index this page and follow all its links -->
+  <meta name="robots" content="index, follow" />
+
+  <!-- ── canonical: tells Google THIS is the official URL for this page -->
+  <link rel="canonical" href="https://futuregreenindia.com/products.html" />
+
+
+  <!-- ══════════════════════════════════════════════════════════
+       OPEN GRAPH (OG) TAGS
+       Control the preview card when this page is shared on
+       WhatsApp, Facebook, LinkedIn, etc.
+       ★ TO CHANGE: edit the content="..." on each line
+  ══════════════════════════════════════════════════════════ -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content="https://futuregreenindia.com/products.html" />
+  <meta property="og:title"       content="LED Lighting Products — Future Green | COB, Panel, Flood &amp; More" />
+  <meta property="og:description" content="Browse 22+ LED products — COB spotlights, slim panels, outdoor flood &amp; street lights, downlights, rope &amp; strip. 2-year warranty. Dealer enquiries welcome." />
+  <meta property="og:image"       content="https://futuregreenindia.com/resources/logo.png" />
+  <meta property="og:locale"      content="en_IN" />
+  <meta property="og:site_name"   content="Future Green" />
+
+  <!-- ── Twitter card: preview specifically for Twitter / X shares -->
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="LED Lighting Products — Future Green | COB, Panel, Flood &amp; More" />
+  <meta name="twitter:description" content="Browse 22+ LED products — COB spotlights, panels, flood lights, street lights, downlights, rope &amp; strip. 2-year warranty." />
+  <meta name="twitter:image"       content="https://futuregreenindia.com/resources/logo.png" />
+
+
+  <!-- ══════════════════════════════════════════════════════════
+       STRUCTURED DATA (JSON-LD)
+       Three schemas stacked together:
+       1. WebPage  — marks this as a product-catalogue page
+       2. BreadcrumbList — shows "Home > Products" in Google results
+       3. ItemList — lists each product category for rich results
+       ★ DO NOT change the @context, @type, or key names
+  ══════════════════════════════════════════════════════════ -->
+  <script type="application/ld+json">
+  [
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "LED Lighting Products — Future Green",
+      "url": "https://futuregreenindia.com/products.html",
+      "description": "Complete LED product catalogue from Future Green — COB spotlights, slim panel lights, outdoor flood lights, street lights, downlights, rope and strip lights with 2-year warranty.",
+      "inLanguage": "en-IN",
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "Future Green",
+        "url": "https://futuregreenindia.com"
+      },
+      "breadcrumb": {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://futuregreenindia.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Products",
+            "item": "https://futuregreenindia.com/products.html"
+          }
+        ]
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Future Green",
+        "url": "https://futuregreenindia.com",
+        "logo": "https://futuregreenindia.com/resources/logo.png",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "A-09, IT Park, Badwai",
+          "addressLocality": "Bhopal",
+          "addressRegion": "Madhya Pradesh",
+          "addressCountry": "IN"
+        },
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "telephone": "+91-9039099107",
+          "email": "contact@futuregreenindia.com",
+          "contactType": "sales",
+          "availableLanguage": ["English", "Hindi"]
+        },
+        "sameAs": [
+          "https://www.instagram.com/fgledindia",
+          "https://www.facebook.com/fgledindia",
+          "https://www.linkedin.com/company/future-green-india/"
+        ]
+      }
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "name": "Future Green LED Product Categories",
+      "url": "https://futuregreenindia.com/products.html",
+      "description": "Browse all LED lighting categories from Future Green — India-manufactured, 2-year warranty.",
+      "numberOfItems": 6,
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "COB Spotlights",
+          "url": "https://futuregreenindia.com/products.html?cat=cob",
+          "description": "High-output adjustable COB spotlights for residential and commercial ceilings."
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Panel Lights",
+          "url": "https://futuregreenindia.com/products.html?cat=panel",
+          "description": "Ultra-slim recessed and surface-mount LED panel lights for offices and homes."
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Downlights",
+          "url": "https://futuregreenindia.com/products.html?cat=downlight",
+          "description": "Designer and dual-colour LED downlights for modern interiors."
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "Flood Lights",
+          "url": "https://futuregreenindia.com/products.html?cat=flood",
+          "description": "Weatherproof outdoor LED flood lights for façades, gardens, and stadiums."
+        },
+        {
+          "@type": "ListItem",
+          "position": 5,
+          "name": "Street Lights",
+          "url": "https://futuregreenindia.com/products.html?cat=street",
+          "description": "Heavy-duty outdoor LED street and wall lights for roads and public spaces."
+        },
+        {
+          "@type": "ListItem",
+          "position": 6,
+          "name": "Rope &amp; Strip Lights",
+          "url": "https://futuregreenindia.com/products.html?cat=rope",
+          "description": "Flexible and power LED rope and strip lights for decorative and accent lighting."
+        }
+      ]
+    }
+  ]
+  </script>
+
 
   <!-- ── Favicons -->
   <link rel="icon"             href="resources/favicon.ico" />
