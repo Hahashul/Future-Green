@@ -560,7 +560,7 @@ const formSuccess   = document.getElementById('formSuccess');
 /* Find the submit button inside the form (if the form exists) */
 const submitBtn     = contactForm ? contactForm.querySelector('.btn-submit') : null;
 
-if (contactForm && formSuccess) {
+if (contactForm && formSuccess && submitBtn) {
   /* async function means we can use "await" inside it —
      this lets us write async code that reads like normal step-by-step code */
   contactForm.addEventListener('submit', async function (e) {

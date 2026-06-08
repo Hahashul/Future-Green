@@ -1721,6 +1721,7 @@ a.location-link:hover { color: var(--accent); }
 
   /* CONTACT: stack form fields */
   .contact            { padding: 40px 16px 0; }
+  .btn-submit         { width: 100%; }
   .contact-wrapper {
     padding: 40px 24px;
     border-radius: 24px;

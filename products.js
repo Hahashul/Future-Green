@@ -26,6 +26,15 @@
      products.html?cat=cob      → show filtered category
      products.html?id=lotus-concealed → show product detail
 ================================================================ */
+/* ── HTML escape helper — prevents XSS when injecting data into innerHTML ── */
+function esc(str) {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
 var activeCat = 'all';
 
 function init() {
@@ -67,7 +76,7 @@ function buildSidebar() {
     btn.className = 'cat-filter-btn' + (cat.slug === activeCat ? ' active' : '');
     btn.setAttribute('role', 'menuitem');
     btn.innerHTML =
-      '<span>' + cat.label + '</span>' +
+      '<span>' + esc(cat.label) + '</span>' +
       '<span class="cat-count">' + count + '</span>';
 
     btn.addEventListener('click', () => {
@@ -146,19 +155,19 @@ function renderGrid() {
 
     /* Wattage display: first – last */
     const watts = p.wattages && p.wattages.length
-      ? p.wattages[0] + (p.wattages.length > 1 ? ' – ' + p.wattages[p.wattages.length - 1] + 'W' : 'W')
+      ? p.wattages[0] + 'W' + (p.wattages.length > 1 ? ' – ' + p.wattages[p.wattages.length - 1] + 'W' : '')
       : '';
 
     card.innerHTML =
       '<div class="prod-card-img">' +
-        '<img src="resources/' + p.id + '.png" alt="' + p.name + '" loading="lazy" onerror="this.style.opacity=\'0\'">' +
+        '<img src="resources/' + esc(p.id) + '.png" alt="' + esc(p.name) + '" loading="lazy" onerror="this.style.opacity=\'0\'">' +
       '</div>' +
       '<div class="prod-card-body">' +
-        '<span class="prod-card-cat">' + p.category + '</span>' +
-        '<h2 class="prod-card-name">' + p.name + '</h2>' +
-        '<p class="prod-card-tagline">' + p.tagline + '</p>' +
+        '<span class="prod-card-cat">' + esc(p.category) + '</span>' +
+        '<h2 class="prod-card-name">' + esc(p.name) + '</h2>' +
+        '<p class="prod-card-tagline">' + esc(p.tagline) + '</p>' +
         '<div class="prod-card-footer">' +
-          '<span class="prod-card-watts">' + watts + '</span>' +
+          '<span class="prod-card-watts">' + esc(watts) + '</span>' +
           '<div class="finish-dots">' + dots + '</div>' +
         '</div>' +
       '</div>';
@@ -190,7 +199,7 @@ function showDetail(p) {
   /* Wattages */
   if (p.wattages && p.wattages.length) {
     document.getElementById('detailWatts').innerHTML =
-      p.wattages.map(w => '<span class="watt-chip">' + w + 'W</span>').join('');
+      p.wattages.map(w => '<span class="watt-chip">' + esc(w) + 'W</span>').join('');
   } else {
     document.getElementById('wattsBlock').style.display = 'none';
   }
@@ -202,7 +211,7 @@ function showDetail(p) {
       return '<div class="finish-swatch">' +
         '<span class="finish-swatch-dot" style="background:' + c.bg +
         ';border-color:' + c.bd + ';" title="' + c.lbl + '"></span>' +
-        '<span class="finish-swatch-code">' + f + '</span>' +
+        '<span class="finish-swatch-code">' + esc(f) + '</span>' +
         '</div>';
     }).join('');
   } else {
@@ -212,7 +221,7 @@ function showDetail(p) {
   /* Features */
   if (p.features && p.features.length) {
     document.getElementById('detailFeatures').innerHTML =
-      p.features.map(f => '<li>' + f + '</li>').join('');
+      p.features.map(f => '<li>' + esc(f) + '</li>').join('');
   } else {
     document.getElementById('featuresBlock').style.display = 'none';
   }
@@ -227,7 +236,7 @@ function showDetail(p) {
   ];
   document.getElementById('specsBody').innerHTML =
     '<table class="specs-table">' +
-    rows.map(r => '<tr><td>' + r[0] + '</td><td>' + r[1] + '</td></tr>').join('') +
+    rows.map(r => '<tr><td>' + esc(r[0]) + '</td><td>' + esc(r[1]) + '</td></tr>').join('') +
     '</table>';
 
   /* WhatsApp pre-filled message */
@@ -252,13 +261,13 @@ function showDetail(p) {
       }).join('');
       const rWatts = rp.wattages && rp.wattages.length ? rp.wattages[0] + 'W' : '';
       card.innerHTML =
-        '<div class="prod-card-img"><img src="resources/' + rp.id + '.png" alt="' + rp.name + '" loading="lazy" onerror="this.style.opacity=\'0\'"></div>' +
+        '<div class="prod-card-img"><img src="resources/' + esc(rp.id) + '.png" alt="' + esc(rp.name) + '" loading="lazy" onerror="this.style.opacity=\'0\'"></div>' +
         '<div class="prod-card-body">' +
-          '<span class="prod-card-cat">' + rp.category + '</span>' +
-          '<h3 class="prod-card-name">' + rp.name + '</h3>' +
-          '<p class="prod-card-tagline">' + rp.tagline + '</p>' +
+          '<span class="prod-card-cat">' + esc(rp.category) + '</span>' +
+          '<h3 class="prod-card-name">' + esc(rp.name) + '</h3>' +
+          '<p class="prod-card-tagline">' + esc(rp.tagline) + '</p>' +
           '<div class="prod-card-footer">' +
-            '<span class="prod-card-watts">' + rWatts + '</span>' +
+            '<span class="prod-card-watts">' + esc(rWatts) + '</span>' +
             '<div class="finish-dots">' + dots + '</div>' +
           '</div>' +
         '</div>';
