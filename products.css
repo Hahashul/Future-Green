@@ -34,39 +34,66 @@
 ================================================================ */
 
 
-/* ── PAGE HEADER ──────────────────────────────────────────────── */
+/* ── PAGE HEADER — mirrors index.html hero exactly ───────────── */
 .prod-header {
-  padding-top: var(--nav-height);
-  background: var(--off-white);
+  position: relative;
+  width: 100%;
+  height: 70vh;
+  min-height: 420px;
+  overflow: hidden;
+  background: #f4f2ee;
+  margin-top: var(--nav-height);
 }
-.prod-header-inner {
-  padding: 20px 50px 16px;
+
+/* Background image layer — cropped from top to hide white space */
+.prod-hero-img {
+  position: absolute;
+  inset: 0;
+  background: url('resources/product-range-overview.png') center 65% / cover no-repeat;
+}
+
+/* NO left gradient — removed completely */
+.prod-hero-overlay {
+  display: none;
+}
+
+/* Clean bottom fade only — the one you loved */
+.prod-hero-strip {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to bottom, transparent 0%, rgba(10,10,10,0.72) 100%);
+}
+.prod-hero-strip-inner {
+  padding: 60px 80px 48px;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: space-between;
   gap: 16px;
   flex-wrap: wrap;
-  border-bottom: 1px solid var(--border);
 }
+
 .prod-eyebrow {
-  font-size: 11px;
-  font-weight: 500;
+  font-size: 13px;
+  font-weight: 700;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--accent);
   margin-bottom: 8px;
   display: block;
 }
-.prod-header-inner h1 {
-  font-size: clamp(22px, 2.5vw, 32px);
+.prod-hero-strip-inner h1 {
+  font-size: clamp(28px, 3.5vw, 48px);
   font-weight: 700;
   line-height: 1.1;
   letter-spacing: -0.02em;
-  margin: 0 0 4px;
+  margin: 0 0 6px;
+  color: #ffffff;
 }
 .prod-header-sub {
-  font-size: 14px;
-  color: var(--mid);
+  font-size: 15px;
+  color: rgba(255,255,255,0.70);
   max-width: 500px;
   line-height: 1.6;
   margin: 0;
@@ -76,6 +103,21 @@
   gap: 12px;
   flex-shrink: 0;
   align-items: center;
+}
+
+/* ── NAV OVERRIDE — force dark links on products page (no hero behind nav) */
+html { scroll-behavior: smooth; }
+#mainNav .nav-links a,
+#mainNav .hamburger span {
+  color: var(--text) !important;
+}
+#mainNav .hamburger span {
+  background: var(--text) !important;
+}
+/* Lock nav permanently white/solid — prevent script.js from making it transparent */
+#mainNav {
+  background: var(--white) !important;
+  box-shadow: 0 1px 0 var(--border) !important;
 }
 
 /* Download Catalogue button */
@@ -717,7 +759,8 @@
 }
 
 @media (max-width: 700px) {
-  .prod-header-inner { padding: 20px 20px 16px; flex-direction: column; align-items: flex-start; }
+  .prod-header { height: 52vh; min-height: 360px; }
+  .prod-hero-strip-inner { padding: 24px 20px 28px; flex-direction: column; align-items: flex-start; }
   .mobile-filter-row { display: block; }
   .btn-mobile-filter { display: flex; }
   .sidebar-close-x { display: block; }

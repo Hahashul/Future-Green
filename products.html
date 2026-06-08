@@ -127,24 +127,28 @@
   ══════════════════════════════════════════════════════════ -->
   <div id="listingView">
 
-    <!-- Page header: eyebrow + title + subtitle + download button -->
+    <!-- Page header: full-width hero image with overlay strip at bottom -->
     <div class="prod-header">
-      <div class="prod-header-inner">
-        <div>
-          <!-- These three are updated by JS based on active category -->
-          <span class="prod-eyebrow" id="listEyebrow">Full Catalogue</span>
-          <h1 id="listTitle">All Products</h1>
-          <p class="prod-header-sub" id="listSub">Browse our complete range of LED lighting solutions.</p>
-        </div>
-        <div class="prod-header-actions">
-          <!-- Triggers window.print() which uses the @media print CSS in products.css -->
-          <button class="btn-pdf" onclick="window.print()">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
-              <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
-              <polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
-            </svg>
-            Download Catalogue
-          </button>
+      <div class="prod-hero-img" aria-hidden="true"></div>
+      <div class="prod-hero-overlay" aria-hidden="true"></div>
+      <div class="prod-hero-strip">
+        <div class="prod-hero-strip-inner">
+          <div>
+            <!-- These three are updated by JS based on active category -->
+            <span class="prod-eyebrow" id="listEyebrow">Full Catalogue</span>
+            <h1 id="listTitle">All Products</h1>
+            <p class="prod-header-sub" id="listSub">Browse our complete range of LED lighting solutions.</p>
+          </div>
+          <div class="prod-header-actions">
+            <!-- Triggers window.print() which uses the @media print CSS in products.css -->
+            <button class="btn-pdf" onclick="window.print()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+                <polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+              </svg>
+              Download Catalogue
+            </button>
+          </div>
         </div>
       </div>
 
