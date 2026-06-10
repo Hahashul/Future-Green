@@ -1644,55 +1644,16 @@ a.location-link:hover { color: var(--accent); }
 
   /* PRODUCT STRIP: mobile fixes */
 
-  /* ─────────────────────────────────────────────────────────
-     Hide the "Hover any card to explore" hint on mobile.
-     Hovering doesn't exist on touchscreens, so this line
-     would confuse visitors. We simply set display:none to
-     make it disappear. The arrows hint is also irrelevant
-     because .strip-nav below is already hidden on mobile.
-  ───────────────────────────────────────────────────────── */
-  .strip-hint       { display: none; }
+  /* Hide the "Hover any card to explore" hint — hover doesn't exist on touch */
+  .strip-hint    { display: none; }
+  .strip-nav     { display: none; }      /* remove prev/next arrows on mobile */
+  .strip-wrapper { overflow: hidden; cursor: default; }
+  .strip-card    { width: 160px; height: 240px; }
+  .strip-card:hover { width: 160px; }   /* prevent desktop hover expanding on tablet */
 
-  .strip-nav        { display: none; }           /* remove prev/next arrows */
-  .strip-wrapper    { overflow: hidden; cursor: default; }
-  .strip-card       { width: 160px; height: 240px; }
-  .strip-card:hover { width: 160px; }
-
-  /* Tap-expanded card: wider card, smaller image, info panel on right */
-  .strip-card.expanded {
-    width: 320px;
-    height: 240px;
-    border-color: rgba(120, 183, 40, 0.3);
-    box-shadow: 0 20px 60px rgba(0,0,0,0.15), 0 4px 16px rgba(0,0,0,0.1);
-    background: var(--off-white);
-    z-index: 10;
-  }
-  .strip-card.expanded .strip-card-img {
-    flex: 0 0 130px;
-    width: 130px;
-    padding: 12px 10px;
-  }
-  .strip-card.expanded .strip-card-img img {
-    max-width: 110px;
-    max-height: 120px;
-    transform: scale(1.05) translateY(-2px);
-  }
-  .strip-card.expanded .strip-card-info {
-    display: flex;
-    opacity: 1;
-    transform: translateX(0);
-    width: 190px;
-    padding: 12px 12px 12px 10px;
-    gap: 6px;
-  }
-  /* Tighter typography inside mobile info panel */
-  .strip-card.expanded .strip-info-name { font-size: 12px; }
-  .strip-card.expanded .strip-info-desc { font-size: 10px; line-height: 1.4; }
-  .strip-card.expanded .strip-info-tags { gap: 3px; margin-top: 0; }
-  .strip-card.expanded .strip-info-tags span {
-    font-size: 9px;
-    padding: 3px 7px;
-  }
+  /* Info panel and hint are desktop-only; keep them hidden on touch */
+  .strip-card-info  { display: none; }
+  .strip-info-hint  { display: none; }
 
   .strip-card-left  { flex-direction: row; }
   .strip-card-img   {
@@ -1704,7 +1665,6 @@ a.location-link:hover { color: var(--accent); }
     padding: 14px;
   }
   .strip-card-img img { max-width: 130px; max-height: 140px; width: 100%; margin: 0 auto; }
-  .strip-card-info  { display: none; }           /* hidden until .expanded is added */
 
   /* ABOUT: hide image on mobile, full-width text */
   .about-images { display: none; }
@@ -1763,3 +1723,140 @@ a.location-link:hover { color: var(--accent); }
 .strip-card:hover .strip-card-label {
   background: rgba(0, 0, 0, 0.1) !important;
 }
+
+/* ================================================================
+   MOBILE PRODUCT BOTTOM-SHEET POPUP
+   Created by JS on touch devices. Slides up from the bottom
+   when a product card is tapped.
+================================================================ */
+
+.strip-popup {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  visibility: hidden;
+  pointer-events: none;
+}
+.strip-popup.open {
+  visibility: visible;
+  pointer-events: auto;
+}
+.strip-popup-bd {
+  position: absolute;
+  inset: 0;
+  background: rgba(10,10,10,0.55);
+  opacity: 0;
+  transition: opacity 0.28s ease;
+}
+.strip-popup.open .strip-popup-bd { opacity: 1; }
+
+.strip-popup-sheet {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  background: var(--white);
+  border-radius: 20px 20px 0 0;
+  padding: 24px 20px 36px;
+  transform: translateY(100%);
+  transition: transform 0.32s cubic-bezier(0.4,0,0.2,1);
+  box-shadow: 0 -4px 32px rgba(0,0,0,0.12);
+}
+.strip-popup.open .strip-popup-sheet { transform: translateY(0); }
+
+.strip-popup-sheet::before {
+  content: '';
+  display: block;
+  width: 40px; height: 4px;
+  background: var(--border);
+  border-radius: 2px;
+  margin: 0 auto 20px;
+}
+
+.strip-popup-close {
+  position: absolute;
+  top: 18px; right: 16px;
+  width: 32px; height: 32px;
+  background: var(--off-white);
+  border: none;
+  border-radius: 50%;
+  font-size: 15px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--mid);
+  transition: background 0.15s;
+}
+.strip-popup-close:active { background: var(--border); }
+
+.strip-popup-top {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.strip-popup-img-wrap {
+  flex: 0 0 96px; height: 96px;
+  background: var(--off-white);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.strip-popup-img {
+  max-width: 76px; max-height: 76px;
+  object-fit: contain;
+  display: block;
+}
+
+.strip-popup-meta { flex: 1; min-width: 0; padding-top: 2px; }
+
+.strip-popup-cat {
+  font-size: 9px; font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 4px;
+}
+.strip-popup-name {
+  font-size: 17px; font-weight: 700;
+  color: var(--text);
+  line-height: 1.2;
+  margin: 0 0 6px;
+  letter-spacing: -0.01em;
+}
+.strip-popup-desc {
+  font-size: 12px;
+  color: var(--mid);
+  line-height: 1.6;
+  margin: 0 0 10px;
+}
+.strip-popup-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+.strip-popup-tags span {
+  font-size: 10px;
+  color: var(--text);
+  background: var(--off-white);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 3px 10px;
+}
+
+.strip-popup-btn {
+  display: block;
+  text-align: center;
+  background: var(--accent);
+  color: #fff;
+  text-decoration: none;
+  padding: 15px 24px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  transition: opacity 0.15s;
+}
+.strip-popup-btn:active { opacity: 0.85; }

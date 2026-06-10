@@ -289,6 +289,106 @@ const STRIP_PRODUCTS = [
   var track = document.getElementById('stripTrack');
   if (!track) return; /* safety: exit if element not found */
 
+  /* ── Touch detection ─────────────────────────────────────────
+     matchMedia('hover: none') is unreliable on modern Android Chrome
+     (Chrome reports hover:hover even on pure-touch phones).
+     Using ontouchstart / maxTouchPoints is far more reliable.      */
+  var isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+
+  /* ── Animation state variables ──────────────────────────────
+     Declared here (before the card loop) so the popup helpers
+     below can reference `paused` at call time.                  */
+  var pos         = 0;
+  var speed       = 1;
+  var paused      = false;
+  var manualMode  = false;
+  var isScrolling = false;
+  var resumeTimer = null;
+  var setWidth    = 0;
+
+  /* ── Mobile bottom-sheet popup ───────────────────────────────
+     On touch devices the hover panel can't show, so we create a
+     slide-up sheet fixed to the bottom of the screen instead.
+     First tap  → opens the sheet with product details.
+     "View Details" button (or second tap on sheet link) → navigates.
+     Tapping the backdrop or ✕ → closes without navigating.        */
+  var popup     = null;
+  var popupImg  = null;
+  var popupCat  = null;
+  var popupName = null;
+  var popupDesc = null;
+  var popupTags = null;
+  var popupBtn  = null;
+
+  if (isTouch) {
+    popup = document.createElement('div');
+    popup.className = 'strip-popup';
+    popup.setAttribute('aria-hidden', 'true');
+    popup.setAttribute('role', 'dialog');
+    popup.setAttribute('aria-label', 'Product details');
+    popup.innerHTML =
+      '<div class="strip-popup-bd"></div>' +
+      '<div class="strip-popup-sheet">' +
+        '<button class="strip-popup-close" aria-label="Close product preview">✕</button>' +
+        '<div class="strip-popup-top">' +
+          '<div class="strip-popup-img-wrap"><img class="strip-popup-img" src="" alt="" loading="lazy"></div>' +
+          '<div class="strip-popup-meta">' +
+            '<p class="strip-popup-cat"></p>' +
+            '<p class="strip-popup-name"></p>' +
+            '<p class="strip-popup-desc"></p>' +
+            '<div class="strip-popup-tags"></div>' +
+          '</div>' +
+        '</div>' +
+        '<a class="strip-popup-btn" href="#">View Details →</a>' +
+      '</div>';
+    document.body.appendChild(popup);
+
+    popupImg  = popup.querySelector('.strip-popup-img');
+    popupCat  = popup.querySelector('.strip-popup-cat');
+    popupName = popup.querySelector('.strip-popup-name');
+    popupDesc = popup.querySelector('.strip-popup-desc');
+    popupTags = popup.querySelector('.strip-popup-tags');
+    popupBtn  = popup.querySelector('.strip-popup-btn');
+
+    /* ── Open popup with data from a tapped product ── */
+    function openPopup(p, href) {
+      popupImg.src           = 'resources/' + p.id + '.png';
+      popupImg.alt           = p.name;
+      popupCat.textContent   = p.cat;
+      popupName.textContent  = p.name;
+      popupDesc.textContent  = p.desc;
+      popupTags.innerHTML    =
+        '<span>' + p.watts  + '</span>' +
+        '<span>' + p.finish + '</span>' +
+        '<span>2-yr warranty</span>';
+      popupBtn.href = href;
+      popup.classList.add('open');
+      popup.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden'; /* lock background scroll */
+      paused = true;                            /* pause the carousel     */
+    }
+
+    /* ── Close popup ── */
+    function closePopup() {
+      popup.classList.remove('open');
+      popup.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      paused = false; /* resume the carousel */
+    }
+
+    /* Close on backdrop tap or ✕ button */
+    popup.querySelector('.strip-popup-bd').addEventListener('click', closePopup);
+    popup.querySelector('.strip-popup-close').addEventListener('click', closePopup);
+
+    /* Also close when Escape is pressed */
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && popup.classList.contains('open')) closePopup();
+    });
+
+    /* Expose openPopup so card click handlers below can call it */
+    popup._open = openPopup;
+  }
+
   /* ── Build cards (two full sets for the seamless loop) ──
      We loop twice ([0, 1]) to create two copies of all products.
      When set 1 scrolls off the left, we snap back to set 2
@@ -309,7 +409,7 @@ const STRIP_PRODUCTS = [
           '<div class="strip-card-img">' +
             '<img src="resources/' + p.id + '.png" loading="lazy" alt="' + p.name + '">' +
           '</div>' +
-          /* strip-card-info is the panel that slides in on hover (hidden on mobile) */
+          /* strip-card-info is the panel that slides in on hover (desktop only) */
           '<div class="strip-card-info">' +
             '<p class="strip-info-cat">'  + p.cat   + '</p>' +
             '<p class="strip-info-name">' + p.name  + '</p>' +
@@ -330,39 +430,21 @@ const STRIP_PRODUCTS = [
           '<p class="strip-info-hint">View details →</p>' +
         '</div>';
 
-      /* ── Mobile tap-to-expand ────────────────────────────────
-         On touch devices (:hover isn't available), the first tap
-         expands the card to show the info panel. A second tap on the
-         same expanded card follows the link to the product page.
-         Tapping anywhere else (or a different card) collapses it.   */
-      card.addEventListener('click', function (e) {
-        /* Only intercept on touch/hover-none devices */
-        if (!window.matchMedia('(hover: none)').matches) return;
-
-        if (!this.classList.contains('expanded')) {
-          /* First tap: expand this card, collapse all others */
-          e.preventDefault();
-          document.querySelectorAll('.strip-card.expanded').forEach(function (c) {
-            c.classList.remove('expanded');
-          });
-          this.classList.add('expanded');
-        }
-        /* Second tap on an already-expanded card: let the link navigate */
-      });
+      /* ── Mobile tap handler ──────────────────────────────────
+         On touch devices we intercept the tap and open the
+         bottom-sheet popup instead of navigating immediately.
+         The popup's "View Details" button then handles navigation. */
+      if (isTouch) {
+        card.addEventListener('click', function (e) {
+          e.preventDefault();           /* always stop direct navigation on touch */
+          if (popup && popup._open) popup._open(p, card.href);
+        });
+      }
 
       /* Add the finished card into the track in the page */
       track.appendChild(card);
     });
   });
-
-  /* ── Animation state variables ──────────────────────────── */
-  var pos        = 0;    /* current scroll position in pixels (how far left we've moved) */
-  var speed      = 1;    /* pixels moved per animation frame — INCREASE to scroll faster */
-  var paused     = false;  /* true when mouse hovers the strip — scroll stops */
-  var manualMode = false;  /* true during a prev/next button click animation  */
-  var isScrolling = false; /* prevents buttons from being clicked mid-transition */
-  var resumeTimer = null;  /* holds a timer that resumes auto-scroll after a button click */
-  var setWidth   = 0;      /* width of one full set of cards in pixels (calculated below) */
 
   /* ── Calculate set width after cards are actually in the DOM ──
      We wait one frame (requestAnimationFrame) so the browser has
@@ -391,16 +473,6 @@ const STRIP_PRODUCTS = [
       requestAnimationFrame(frame); /* schedule the next frame */
     }
     requestAnimationFrame(frame); /* kick off the loop */
-  });
-
-  /* ── Collapse expanded card when tapping outside it ─────── */
-  document.addEventListener('click', function (e) {
-    if (!window.matchMedia('(hover: none)').matches) return;
-    if (!e.target.closest('.strip-card')) {
-      document.querySelectorAll('.strip-card.expanded').forEach(function (c) {
-        c.classList.remove('expanded');
-      });
-    }
   });
 
   /* ── Pause on hover ──────────────────────────────────────── */
