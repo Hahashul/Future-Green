@@ -336,59 +336,78 @@
       <div class="cat-grid">
 
         <!-- Each cat-cell is one category card.
-             cat-tall-left / cat-bg-2 etc = size and image classes (defined in style.css) -->
+             cat-tall-left / cat-bg-2 etc = size and image classes (defined in style.css)
 
-        <!-- Category 1: COB Lights -->
-        <a href="products.html?cat=cob" class="cat-cell cat-tall-left cat-bg-1" aria-label="COB Lights — Chip on Board">
+             IMAGE FILE NAMES TO USE (place in resources/ folder):
+             cat-bg-1 → resources/cat-architectural.png
+             cat-bg-2 → resources/cat-indoor.png
+             cat-bg-3 → resources/cat-landscape.png
+             cat-bg-4 → resources/cat-outdoor.png
+             cat-bg-5 → resources/cat-office.png
+             cat-bg-6 → resources/cat-commercial.png
+             cat-bg-7 → resources/cat-stadium.png
+        -->
+
+        <!-- Category 1: Architectural Lights (tall hero card, spans rows 1 & 2) -->
+        <a href="products.html?cat=architectural" class="cat-cell cat-tall-left cat-bg-1" aria-label="Architectural Lights — Precision ambient design">
           <div class="cat-img-inner" aria-hidden="true"></div>
           <div class="cat-label-wrap">
-            <span class="cat-label">COB</span>           <!-- main category name -->
-            <span class="cat-sub">Chip on Board</span>   <!-- subtitle below the name -->
+            <span class="cat-label">Architectural</span>
+            <span class="cat-sub">Precision ambient design</span>
           </div>
         </a>
 
-        <!-- Category 2: Flood Lights -->
-        <a href="products.html?cat=flood" class="cat-cell cat-bg-2" aria-label="Flood Lights — High-output beam">
+        <!-- Category 2: Indoor Lights -->
+        <a href="products.html?cat=indoor" class="cat-cell cat-bg-2" aria-label="Indoor Lights — Warm home illumination">
           <div class="cat-img-inner" aria-hidden="true"></div>
           <div class="cat-label-wrap">
-            <span class="cat-label">Flood Lights</span>
-            <span class="cat-sub">High-output beam</span>
+            <span class="cat-label">Indoor Lights</span>
+            <span class="cat-sub">Warm home illumination</span>
           </div>
         </a>
 
-        <!-- Category 3: Downlights -->
-        <a href="products.html?cat=downlight" class="cat-cell cat-bg-3" aria-label="Downlights — Recessed precision">
+        <!-- Category 3: Landscape Lights -->
+        <a href="products.html?cat=landscape" class="cat-cell cat-bg-3" aria-label="Landscape Lights — Garden &amp; pathway glow">
           <div class="cat-img-inner" aria-hidden="true"></div>
           <div class="cat-label-wrap">
-            <span class="cat-label">Downlights</span>
-            <span class="cat-sub">Recessed precision</span>
+            <span class="cat-label">Landscape Lights</span>
+            <span class="cat-sub">Garden &amp; pathway glow</span>
           </div>
         </a>
 
-        <!-- Category 4: Panel Lights (tall card in center) -->
-        <a href="products.html?cat=panel" class="cat-cell cat-tall-center cat-bg-4" aria-label="Panel Lights — Even surface glow">
+        <!-- Category 4: Outdoor Lights -->
+        <a href="products.html?cat=outdoor" class="cat-cell cat-tall-center cat-bg-4" aria-label="Outdoor Lights — Built for the elements">
           <div class="cat-img-inner" aria-hidden="true"></div>
           <div class="cat-label-wrap">
-            <span class="cat-label">Panel Lights</span>
-            <span class="cat-sub">Even surface glow</span>
+            <span class="cat-label">Outdoor Lights</span>
+            <span class="cat-sub">Built for the elements</span>
           </div>
         </a>
 
-        <!-- Category 5: Garden Lights -->
-        <a href="products.html?cat=rope" class="cat-cell cat-bg-5" aria-label="Rope &amp; Strip — Outdoor ambiance">
+        <!-- Category 5: Office Lights -->
+        <a href="products.html?cat=office" class="cat-cell cat-bg-5" aria-label="Office Lights — Focused task lighting">
           <div class="cat-img-inner" aria-hidden="true"></div>
           <div class="cat-label-wrap">
-            <span class="cat-label">Rope &amp; Strip</span>
-            <span class="cat-sub">others</span>
+            <span class="cat-label">Office Lights</span>
+            <span class="cat-sub">Focused task lighting</span>
           </div>
         </a>
 
-        <!-- Category 6: Street Lights (wide card on right) -->
-        <a href="products.html?cat=street" class="cat-cell cat-wide-right cat-bg-6" aria-label="Street Lights — Urban infrastructure">
+        <!-- Category 6: Commercial & Industrial Lights (wider bottom-left card) -->
+        <a href="products.html?cat=commercial" class="cat-cell cat-wide-bottom-left cat-bg-6" aria-label="Commercial &amp; Industrial Lights — Heavy-duty performance">
           <div class="cat-img-inner" aria-hidden="true"></div>
           <div class="cat-label-wrap">
-            <span class="cat-label">Street Lights</span>
-            <span class="cat-sub">Urban infrastructure</span>
+            <span class="cat-label">Commercial &amp; Industrial</span>
+            <span class="cat-sub">Heavy-duty performance</span>
+          </div>
+        </a>
+
+        <!-- Category 7: Stadium Lights (bottom-right card) -->
+        <a href="products.html?cat=stadium" class="cat-cell cat-wide-bottom-right cat-bg-7" aria-label="Stadium Lights — High-mast floodlighting">
+          <div class="cat-img-inner" aria-hidden="true"></div>
+          <div class="cat-label-wrap">
+            <span class="cat-label">Stadium Lights</span>
+            <span class="cat-sub">High-mast floodlighting</span>
           </div>
         </a>
 
@@ -783,12 +802,13 @@
       <div class="footer-col">
         <h3>Products</h3>
         <ul role="list">
-          <li><a href="products.html?cat=cob">COB Spotlights</a></li>
-          <li><a href="products.html?cat=panel">Panel Lights</a></li>
-          <li><a href="products.html?cat=flood">Flood Lights</a></li>
-          <li><a href="products.html?cat=downlight">Downlights</a></li>
-          <li><a href="products.html?cat=street">Street Lights</a></li>
-          <li><a href="products.html?cat=rope">Rope &amp; Strip</a></li>
+          <li><a href="products.html?cat=architectural">Architectural Lights</a></li>
+          <li><a href="products.html?cat=indoor">Indoor Lights</a></li>
+          <li><a href="products.html?cat=landscape">Landscape Lights</a></li>
+          <li><a href="products.html?cat=outdoor">Outdoor Lights</a></li>
+          <li><a href="products.html?cat=commercial">Commercial &amp; Industrial</a></li>
+          <li><a href="products.html?cat=office">Office Lights</a></li>
+          <li><a href="products.html?cat=stadium">Stadium Lights</a></li>
         </ul>
       </div>
 
