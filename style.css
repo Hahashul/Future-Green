@@ -655,12 +655,18 @@ a.strip-card {
               background 0.3s ease;
   z-index: 1;
 }
-.strip-card:hover {
-  width: 460px;
-  border-color: rgba(120, 183, 40, 0.3);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15), 0 4px 16px rgba(0,0,0,0.1);
-  background: var(--off-white);
-  z-index: 10;
+/* Hover-expand preview is desktop-only behaviour.
+   (hover: hover) and (pointer: fine) excludes touchscreens entirely,
+   regardless of viewport width — fixes cards getting "stuck" expanded
+   on tap on phones/tablets between 701px and 1024px wide. */
+@media (hover: hover) and (pointer: fine) {
+  .strip-card:hover {
+    width: 460px;
+    border-color: rgba(120, 183, 40, 0.3);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15), 0 4px 16px rgba(0,0,0,0.1);
+    background: var(--off-white);
+    z-index: 10;
+  }
 }
 
 /* Left column: row container for image + info panel, fills above the label */
@@ -690,8 +696,10 @@ a.strip-card {
   transition: transform 0.4s ease;
   display: block;
 }
-.strip-card:hover .strip-card-img img {
-  transform: scale(1.08) translateY(-4px);
+@media (hover: hover) and (pointer: fine) {
+  .strip-card:hover .strip-card-img img {
+    transform: scale(1.08) translateY(-4px);
+  }
 }
 
 /* Name + category at card bottom */
@@ -744,8 +752,10 @@ a.strip-card {
   white-space: nowrap;
   text-decoration: none;
 }
-.strip-card:hover .strip-info-hint {
-  display: block;
+@media (hover: hover) and (pointer: fine) {
+  .strip-card:hover .strip-info-hint {
+    display: block;
+  }
 }
 .strip-card.expanded .strip-info-hint {
   display: block;
@@ -769,10 +779,12 @@ a.strip-card {
   transform: translateX(14px);
   transition: opacity 0.25s ease 0s, transform 0.25s ease 0s;
 }
-.strip-card:hover .strip-card-info {
-  opacity: 1;
-  transform: translateX(0);
-  transition: opacity 0.3s ease 0.18s, transform 0.3s ease 0.18s;
+@media (hover: hover) and (pointer: fine) {
+  .strip-card:hover .strip-card-info {
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity 0.3s ease 0.18s, transform 0.3s ease 0.18s;
+  }
 }
 
 .strip-info-cat {
@@ -1725,8 +1737,10 @@ a.location-link:hover { color: var(--accent); }
 }
 
 /* On hover, keep same subtle label */
-.strip-card:hover .strip-card-label {
-  background: rgba(0, 0, 0, 0.1) !important;
+@media (hover: hover) and (pointer: fine) {
+  .strip-card:hover .strip-card-label {
+    background: rgba(0, 0, 0, 0.1) !important;
+  }
 }
 
 /* ================================================================

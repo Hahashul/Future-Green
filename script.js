@@ -379,6 +379,13 @@ const STRIP_PRODUCTS = [
 
     /* ── Close popup ── */
     function closePopup() {
+      /* If focus is still inside the popup (e.g. the ✕ button that was
+         just clicked), move it out first. Setting aria-hidden="true" on
+         an ancestor of the focused element is invalid and triggers a
+         console warning + accessibility issue. */
+      if (popup.contains(document.activeElement)) {
+        document.activeElement.blur();
+      }
       popup.classList.remove('open');
       popup.setAttribute('aria-hidden', 'true');
       document.body.style.overflow = '';
