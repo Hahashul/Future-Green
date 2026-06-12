@@ -67,10 +67,12 @@ function buildSidebar() {
   ul.innerHTML = '';
 
   CATS.forEach(cat => {
-    /* Count how many products belong to this category */
+    /* Count how many products belong to this category.
+       A product can belong to MULTIPLE categories (categories array),
+       but PRODUCTS itself has no duplicates, so "All" always = PRODUCTS.length */
     const count = cat.json === null
       ? PRODUCTS.length
-      : PRODUCTS.filter(p => cat.json.includes(p.category)).length;
+      : PRODUCTS.filter(p => p.categories.some(c => cat.json.includes(c))).length;
 
     const btn = document.createElement('button');
     btn.className = 'cat-filter-btn' + (cat.slug === activeCat ? ' active' : '');
@@ -113,7 +115,7 @@ function updateHeader() {
 function filteredProducts() {
   const cat = CATS.find(c => c.slug === activeCat);
   return cat && cat.json
-    ? PRODUCTS.filter(p => cat.json.includes(p.category))
+    ? PRODUCTS.filter(p => p.categories.some(c => cat.json.includes(c)))
     : [...PRODUCTS];
 }
 
@@ -163,7 +165,7 @@ function renderGrid() {
         '<img src="resources/' + esc(p.id) + '.png" alt="' + esc(p.name) + '" loading="lazy" onerror="this.style.opacity=\'0\'">' +
       '</div>' +
       '<div class="prod-card-body">' +
-        '<span class="prod-card-cat">' + esc(p.category) + '</span>' +
+        '<span class="prod-card-cat">' + esc(p.categories.join(' · ')) + '</span>' +
         '<h2 class="prod-card-name">' + esc(p.name) + '</h2>' +
         '<p class="prod-card-tagline">' + esc(p.tagline) + '</p>' +
         '<div class="prod-card-footer">' +
@@ -191,7 +193,7 @@ function showDetail(p) {
   img.alt = p.name;
 
   /* Text */
-  document.getElementById('detailCat').textContent     = p.category;
+  document.getElementById('detailCat').textContent     = p.categories.join(' · ');
   document.getElementById('detailName').textContent    = p.name;
   document.getElementById('detailTagline').textContent = p.tagline;
   document.getElementById('detailDesc').textContent    = p.description;
@@ -228,7 +230,7 @@ function showDetail(p) {
 
   /* Specs table */
   const rows = [
-    ['Category', p.category],
+    ['Categories', p.categories.join(', ')],
     ['Wattages', p.wattages && p.wattages.length ? p.wattages.map(w => w + 'W').join(', ') : '—'],
     ['Finishes', p.finishes && p.finishes.length ? p.finishes.join(', ') : '—'],
     ['Shapes',   p.shapes   && p.shapes.length   ? p.shapes.join(', ')   : '—'],
@@ -241,13 +243,13 @@ function showDetail(p) {
 
   /* WhatsApp pre-filled message */
   const msg = encodeURIComponent(
-    'Hi Future Green!\nI\'m interested in the *' + p.name + '* (' + p.category + ').\n' +
+    'Hi Future Green!\nI\'m interested in the *' + p.name + '* (' + p.categories.join(', ') + ').\n' +
     'Could you please share pricing and availability? Thank you!'
   );
   document.getElementById('waBtn').href = 'https://wa.me/919039099107?text=' + msg;
 
-  /* Related products — same category, max 4, excluding self */
-  const related = PRODUCTS.filter(op => op.category === p.category && op.id !== p.id).slice(0, 4);
+  /* Related products — share at least one category, max 4, excluding self */
+  const related = PRODUCTS.filter(op => op.id !== p.id && op.categories.some(c => p.categories.includes(c))).slice(0, 4);
   if (related.length) {
     const rg = document.getElementById('relatedGrid');
     rg.innerHTML = '';
@@ -263,7 +265,7 @@ function showDetail(p) {
       card.innerHTML =
         '<div class="prod-card-img"><img src="resources/' + esc(rp.id) + '.png" alt="' + esc(rp.name) + '" loading="lazy" onerror="this.style.opacity=\'0\'"></div>' +
         '<div class="prod-card-body">' +
-          '<span class="prod-card-cat">' + esc(rp.category) + '</span>' +
+          '<span class="prod-card-cat">' + esc(rp.categories.join(' · ')) + '</span>' +
           '<h3 class="prod-card-name">' + esc(rp.name) + '</h3>' +
           '<p class="prod-card-tagline">' + esc(rp.tagline) + '</p>' +
           '<div class="prod-card-footer">' +

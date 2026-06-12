@@ -499,13 +499,13 @@ nav.nav-solid .hamburger span { background: var(--text); }
    cat-outdoor.png        cat-office.png
    cat-commercial.png     cat-stadium.png
 */
-.cat-bg-1 .cat-img-inner { background-image: url('resources/cat-architectural.png'); }
-.cat-bg-2 .cat-img-inner { background-image: url('resources/cat-indoor.png'); }
-.cat-bg-3 .cat-img-inner { background-image: url('resources/cat-landscape.png'); }
-.cat-bg-4 .cat-img-inner { background-image: url('resources/cat-outdoor.png'); }
-.cat-bg-5 .cat-img-inner { background-image: url('resources/cat-office.png'); }
-.cat-bg-6 .cat-img-inner { background-image: url('resources/cat-commercial.png'); }
-.cat-bg-7 .cat-img-inner { background-image: url('resources/cat-stadium.png'); }
+.cat-bg-1 .cat-img-inner { background-image: url('resources/cat-architectural.jpeg'); }
+.cat-bg-2 .cat-img-inner { background-image: url('resources/cat-indoor.jpeg'); }
+.cat-bg-3 .cat-img-inner { background-image: url('resources/cat-landscape.jpeg'); }
+.cat-bg-4 .cat-img-inner { background-image: url('resources/cat-outdoor.jpeg'); }
+.cat-bg-5 .cat-img-inner { background-image: url('resources/cat-office.jpeg'); }
+.cat-bg-6 .cat-img-inner { background-image: url('resources/cat-commercial.jpeg'); }
+.cat-bg-7 .cat-img-inner { background-image: url('resources/cat-stadium.jpeg'); }
 
 /* Label overlay — gradient behind text for readability */
 .cat-label-wrap {

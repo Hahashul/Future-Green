@@ -10,7 +10,9 @@
    FIELDS:
      id          → filename in resources/ folder (no .png), also used in URL (?id=...)
      name        → display name shown on cards and detail page
-     category    → must match one of the json: values in CATS below
+     categories  → array of one or more category names — must match the
+                    json: values in CATS below (a product can appear in
+                    more than one category)
      tagline     → short one-line description (shown on cards)
      description → longer paragraph shown on detail page
      wattages    → array of numbers — leave [] if not applicable
@@ -43,7 +45,9 @@ const FINISH = {
    Controls the sidebar filter and page header text.
    ★ slug  → used in the URL: products.html?cat=slug
    ★ label → displayed in sidebar and page header
-   ★ json  → array of category strings that match product.category
+   ★ json  → array of category strings that match values inside
+             a product's `categories` array (a product can belong
+             to more than one category at once)
              (null for "All Products" means show everything)
    ★ sub   → subtitle shown in the page header when this cat is active
 ──────────────────────────────────────────────────────────────── */
@@ -55,47 +59,55 @@ const CATS = [
     sub: 'Browse the complete Future Green LED range — all 22 products.'
   },
   {
-    slug: 'cob',
-    label: 'COB Spotlights',
-    json: ['COB Spotlight'],
-    sub: 'Precision-adjustable COB spotlights for accent lighting and architectural features.'
+    slug: 'architectural',
+    label: 'Architectural Lights',
+    json: ['Architectural Lights'],
+    sub: 'Elevation and façade lighting — wall washers and architectural wall lights for building exteriors.'
   },
   {
-    slug: 'panel',
-    label: 'Panel Lights',
-    json: ['Recessed Slim Panel', 'Surface Panel'],
-    sub: 'Slim recessed and surface panels for smooth, comfortable ceiling illumination.'
+    slug: 'indoor',
+    label: 'Indoor Lights',
+    json: ['Indoor Lights'],
+    sub: 'COB spotlights, slim panels, downlights, dual-colour designer lights, and strip lighting for homes and indoor spaces.'
   },
   {
-    slug: 'downlight',
-    label: 'Downlights',
-    json: ['Downlight', 'Designer · Dual-Colour'],
-    sub: 'Recessed and dual-colour downlights for every room and ceiling type.'
+    slug: 'landscape',
+    label: 'Landscape Lights',
+    json: ['Landscape Lights'],
+    sub: 'Garden and landscape lighting for lawns, pathways, and outdoor décor.'
   },
   {
-    slug: 'flood',
-    label: 'Flood Lights',
-    json: ['Outdoor · Flood'],
-    sub: 'High-power outdoor floodlights for facades, yards and security installations.'
+    slug: 'outdoor',
+    label: 'Outdoor Lights',
+    json: ['Outdoor Lights'],
+    sub: 'Weatherproof outdoor LED lights — elevation wall lights, floodlights and power supplies for exteriors and security.'
   },
   {
-    slug: 'street',
-    label: 'Street Lights',
-    json: ['Outdoor · Street', 'Outdoor · Wall'],
-    sub: 'Road-optimised street lights and outdoor wall lights for urban and campus use.'
+    slug: 'commercial',
+    label: 'Commercial & Industrial Lights',
+    json: ['Commercial & Industrial Lights'],
+    sub: 'Heavy-duty flood lights, street lights, and slim panels for commercial and industrial spaces.'
   },
   {
-    slug: 'rope',
-    label: 'Rope & Strip',
-    json: ['Flexible', 'Power'],
-    sub: 'Flexible rope and LED strip lighting, plus the SMPS drivers to power them.'
+    slug: 'office',
+    label: 'Office Lights',
+    json: ['Office Lights'],
+    sub: 'Slim panels, downlights, and COB spotlights for comfortable, glare-free office illumination.'
+  },
+  {
+    slug: 'stadium',
+    label: 'Stadium Lights',
+    json: ['Stadium Lights'],
+    sub: 'High-power flood lights and street lights for stadiums and large outdoor venues.'
   },
 ];
 
 
+
 /* ── PRODUCT LIST ───────────────────────────────────────────────
    ★ TO ADD A PRODUCT: copy any block below, paste after the last },
-     change the values, and make sure the category matches CATS above.
+     change the values, and make sure each entry in `categories`
+     matches a json: value in CATS above.
    ★ TO REMOVE: delete the whole { ... }, block.
 ──────────────────────────────────────────────────────────────── */
 const PRODUCTS = [
@@ -104,7 +116,7 @@ const PRODUCTS = [
   {
     id: 'lotus-concealed',
     name: 'Lotus Concealed',
-    category: 'COB Spotlight',
+    categories: ['Indoor Lights', 'Office Lights'],
     tagline: 'Adjustable COB spot that aims light exactly where you want.',
     description: 'The Lotus Concealed is an ultra-slim recessed COB spotlight with a fully adjustable head. Ideal for accent lighting in galleries, retail displays, and premium residential projects.',
     wattages: [3, 6],
@@ -116,7 +128,7 @@ const PRODUCTS = [
   {
     id: 'lily-cob-downlight',
     name: 'Lily COB Downlight',
-    category: 'COB Spotlight',
+    categories: ['Indoor Lights', 'Office Lights'],
     tagline: 'Tiny COB downlight with a big, crisp punch.',
     description: 'A compact recessed COB downlight that delivers a sharp, focused beam from a very small aperture. Perfect for tight ceiling cuts and accent work in residential and retail spaces.',
     wattages: [2, 5],
@@ -128,7 +140,7 @@ const PRODUCTS = [
   {
     id: 'marigold-cob-spotlight',
     name: 'Marigold COB Spotlight',
-    category: 'COB Spotlight',
+    categories: ['Indoor Lights', 'Office Lights'],
     tagline: 'Square-trim COB spot with a tilting head.',
     description: 'The Marigold COB Spotlight features a square trim ring and a fully tilting head, giving designers the flexibility to highlight artwork, products, and architectural details with precision.',
     wattages: [3, 6],
@@ -140,7 +152,7 @@ const PRODUCTS = [
   {
     id: 'bluebell-cob-spotlight',
     name: 'Bluebell COB Spotlight',
-    category: 'COB Spotlight',
+    categories: ['Indoor Lights', 'Office Lights'],
     tagline: 'Deep-recess COB spotlight built to throw.',
     description: 'The Bluebell is a deep-recess COB spotlight engineered for long-throw accent lighting. Its deep housing minimises glare and concentrates the beam for dramatic effect.',
     wattages: [2, 5],
@@ -154,7 +166,7 @@ const PRODUCTS = [
   {
     id: 'iris-slim-panel',
     name: 'IRIS Slim Panel',
-    category: 'Recessed Slim Panel',
+    categories: ['Indoor Lights', 'Commercial & Industrial Lights', 'Office Lights'],
     tagline: 'Frameless flush light that disappears into the ceiling.',
     description: 'The IRIS Slim Panel has a fully frameless design that blends seamlessly into any false ceiling. Ultra-thin profile, even light distribution, and easy clip-in installation.',
     wattages: [3, 8, 12, 18, 22],
@@ -166,7 +178,7 @@ const PRODUCTS = [
   {
     id: 'ilex-pc-slim-panel',
     name: 'ILEX PC Slim Panel',
-    category: 'Recessed Slim Panel',
+    categories: ['Indoor Lights', 'Commercial & Industrial Lights', 'Office Lights'],
     tagline: 'The IRIS panel, toughened with a polycarbonate body.',
     description: 'The ILEX takes the IRIS Slim Panel design and reinforces it with a polycarbonate body for extra durability. Ideal for high-traffic areas, schools, and commercial spaces.',
     wattages: [8, 12, 18, 22],
@@ -178,7 +190,7 @@ const PRODUCTS = [
   {
     id: 'iris-surface-panel',
     name: 'IRIS Surface Panel',
-    category: 'Surface Panel',
+    categories: ['Indoor Lights', 'Office Lights'],
     tagline: 'All the panel light — none of the ceiling cutting.',
     description: 'The IRIS Surface Panel brings the clean, frameless aesthetic of the IRIS Slim Panel to surface mounting. No false ceiling required — simply fix directly to the ceiling or wall.',
     wattages: [8, 12, 18, 22],
@@ -190,7 +202,7 @@ const PRODUCTS = [
   {
     id: 'ilex-surface-panel',
     name: 'ILEX Surface Panel',
-    category: 'Surface Panel',
+    categories: ['Indoor Lights', 'Office Lights'],
     tagline: 'Rugged PC surface light for everyday spaces.',
     description: 'A robust polycarbonate surface panel for areas where durability counts. Easy to fit, resistant to impact, and suitable for corridors, utility rooms, garages, and commercial interiors.',
     wattages: [6, 12, 18],
@@ -204,7 +216,7 @@ const PRODUCTS = [
   {
     id: 'couple-slim-panel',
     name: 'Couple Slim Panel',
-    category: 'Designer · Dual-Colour',
+    categories: ['Indoor Lights'],
     tagline: 'Two lights in one — white core, colour halo.',
     description: 'The Couple Slim Panel combines a white central light with a coloured halo ring. Switch between white-only and dual-colour modes to create dramatic, decorative ceiling effects.',
     wattages: [3, 6, 9, 12, 16],
@@ -216,7 +228,7 @@ const PRODUCTS = [
   {
     id: 'surface-couple-duo-panel',
     name: 'Surface Couple Duo',
-    category: 'Designer · Dual-Colour',
+    categories: ['Indoor Lights'],
     tagline: 'The dual-colour Couple, in a surface-mount body.',
     description: 'All the visual drama of the Couple Slim Panel in a surface-mount housing. No ceiling void needed — perfect for feature rooms, hospitality, and retail environments.',
     wattages: [3, 6, 9, 12, 16],
@@ -228,7 +240,7 @@ const PRODUCTS = [
   {
     id: 'deep-junction-duo-clr',
     name: 'Deep Junction Duo CLR',
-    category: 'Designer · Dual-Colour',
+    categories: ['Indoor Lights'],
     tagline: 'Dual-colour deep downlight for standard junction boxes.',
     description: 'A deep recessed dual-colour downlight designed to fit standard electrical junction boxes. The deep housing hides glare while the colour halo adds a decorative touch to any room.',
     wattages: [6, 9, 12, 16],
@@ -242,7 +254,7 @@ const PRODUCTS = [
   {
     id: 'frameless-downlight',
     name: 'Frameless Downlight',
-    category: 'Downlight',
+    categories: ['Indoor Lights', 'Office Lights'],
     tagline: 'Surface-mount glow with no visible frame.',
     description: 'The Frameless Downlight has a bezel-free design that creates a floating glow effect. Wide beam angle, smooth dimming, and a clean flush finish for modern interiors.',
     wattages: [10, 15, 18, 24],
@@ -254,7 +266,7 @@ const PRODUCTS = [
   {
     id: 'tulip-deep-light',
     name: 'Tulip Deep Light',
-    category: 'Downlight',
+    categories: ['Indoor Lights', 'Office Lights'],
     tagline: 'Deep-set downlight that hides the glare.',
     description: 'The Tulip Deep Light uses a deep recessed housing to push the light source well inside the ceiling, eliminating glare and creating a comfortable, diffused glow for living and work spaces.',
     wattages: [3, 5, 7, 9, 12],
@@ -268,7 +280,7 @@ const PRODUCTS = [
   {
     id: 'dob-floodlight',
     name: 'DOB Floodlight',
-    category: 'Outdoor · Flood',
+    categories: ['Commercial & Industrial Lights', 'Stadium Lights'],
     tagline: 'Driver-on-board flood that lights up the whole yard.',
     description: 'The DOB (Driver-on-Board) Floodlight integrates the driver directly into the fitting for a compact, reliable build. High-lumen output and IP65 weatherproofing for demanding outdoor use.',
     wattages: [50, 100, 150, 200],
@@ -280,7 +292,7 @@ const PRODUCTS = [
   {
     id: 'richline-flood-light',
     name: 'Richline Flood Light',
-    category: 'Outdoor · Flood',
+    categories: ['Commercial & Industrial Lights', 'Stadium Lights'],
     tagline: 'Slim premium flood for facades and frontage.',
     description: 'The Richline is a slim, architecturally refined floodlight for building facades, landscape lighting, and entrance areas. A low-profile body and tempered glass lens give it a premium appearance.',
     wattages: [50, 100, 150, 200],
@@ -294,7 +306,7 @@ const PRODUCTS = [
   {
     id: 'street-light',
     name: 'Street Light',
-    category: 'Outdoor · Street',
+    categories: ['Commercial & Industrial Lights', 'Stadium Lights'],
     tagline: 'Roads, lanes and campuses — lit clean and bright.',
     description: 'Engineered for road-surface photometry, this street light delivers wide, uniform illumination across roads, lanes, and campus paths. Die-cast aluminium housing with high surge protection.',
     wattages: [24, 36, 50, 80, 100],
@@ -306,7 +318,7 @@ const PRODUCTS = [
   {
     id: '4-way-ball',
     name: '4-Way Ball',
-    category: 'Outdoor · Wall',
+    categories: ['Outdoor Lights'],
     tagline: 'Four crisp beams from one sculptural sphere.',
     description: 'A bold outdoor wall light shaped like a sphere with four directional beam outlets. Casts four crisp pools of light on walls and pathways, available in 8 colour finishes.',
     wattages: [],
@@ -318,7 +330,7 @@ const PRODUCTS = [
   {
     id: '2-way-wall-curved',
     name: '2-Way Wall (Curved)',
-    category: 'Outdoor · Wall',
+    categories: ['Architectural Lights', 'Outdoor Lights'],
     tagline: 'Up-and-down wash for walls and entryways.',
     description: 'A curved-body outdoor wall light that projects light both upward and downward, creating a warm wash effect on walls and gates. Ideal for residential entrances and hotel facades.',
     wattages: [],
@@ -330,7 +342,7 @@ const PRODUCTS = [
   {
     id: '2-way-wall-wedge',
     name: '2-Way Wall (Wedge)',
-    category: 'Outdoor · Wall',
+    categories: ['Architectural Lights', 'Outdoor Lights'],
     tagline: 'Sculpted wedge wall light with a warm up/down glow.',
     description: 'A wedge-shaped outdoor wall light with an angular, architectural silhouette. Projects a warm up-and-down glow for a sophisticated look on exterior walls, pillars, and entrances.',
     wattages: [],
@@ -344,7 +356,7 @@ const PRODUCTS = [
   {
     id: 'rope-light',
     name: 'Rope Light',
-    category: 'Flexible',
+    categories: ['Indoor Lights'],
     tagline: 'Flexible glow that bends around anything.',
     description: 'A 360° visible LED rope light that bends in any direction. Perfect for outlining signage, architectural edges, furniture, and festive displays. Available in 8 colour options.',
     wattages: [],
@@ -356,7 +368,7 @@ const PRODUCTS = [
   {
     id: 'led-strip',
     name: 'LED Strip',
-    category: 'Flexible',
+    categories: ['Indoor Lights'],
     tagline: 'Hidden cove and accent lighting on a reel.',
     description: 'Professional SMD LED strip for cove lighting, under-cabinet illumination, display cases, and decorative accents. Self-adhesive backing for quick installation. Cut to length as needed.',
     wattages: [],
@@ -368,7 +380,7 @@ const PRODUCTS = [
   {
     id: 'smps-driver',
     name: 'SMPS Driver',
-    category: 'Power',
+    categories: ['Outdoor Lights'],
     tagline: 'Stable, protected power for your LED installs.',
     description: 'A switching-mode power supply (SMPS) for driving 12V and 24V LED strips and rope lights. Built-in short-circuit, overload, and over-voltage protection for safe, reliable operation.',
     wattages: [],
