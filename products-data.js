@@ -50,55 +50,68 @@ const FINISH = {
              to more than one category at once)
              (null for "All Products" means show everything)
    ★ sub   → subtitle shown in the page header when this cat is active
+   ★ hero  → path (relative to the site root) to the hero/banner image
+             shown at the top of products.html when this category is
+             active. Image files live directly in resources/ named
+             cat-<slug>.jpeg (e.g. resources/cat-indoor.jpeg) — just
+             drop the file in with the right name, no code changes needed.
 ──────────────────────────────────────────────────────────────── */
 const CATS = [
   {
     slug: 'all',
     label: 'All Products',
     json: null,
-    sub: 'Browse the complete Future Green LED range — all 22 products.'
+    sub: 'Browse the complete Future Green LED range — all 22 products.',
+    hero: 'resources/product-range-overview.png'
   },
   {
     slug: 'architectural',
     label: 'Architectural Lights',
     json: ['Architectural Lights'],
-    sub: 'Elevation and façade lighting — wall washers and architectural wall lights for building exteriors.'
+    sub: 'Elevation and façade lighting — wall washers and architectural wall lights for building exteriors.',
+    hero: 'resources/cat-architectural.jpeg'
   },
   {
     slug: 'indoor',
     label: 'Indoor Lights',
     json: ['Indoor Lights'],
-    sub: 'COB spotlights, slim panels, downlights, dual-colour designer lights, and strip lighting for homes and indoor spaces.'
+    sub: 'COB spotlights, slim panels, downlights, dual-colour designer lights, and strip lighting for homes and indoor spaces.',
+    hero: 'resources/cat-indoor.jpeg'
   },
   {
     slug: 'landscape',
     label: 'Landscape Lights',
     json: ['Landscape Lights'],
-    sub: 'Garden and landscape lighting for lawns, pathways, and outdoor décor.'
+    sub: 'Garden and landscape lighting for lawns, pathways, and outdoor décor.',
+    hero: 'resources/cat-landscape.jpeg'
   },
   {
     slug: 'outdoor',
     label: 'Outdoor Lights',
     json: ['Outdoor Lights'],
-    sub: 'Weatherproof outdoor LED lights — elevation wall lights, floodlights and power supplies for exteriors and security.'
+    sub: 'Weatherproof outdoor LED lights — elevation wall lights, floodlights and power supplies for exteriors and security.',
+    hero: 'resources/cat-outdoor.jpeg'
   },
   {
     slug: 'commercial',
     label: 'Commercial & Industrial Lights',
     json: ['Commercial & Industrial Lights'],
-    sub: 'Heavy-duty flood lights, street lights, and slim panels for commercial and industrial spaces.'
+    sub: 'Heavy-duty flood lights, street lights, and slim panels for commercial and industrial spaces.',
+    hero: 'resources/cat-commercial.jpeg'
   },
   {
     slug: 'office',
     label: 'Office Lights',
     json: ['Office Lights'],
-    sub: 'Slim panels, downlights, and COB spotlights for comfortable, glare-free office illumination.'
+    sub: 'Slim panels, downlights, and COB spotlights for comfortable, glare-free office illumination.',
+    hero: 'resources/cat-office.jpeg'
   },
   {
     slug: 'stadium',
     label: 'Stadium Lights',
     json: ['Stadium Lights'],
-    sub: 'High-power flood lights and street lights for stadiums and large outdoor venues.'
+    sub: 'High-power flood lights and street lights for stadiums and large outdoor venues.',
+    hero: 'resources/cat-stadium.jpeg'
   },
 ];
 

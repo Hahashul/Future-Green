@@ -106,6 +106,22 @@ function updateHeader() {
   document.getElementById('listTitle').textContent   = cat.label;
   document.getElementById('listSub').textContent     = cat.sub;
   document.title = cat.label + ' — Future Green | LED Lighting India';
+
+  /* Swap the hero background image to match the active category,
+     with a quick fade out/in so the change feels smooth rather
+     than an abrupt jump-cut. Falls back to the "all" category's
+     image if this category doesn't define one. */
+  const heroEl = document.querySelector('.prod-hero-img');
+  if (heroEl) {
+    const heroImg = cat.hero || (CATS.find(c => c.slug === 'all') || {}).hero;
+    if (heroImg) {
+      heroEl.style.opacity = '0';
+      setTimeout(function () {
+        heroEl.style.backgroundImage = "url('" + heroImg + "')";
+        heroEl.style.opacity = '1';
+      }, 250);
+    }
+  }
 }
 
 

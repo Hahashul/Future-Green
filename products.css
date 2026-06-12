@@ -50,6 +50,7 @@
   position: absolute;
   inset: 0;
   background: url('resources/product-range-overview.png') center 65% / cover no-repeat;
+  transition: opacity 0.25s ease-in-out;
 }
 
 /* NO left gradient — removed completely */
@@ -315,8 +316,10 @@ html { scroll-behavior: smooth; }
   background-size: 48px 48px;
 }
 .prod-card-img img {
-  max-width: 85%;
-  max-height: 240px;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: none;
   object-fit: contain;
   filter: drop-shadow(0 8px 20px rgba(0,0,0,0.18));
   transition: transform 0.4s ease;
@@ -765,6 +768,17 @@ html { scroll-behavior: smooth; }
   .btn-mobile-filter { display: flex; }
   .sidebar-close-x { display: block; }
 
+  /* On mobile the text block stacks vertically and grows taller,
+     so it extends above the bottom gradient and sits on the bare
+     photo. Add a full-image dark scrim so the eyebrow/title/sub
+     stay readable no matter how bright the photo is. */
+  .prod-hero-overlay {
+    display: block;
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0.40) 0%, rgba(0,0,0,0.30) 45%, rgba(0,0,0,0.80) 100%);
+  }
+
   .prod-layout { grid-template-columns: 1fr; }
 
   /* Sidebar becomes a full-screen drawer on mobile */
@@ -781,6 +795,14 @@ html { scroll-behavior: smooth; }
 
   .prod-main { padding: 20px 16px 48px; }
   .prod-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+
+  /* Smaller cards on mobile need less padding so the image
+     still has a decent amount of room to fill */
+  .prod-card-img {
+    padding: 14px;
+    min-height: 100px;
+    background-size: 32px 32px;
+  }
 
   .detail-layout { grid-template-columns: 1fr; }
   .detail-img-panel {

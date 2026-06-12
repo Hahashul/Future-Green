@@ -46,6 +46,13 @@ let currentSlide = 0;
 const slides = document.querySelectorAll('.hero-slide');
 const dots   = document.querySelectorAll('.hero-dot');
 
+/* Only set up the hero slideshow if this page actually has hero slides.
+   (script.js is shared across all pages — products.html, etc. don't
+   have .hero-slide elements, so without this guard `slides[0]` is
+   undefined and goSlide() throws "Cannot read properties of undefined
+   (reading 'classList')".) */
+if (slides.length > 0) {
+
 /* goSlide(n) — switch to slide number n
    Steps:
    1. Remove "active" from the OLD slide and its dot
@@ -79,6 +86,8 @@ function goSlide(n) {
 setInterval(function () {
   goSlide((currentSlide + 1) % slides.length);
 }, 5000); /* ← change 5000 to make slides change faster or slower */
+
+} /* end hero slideshow guard */
 
 
 /* ================================================================
