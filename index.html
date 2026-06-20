@@ -98,7 +98,8 @@
   {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "name": "Future Green India",
+    "name": "Future Green",
+    "alternateName": "Future Green India",
     "url": "https://futuregreenindia.com",
     "logo": "https://futuregreenindia.com/resources/logo.png",
     "description": "Future Green builds LED lighting for every corner of a modern home and the spaces around it — from wafer-thin ceiling panels and adjustable COB spots to outdoor floods, street lights and decorative rope.",
@@ -123,6 +124,23 @@
   }
   </script>
 
+  <!-- ══════════════════════════════════════════════════════════
+       WEBSITE SCHEMA — controls the "site name" Google shows
+       next to the favicon in search results (separate from
+       Organization schema above).
+       ★ TO CHANGE: edit "name" below — must match og:site_name
+         and the title tag for the strongest signal.
+  ══════════════════════════════════════════════════════════ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Future Green",
+    "alternateName": ["Future Green India", "futuregreenindia.com"],
+    "url": "https://futuregreenindia.com/"
+  }
+  </script>
+
 
   <!-- ══════════════════════════════════════════════════════════
        FAVICONS
@@ -130,7 +148,7 @@
        ★ TO CHANGE: replace the files in your resources/ folder
          with your own icon files (keep the same filenames)
   ══════════════════════════════════════════════════════════ -->
-  <link rel="icon"             href="resources/favicon.ico" />
+  <link rel="icon"             href="resources/favicon.ico" sizes="96x96" />
   <link rel="icon"             href="resources/favicon.svg"  type="image/svg+xml" />
   <!-- apple-touch-icon: icon shown when someone saves your site to iPhone home screen -->
   <link rel="apple-touch-icon" href="resources/apple-touch-icon.png" />
