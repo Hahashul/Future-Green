@@ -1,0 +1,19 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../coding"
+		},
+		{
+			"path": "../MMVPL"
+		},
+		{
+			"path": "../Sakar"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "MMVPL"
+	}
+}
