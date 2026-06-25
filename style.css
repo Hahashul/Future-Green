@@ -1277,12 +1277,11 @@ textarea { resize: vertical; }
    <img src="photo.jpg" alt="describe it" loading="lazy"
         style="width:100%;height:100%;object-fit:cover;" />
 */
-.social-ph-1 { background: linear-gradient(160deg, #2a2620 0%, #3e3428 100%); }
-.social-ph-2 { background: linear-gradient(160deg, #e8e4de 0%, #d0ccc4 100%); }
-.social-ph-3 { background: linear-gradient(160deg, #c8d0d4 0%, #b0bcc4 100%); }
-.social-ph-4 { background: linear-gradient(160deg, #d8d4cc 0%, #c0bab0 100%); }
-.social-ph-5 { background: linear-gradient(160deg, #dce0d8 0%, #c4c8bc 100%); }
-
+.social-ph-1 { background-image: url('resources/photo1.png'); background-size: cover; background-position: center; }
+.social-ph-2 { background-image: url('resources/photo2.png'); background-size: cover; background-position: center; }
+.social-ph-3 { background-image: url('resources/photo3.png'); background-size: cover; background-position: center; }
+.social-ph-4 { background-image: url('resources/photo4.png'); background-size: cover; background-position: center; }
+.social-ph-5 { background-image: url('resources/photo5.png'); background-size: cover; background-position: center; }
 
 /* ================================================================
    12. FOOTER
