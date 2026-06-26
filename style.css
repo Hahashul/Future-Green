@@ -573,6 +573,7 @@ nav.nav-solid .hamburger span { background: var(--text); }
   opacity: 0.7;
 }
 
+
 /* Outer: positions the edge nav buttons */
 .strip-outer {
   position: relative;
