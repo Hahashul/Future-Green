@@ -1,988 +1,167 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Richline — LED Lighting | World Will Glow®</title>
-<meta name="description" content="Richline (formerly Future Green) — LED lighting manufactured in Bhopal, India. 411+ SKUs across Indoor, Outdoor, Decorative and Power ranges, for dealers, distributors and bulk buyers.">
-<style>
-  :root{
-    /* ===== Richline design tokens — per Brand Guidelines v1.0 ===== */
-    --pine:#10271B;
-    --pine-soft:#173225;
-    --pine-line:rgba(255,247,233,0.12);
-    --green:#6CB52D;
-    --green-deep:#4f8a20;
-    --marigold:#E7A23C;
-    --glow-white:#FFF7E9;
-    --clay:#8A7B66;
-    --clay-soft:#a89a86;
-    --white:#ffffff;
-
-    --font: "Montserrat","Carlito",Arial,Helvetica,sans-serif;
-
-    --container:1180px;
-    --radius-s:8px;
-    --radius-m:16px;
-    --radius-l:28px;
-    --radius-chip:26%;
-
-    --space-1:8px;
-    --space-2:16px;
-    --space-3:24px;
-    --space-4:40px;
-    --space-5:64px;
-    --space-6:96px;
-
-    --ease:cubic-bezier(.2,.7,.2,1);
-  }
-
-  *{box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  body{
-    margin:0;
-    font-family:var(--font);
-    background:var(--glow-white);
-    color:var(--pine);
-    -webkit-font-smoothing:antialiased;
-    line-height:1.5;
-  }
-  img,svg{display:block;max-width:100%;}
-  a{color:inherit;text-decoration:none;}
-  ul{margin:0;padding:0;list-style:none;}
-  button{font-family:inherit;cursor:pointer;}
-  h1,h2,h3,h4,p{margin:0;}
-
-  .wrap{max-width:var(--container);margin:0 auto;padding:0 var(--space-3);}
-  .eyebrow{
-    font-size:12px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;
-    color:var(--green-deep);
-  }
-  .eyebrow--on-dark{color:var(--green);}
-  .eyebrow--clay{color:var(--clay);}
-
-  h2.section-title{
-    font-size:clamp(28px,4vw,42px);
-    font-weight:700;
-    letter-spacing:-0.01em;
-    line-height:1.15;
-    margin-top:10px;
-    color:var(--pine);
-  }
-  h2.section-title--on-dark{color:var(--glow-white);}
-  .section-sub{
-    max-width:620px;
-    color:var(--clay);
-    font-size:16.5px;
-    margin-top:14px;
-  }
-  .section-sub--on-dark{color:#c9c0b0;}
-
-  .btn{
-    display:inline-flex;align-items:center;gap:8px;
-    padding:14px 26px;
-    border-radius:999px;
-    font-weight:700;
-    font-size:14px;
-    letter-spacing:.02em;
-    border:1.5px solid transparent;
-    transition:transform .18s var(--ease), box-shadow .18s var(--ease), background .18s var(--ease), border-color .18s var(--ease);
-    white-space:nowrap;
-  }
-  .btn:hover{transform:translateY(-2px);}
-  .btn:focus-visible{outline:2px solid var(--marigold);outline-offset:3px;}
-  .btn--primary{background:var(--green);color:var(--pine);}
-  .btn--primary:hover{box-shadow:0 10px 24px rgba(108,181,45,.35);}
-  .btn--ghost-dark{border-color:rgba(255,247,233,.35);color:var(--glow-white);}
-  .btn--ghost-dark:hover{border-color:var(--glow-white);}
-  .btn--ghost-light{border-color:var(--pine-line);color:var(--pine);border-color:rgba(16,39,27,.25);}
-  .btn--ghost-light:hover{border-color:var(--pine);}
-  .btn--marigold{background:var(--marigold);color:var(--pine);}
-  .btn--marigold:hover{box-shadow:0 10px 24px rgba(231,162,60,.4);}
-
-  /* ================= LOGO SYSTEM ================= */
-  .rl-chip{
-    position:relative;
-    width:44px;height:44px;
-    border-radius:var(--radius-chip);
-    display:flex;align-items:center;justify-content:center;
-    flex-shrink:0;
-  }
-  .rl-chip--primary{background:var(--green);}
-  .rl-chip--reversed{background:var(--pine);border:1.5px solid var(--green);}
-  .rl-chip--engraving{background:transparent;border:1.5px solid var(--pine);}
-  .rl-chip__r{
-    font-weight:800;
-    font-size:22px;
-    letter-spacing:0;
-  }
-  .rl-chip--primary .rl-chip__r{color:var(--glow-white);}
-  .rl-chip--reversed .rl-chip__r{color:var(--green);}
-  .rl-chip--engraving .rl-chip__r{color:var(--pine);}
-  .rl-chip__leaf{position:absolute;top:-6px;right:-5px;transform:rotate(18deg);}
-  .rl-chip__leaf svg{width:16px;height:16px;}
-  .rl-chip--primary .rl-chip__leaf{color:var(--glow-white);}
-  .rl-chip--reversed .rl-chip__leaf{color:var(--marigold);}
-  .rl-chip--engraving .rl-chip__leaf{color:var(--pine);}
-
-  .rl-lockup{display:flex;align-items:center;gap:12px;}
-  .rl-lockup__text{display:flex;flex-direction:column;}
-  .rl-wordmark{
-    font-weight:800;
-    font-size:20px;
-    letter-spacing:.06em;
-    line-height:1;
-  }
-  .rl-wordmark sup{font-size:9px;font-weight:700;margin-left:1px;}
-  .rl-lockup--primary .rl-wordmark{color:var(--pine);}
-  .rl-lockup--reversed .rl-wordmark{color:var(--glow-white);}
-  .rl-beam{
-    width:100%;height:3px;margin-top:6px;border-radius:2px;
-    background:linear-gradient(90deg, var(--green) 0%, var(--marigold) 48%, var(--glow-white) 50%, var(--marigold) 52%, var(--green) 100%);
-    position:relative;
-  }
-  .rl-tagline{
-    font-size:8.5px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;
-    margin-top:5px;
-  }
-  .rl-lockup--primary .rl-tagline{color:var(--clay);}
-  .rl-lockup--reversed .rl-tagline{color:#b9b0a0;}
-  .rl-tagline em{color:var(--marigold);font-style:normal;}
-
-  /* Endorser / transition lockup */
-  .rl-endorser{display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
-  .rl-endorser__fg{display:flex;flex-direction:column;line-height:1.25;}
-  .rl-endorser__fg-name{font-size:11px;font-weight:800;letter-spacing:.08em;color:var(--green);}
-  .rl-endorser__fg-sub{font-size:10px;color:var(--clay-soft);}
-  .rl-endorser__div{width:1px;align-self:stretch;background:var(--pine-line);}
-
-  /* ================= HEADER ================= */
-  header{
-    position:sticky;top:0;z-index:50;
-    background:rgba(16,39,27,.92);
-    backdrop-filter:blur(10px);
-    border-bottom:1px solid var(--pine-line);
-  }
-  .header-inner{display:flex;align-items:center;justify-content:space-between;padding:14px var(--space-3);gap:20px;}
-  .main-nav{display:flex;align-items:center;gap:30px;}
-  .main-nav a{
-    font-size:14px;font-weight:600;color:#d7d0c2;
-    position:relative;padding:4px 0;
-    transition:color .15s;
-  }
-  .main-nav a:hover{color:var(--glow-white);}
-  .main-nav a::after{
-    content:"";position:absolute;left:0;bottom:-2px;height:2px;width:0;background:var(--green);
-    transition:width .2s var(--ease);
-  }
-  .main-nav a:hover::after{width:100%;}
-  .header-cta{display:flex;align-items:center;gap:12px;}
-  .nav-toggle{display:none;background:none;border:none;color:var(--glow-white);padding:6px;}
-  .nav-toggle svg{width:24px;height:24px;}
-
-  /* ================= HERO ================= */
-  .hero{
-    background:radial-gradient(120% 100% at 85% 0%, #17321f 0%, var(--pine) 55%, #0b1a12 100%);
-    padding:var(--space-6) 0 var(--space-5);
-    position:relative;overflow:hidden;
-  }
-  .hero-inner{
-    display:grid;grid-template-columns:1.05fr .95fr;gap:var(--space-5);align-items:center;
-  }
-  .hero-copy h1{
-    font-size:clamp(38px,5.4vw,64px);
-    font-weight:800;color:var(--glow-white);
-    line-height:1.05;letter-spacing:-.01em;
-    margin-top:14px;
-  }
-  .hero-copy h1 em{
-    font-style:normal;color:var(--green);
-    background:linear-gradient(90deg,var(--green),var(--marigold));
-    -webkit-background-clip:text;background-clip:text;color:transparent;
-  }
-  .hero-copy p{
-    color:#cfc6b6;font-size:17.5px;max-width:520px;margin-top:20px;
-  }
-  .hero-actions{display:flex;gap:14px;margin-top:32px;flex-wrap:wrap;}
-  .hero-stats{display:flex;gap:var(--space-4);margin-top:var(--space-5);flex-wrap:wrap;}
-  .hero-stat b{display:block;font-size:26px;font-weight:800;color:var(--glow-white);}
-  .hero-stat span{font-size:12.5px;color:var(--clay-soft);letter-spacing:.03em;}
-
-  /* Glow lamp */
-  .lamp-stage{position:relative;height:420px;display:flex;align-items:center;justify-content:center;}
-  .lamp-glow{
-    position:absolute;width:340px;height:340px;border-radius:50%;
-    background:radial-gradient(circle, rgba(231,162,60,.55) 0%, rgba(231,162,60,.18) 45%, transparent 72%);
-    filter:blur(2px);
-    animation:pulseGlow 4.5s ease-in-out infinite;
-  }
-  @keyframes pulseGlow{0%,100%{opacity:.75;transform:scale(1);}50%{opacity:1;transform:scale(1.08);}}
-  .lamp-svg{position:relative;width:190px;}
-  .lamp-cord{position:absolute;top:-140px;left:50%;transform:translateX(-1px);width:2px;height:140px;background:linear-gradient(var(--pine-line),rgba(255,247,233,.35));}
-
-  /* ================= TRANSITION STRIP ================= */
-  .transition-strip{
-    background:var(--glow-white);
-    border-bottom:1px solid rgba(16,39,27,.08);
-    padding:18px 0;
-  }
-  .transition-inner{
-    display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;
-  }
-  .transition-note{font-size:13.5px;color:var(--clay);max-width:480px;}
-  .transition-note strong{color:var(--pine);}
-
-  /* ================= STORY ================= */
-  .story{padding:var(--space-6) 0;background:var(--glow-white);}
-  .story-head{max-width:680px;}
-  .belief-grid{
-    display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-3);margin-top:var(--space-5);
-  }
-  .belief-card{
-    background:var(--white);
-    border:1px solid rgba(16,39,27,.08);
-    border-radius:var(--radius-m);
-    padding:var(--space-3);
-    transition:transform .2s var(--ease), box-shadow .2s var(--ease), border-color .2s var(--ease);
-  }
-  .belief-card:hover{transform:translateY(-4px);box-shadow:0 16px 30px rgba(16,39,27,.08);border-color:rgba(108,181,45,.35);}
-  .belief-icon{
-    width:44px;height:44px;border-radius:12px;background:rgba(108,181,45,.12);
-    display:flex;align-items:center;justify-content:center;margin-bottom:16px;
-  }
-  .belief-icon svg{width:22px;height:22px;color:var(--green-deep);}
-  .belief-card h3{font-size:16.5px;font-weight:700;color:var(--pine);}
-  .belief-card p{font-size:14px;color:var(--clay);margin-top:8px;line-height:1.55;}
-  .belief-quote{
-    margin-top:var(--space-5);
-    text-align:center;
-  }
-  .belief-quote p{
-    font-size:clamp(22px,3vw,30px);font-weight:700;color:var(--pine);font-style:italic;
-  }
-  .belief-quote span{display:block;margin-top:10px;font-size:13px;color:var(--clay);}
-
-  /* ================= PRODUCTS ================= */
-  .products{padding:var(--space-6) 0;background:var(--pine);position:relative;}
-  .products-head{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;}
-  .sku-badge{
-    display:flex;align-items:center;gap:10px;
-    background:rgba(108,181,45,.12);border:1px solid rgba(108,181,45,.35);
-    padding:10px 18px;border-radius:999px;
-  }
-  .sku-badge b{color:var(--green);font-size:18px;}
-  .sku-badge span{color:#cfc6b6;font-size:12.5px;}
-
-  .tabs{display:flex;gap:10px;margin-top:var(--space-4);flex-wrap:wrap;}
-  .tab-btn{
-    padding:9px 20px;border-radius:999px;border:1.5px solid var(--pine-line);
-    background:transparent;color:#cfc6b6;font-size:13.5px;font-weight:600;
-    transition:all .18s var(--ease);
-  }
-  .tab-btn:hover{border-color:var(--green);color:var(--glow-white);}
-  .tab-btn.is-active{background:var(--green);border-color:var(--green);color:var(--pine);}
-
-  .product-grid{
-    display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:var(--space-4);
-  }
-  .product-card{
-    background:var(--pine-soft);
-    border:1px solid var(--pine-line);
-    border-radius:var(--radius-m);
-    padding:20px;
-    transition:transform .2s var(--ease), border-color .2s var(--ease);
-  }
-  .product-card:hover{transform:translateY(-4px);border-color:var(--green);}
-  .product-card .p-icon{
-    width:38px;height:38px;border-radius:10px;
-    background:rgba(231,162,60,.12);display:flex;align-items:center;justify-content:center;margin-bottom:14px;
-  }
-  .product-card .p-icon svg{width:19px;height:19px;color:var(--marigold);}
-  .product-card h4{color:var(--glow-white);font-size:16px;font-weight:700;}
-  .product-card .p-cat{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--green);margin-top:6px;display:block;}
-  .product-card p{font-size:13px;color:#a89a86;margin-top:10px;line-height:1.5;}
-  .product-card[hidden]{display:none;}
-
-  .cob-band{
-    margin-top:var(--space-5);
-    background:linear-gradient(120deg, rgba(231,162,60,.14), rgba(108,181,45,.08));
-    border:1px solid rgba(231,162,60,.35);
-    border-radius:var(--radius-l);
-    padding:var(--space-4);
-    display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center;
-  }
-  .cob-band h3{color:var(--glow-white);font-size:22px;font-weight:800;}
-  .cob-band p{color:#cfc6b6;font-size:14.5px;margin-top:8px;max-width:520px;}
-
-  .finish-guide{margin-top:var(--space-5);}
-  .finish-guide h3{color:var(--glow-white);font-size:18px;font-weight:700;}
-  .finish-row{display:flex;gap:18px;margin-top:20px;flex-wrap:wrap;}
-  .finish-item{display:flex;flex-direction:column;align-items:center;gap:8px;width:88px;}
-  .finish-swatch{width:44px;height:44px;border-radius:50%;border:2px solid rgba(255,247,233,.25);}
-  .finish-item span{font-size:11px;color:#cfc6b6;text-align:center;line-height:1.3;}
-
-  /* ================= TIMELINE ================= */
-  .legacy{padding:var(--space-6) 0;background:var(--glow-white);}
-  .timeline{margin-top:var(--space-5);position:relative;}
-  .timeline::before{
-    content:"";position:absolute;left:20px;top:6px;bottom:6px;width:2px;
-    background:linear-gradient(var(--green), var(--marigold));
-  }
-  .t-item{position:relative;padding-left:60px;margin-bottom:var(--space-4);}
-  .t-item:last-child{margin-bottom:0;}
-  .t-dot{
-    position:absolute;left:12px;top:2px;width:18px;height:18px;border-radius:50%;
-    background:var(--glow-white);border:3px solid var(--green);
-  }
-  .t-item.is-milestone .t-dot{border-color:var(--marigold);background:var(--marigold);}
-  .t-year{font-size:13px;font-weight:800;letter-spacing:.06em;color:var(--green-deep);}
-  .t-item h4{font-size:18px;font-weight:700;color:var(--pine);margin-top:4px;}
-  .t-item p{font-size:14.5px;color:var(--clay);margin-top:6px;max-width:560px;}
-
-  /* ================= ASSURANCE ================= */
-  .assurance{
-    padding:var(--space-6) 0;
-    background:var(--pine);
-    text-align:center;
-  }
-  .seal{
-    width:110px;height:110px;border-radius:50%;
-    border:3px solid var(--marigold);
-    display:flex;flex-direction:column;align-items:center;justify-content:center;
-    margin:0 auto 24px;
-    background:radial-gradient(circle, rgba(231,162,60,.18), transparent 70%);
-  }
-  .seal b{font-size:26px;color:var(--marigold);font-weight:800;}
-  .seal span{font-size:9.5px;color:var(--glow-white);letter-spacing:.08em;text-transform:uppercase;margin-top:2px;}
-  .assurance h2{color:var(--glow-white);}
-  .assurance p{color:#cfc6b6;max-width:560px;margin:16px auto 0;}
-  .pledge-grid{
-    display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:var(--space-5);
-    max-width:900px;margin-left:auto;margin-right:auto;
-  }
-  .pledge-card{
-    text-align:left;
-    background:rgba(231,162,60,.06);
-    border:1.5px solid rgba(231,162,60,.4);
-    border-radius:var(--radius-l);
-    padding:var(--space-4);
-    transition:transform .2s var(--ease), box-shadow .2s var(--ease);
-  }
-  .pledge-card:hover{transform:translateY(-4px);box-shadow:0 20px 40px rgba(0,0,0,.25);}
-  .pledge-icon{
-    width:48px;height:48px;border-radius:12px;background:rgba(231,162,60,.16);
-    display:flex;align-items:center;justify-content:center;color:var(--marigold);margin-bottom:18px;
-  }
-  .pledge-icon svg{width:24px;height:24px;}
-  .pledge-no{
-    font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--green);
-  }
-  .pledge-card h3{color:var(--glow-white);font-size:19px;font-weight:800;margin-top:10px;line-height:1.3;}
-  .pledge-card p{color:#cfc6b6;font-size:14px;margin-top:12px;text-align:left;line-height:1.6;}
-
-  .assurance-grid{
-    display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:var(--space-5);
-    max-width:900px;margin-left:auto;margin-right:auto;
-  }
-  .assurance-item{
-    border:1px solid var(--pine-line);border-radius:var(--radius-m);padding:22px;text-align:left;
-  }
-  .assurance-item h4{color:var(--glow-white);font-size:15.5px;font-weight:700;}
-  .assurance-item p{color:#a89a86;font-size:13.5px;margin-top:8px;text-align:left;}
-
-  /* ================= TESTIMONIALS ================= */
-  .testimonials{padding:var(--space-6) 0;background:var(--glow-white);text-align:center;}
-  .testimonials .wrap{max-width:640px;}
-  .testi-empty{
-    margin-top:var(--space-4);
-    border:1.5px dashed rgba(16,39,27,.2);
-    border-radius:var(--radius-m);
-    padding:var(--space-4);
-  }
-  .testi-empty p{color:var(--clay);font-size:14.5px;}
-  .testi-empty .btn{margin-top:18px;}
-
-  /* ================= CONTACT ================= */
-  .contact{padding:var(--space-6) 0;background:var(--pine-soft);}
-  .contact-inner{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-5);}
-  .offices{display:flex;flex-direction:column;gap:16px;margin-top:var(--space-4);}
-  .office-card{
-    border:1px solid var(--pine-line);border-radius:var(--radius-m);padding:20px;
-  }
-  .office-card b{color:var(--glow-white);font-size:14px;letter-spacing:.04em;}
-  .office-tag{
-    display:inline-block;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
-    color:var(--pine);background:var(--green);padding:3px 9px;border-radius:999px;margin-left:8px;
-  }
-  .office-card p{color:#a89a86;font-size:13.5px;margin-top:8px;line-height:1.6;}
-
-  .enquiry-form{
-    background:var(--white);border-radius:var(--radius-l);padding:var(--space-4);
-    box-shadow:0 24px 50px rgba(0,0,0,.25);
-  }
-  .enquiry-form h3{font-size:20px;font-weight:800;color:var(--pine);}
-  .enquiry-form .section-sub{margin-top:6px;font-size:14px;}
-  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px;}
-  .form-row.full{grid-template-columns:1fr;}
-  .field{display:flex;flex-direction:column;gap:6px;}
-  .field label{font-size:12px;font-weight:700;color:var(--pine);}
-  .field input,.field select,.field textarea{
-    border:1.5px solid rgba(16,39,27,.15);border-radius:var(--radius-s);
-    padding:11px 12px;font-family:inherit;font-size:14px;color:var(--pine);
-    background:var(--glow-white);
-  }
-  .field input:focus,.field select:focus,.field textarea:focus{
-    outline:none;border-color:var(--green);
-  }
-  .enquiry-form button{width:100%;margin-top:20px;justify-content:center;}
-  .form-note{font-size:11.5px;color:var(--clay);margin-top:12px;text-align:center;}
-
-  /* ================= FOOTER ================= */
-  footer{background:var(--pine);border-top:1px solid var(--pine-line);padding:var(--space-5) 0 var(--space-3);}
-  .footer-top{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:var(--space-4);}
-  .footer-brand p{color:#a89a86;font-size:13.5px;margin-top:16px;max-width:320px;line-height:1.6;}
-  .footer-col h5{color:var(--glow-white);font-size:13px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;margin-bottom:14px;}
-  .footer-col a{display:block;color:#a89a86;font-size:13.5px;margin-bottom:10px;transition:color .15s;}
-  .footer-col a:hover{color:var(--green);}
-  .footer-bottom{
-    margin-top:var(--space-5);padding-top:var(--space-3);border-top:1px solid var(--pine-line);
-    display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;
-  }
-  .footer-bottom p{font-size:12px;color:#7f7364;}
-  .legal-note{font-size:11px;color:#6d6255;max-width:640px;margin-top:8px;line-height:1.6;}
-
-  /* ================= WHATSAPP FAB ================= */
-  .wa-fab{
-    position:fixed;bottom:24px;right:24px;z-index:60;
-    width:58px;height:58px;border-radius:50%;
-    background:#25D366;display:flex;align-items:center;justify-content:center;
-    box-shadow:0 12px 28px rgba(0,0,0,.3);
-    animation:fabPulse 3s ease-in-out infinite;
-  }
-  .wa-fab svg{width:28px;height:28px;color:#fff;}
-  @keyframes fabPulse{0%,100%{box-shadow:0 12px 28px rgba(0,0,0,.3);}50%{box-shadow:0 12px 28px rgba(37,211,102,.55);}}
-
-  /* ================= REVEAL ================= */
-  .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s var(--ease), transform .6s var(--ease);}
-  .reveal.is-visible{opacity:1;transform:none;}
-
-  @media (prefers-reduced-motion: reduce){
-    *{animation:none !important;transition:none !important;}
-    html{scroll-behavior:auto;}
-  }
-
-  /* ================= RESPONSIVE ================= */
-  @media (max-width:980px){
-    .hero-inner{grid-template-columns:1fr;}
-    .lamp-stage{height:300px;order:-1;}
-    .belief-grid{grid-template-columns:repeat(2,1fr);}
-    .product-grid{grid-template-columns:repeat(2,1fr);}
-    .contact-inner{grid-template-columns:1fr;}
-    .footer-top{grid-template-columns:1fr;gap:var(--space-3);}
-    .assurance-grid{grid-template-columns:1fr;}
-    .pledge-grid{grid-template-columns:1fr;}
-    .cob-band{grid-template-columns:1fr;text-align:left;}
-  }
-  @media (max-width:720px){
-    .main-nav{
-      position:fixed;top:69px;left:0;right:0;bottom:0;
-      background:var(--pine);flex-direction:column;align-items:flex-start;
-      padding:var(--space-3);gap:0;
-      transform:translateX(100%);transition:transform .25s var(--ease);
-    }
-    .main-nav.is-open{transform:translateX(0);}
-    .main-nav a{padding:14px 0;width:100%;border-bottom:1px solid var(--pine-line);}
-    .nav-toggle{display:block;}
-    .header-cta .btn span.long{display:none;}
-    .product-grid{grid-template-columns:1fr;}
-    .form-row{grid-template-columns:1fr;}
-    .rl-wordmark{font-size:17px;}
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Future Green is now Richline. Engineered LED lighting solutions for residential, commercial, industrial and infrastructure applications." />
+  <title>Richline® LED Lighting | World Will Gl◆w®</title>
+  <link rel="icon" type="image/png" href="public/brand/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-
-<!-- Reusable leaf SVG (referenced via clone) -->
-<svg width="0" height="0" style="position:absolute">
-  <symbol id="leaf-shape" viewBox="0 0 20 20">
-    <path fill="currentColor" d="M0,20 C0,8 8,0 20,0 C20,12 12,20 0,20 Z"/>
-    <path stroke="rgba(0,0,0,.25)" stroke-width="1" fill="none" d="M2,17 C6,13 10,9 17,3"/>
-  </symbol>
-</svg>
-
-<!-- ================= HEADER ================= -->
-<header>
-  <div class="header-inner wrap">
-    <div class="rl-endorser">
-      <a href="#top" class="rl-lockup rl-lockup--reversed" aria-label="Richline home">
-        <div class="rl-chip rl-chip--reversed">
-          <span class="rl-chip__r">R</span>
-          <span class="rl-chip__leaf"><svg><use href="#leaf-shape"/></svg></span>
-        </div>
-        <div class="rl-lockup__text">
-          <span class="rl-wordmark">RICHLINE<sup>&reg;</sup></span>
-        </div>
-      </a>
-      <div class="rl-endorser__div"></div>
-      <div class="rl-endorser__fg">
-        <span class="rl-endorser__fg-sub">Future Green&trade; is now</span>
-        <span class="rl-endorser__fg-name">RICHLINE</span>
-      </div>
+  <div class="transition-bar" id="transitionBar" role="status">
+    <div class="transition-inner">
+      <p><strong>Future Green™ is now Richline®</strong><span>Same team · Same manufacturing · Same trust</span></p>
+      <a href="#our-story">Know more</a>
+      <button id="closeTransition" aria-label="Close brand transition message">×</button>
     </div>
+  </div>
 
-    <nav class="main-nav" id="mainNav">
-      <a href="#story">Our Story</a>
+  <header class="site-header" id="header">
+    <a class="brand" href="#home" aria-label="Richline home">
+      <img src="public/brand/logo-primary.png" alt="Richline — World Will Glow" />
+    </a>
+    <button class="menu-toggle" aria-label="Open navigation" aria-expanded="false">☰</button>
+    <nav class="nav" aria-label="Primary navigation">
+      <a href="#solutions">Solutions</a>
       <a href="#products">Products</a>
-      <a href="#legacy">Legacy</a>
-      <a href="#assurance">Assurance</a>
+      <a href="#projects">Projects</a>
+      <a href="#resources">Resources</a>
+      <a href="#our-story">Our Story</a>
+      <a href="#quality">Quality</a>
       <a href="#contact">Contact</a>
+      <a class="nav-cta" href="#partner">Become a Dealer</a>
     </nav>
+  </header>
 
-    <div class="header-cta">
-      <a class="btn btn--primary" href="#contact"><span class="long">Dealer</span> Enquiry</a>
-      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
-      </button>
-    </div>
-  </div>
-</header>
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-copy">
+        <p class="eyebrow">ENGINEERED LED LIGHTING SOLUTIONS</p>
+        <h1>Lighting that performs.<br />Engineering you can trust.</h1>
+        <p class="hero-tagline">WORLD WILL GL◆W®</p>
+        <p class="hero-text">Richline designs and manufactures dependable LED lighting solutions for residential, commercial, industrial and infrastructure applications.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#solutions">Explore Solutions</a>
+          <a class="btn btn-secondary" href="#products">View Products</a>
+        </div>
+        <div class="trust-row" aria-label="Richline trust indicators">
+          <span>Engineering focused</span>
+          <span>Manufacturing driven</span>
+          <span>24-month standard warranty</span>
+        </div>
+      </div>
+      <div class="hero-visual" aria-label="Featured Richline products">
+        <div class="glow"></div>
+        <img class="hero-product hero-product-main" src="public/products/iris-surface-panel.png" alt="Richline Iris surface panel" />
+        <img class="hero-product hero-product-left" src="public/products/tulip-deep-light.png" alt="Richline Tulip deep light" />
+        <img class="hero-product hero-product-right" src="public/products/orchid-floodlight.png" alt="Richline Orchid floodlight" />
+      </div>
+    </section>
 
-<!-- ================= HERO ================= -->
-<section class="hero" id="top">
-  <div class="wrap hero-inner">
-    <div class="hero-copy">
-      <span class="eyebrow eyebrow--on-dark">World Will Glow&reg;</span>
-      <h1>Light, engineered with <em>warmth</em>.</h1>
-      <p>Richline is the evolution of Future Green — same people, same products, same promise, now carried under a registered name. 411+ SKUs of LED lighting, manufactured in Bhopal for dealers and distributors across India.</p>
-      <div class="hero-actions">
-        <a href="#products" class="btn btn--marigold">View the Range</a>
-        <a href="#contact" class="btn btn--ghost-dark">Become a Dealer</a>
-      </div>
-      <div class="hero-stats">
-        <div class="hero-stat"><b>411+</b><span>SKUs in catalogue</span></div>
-        <div class="hero-stat"><b>29</b><span>Product families</span></div>
-        <div class="hero-stat"><b>9</b><span>Finish options</span></div>
-        <div class="hero-stat"><b>10+</b><span>Years, promise kept</span></div>
-      </div>
-    </div>
-    <div class="lamp-stage">
-      <div class="lamp-cord"></div>
-      <div class="lamp-glow"></div>
-      <svg class="lamp-svg" viewBox="0 0 190 220" fill="none">
-        <ellipse cx="95" cy="90" rx="62" ry="70" fill="url(#bulbGrad)" opacity="0.92"/>
-        <ellipse cx="95" cy="90" rx="62" ry="70" stroke="rgba(255,247,233,.35)" stroke-width="1.5"/>
-        <path d="M78 150 h34 v14 a17 17 0 0 1 -34 0 z" fill="#4a4038"/>
-        <rect x="76" y="145" width="38" height="8" rx="3" fill="#332b25"/>
-        <path d="M75 95 Q95 40 115 95" stroke="var(--marigold)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-        <path d="M85 95 Q95 60 105 95" stroke="var(--marigold)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-        <defs>
-          <radialGradient id="bulbGrad" cx="50%" cy="42%" r="65%">
-            <stop offset="0%" stop-color="#fff3d6"/>
-            <stop offset="55%" stop-color="#f5d38f" stop-opacity="0.5"/>
-            <stop offset="100%" stop-color="#e7a23c" stop-opacity="0.12"/>
-          </radialGradient>
-        </defs>
-      </svg>
-    </div>
-  </div>
-</section>
-
-<!-- ================= TRANSITION STRIP ================= -->
-<section class="transition-strip">
-  <div class="wrap transition-inner">
-    <div class="rl-endorser">
-      <div class="rl-chip rl-chip--primary" style="width:34px;height:34px;">
-        <span class="rl-chip__r" style="font-size:16px;">R</span>
-        <span class="rl-chip__leaf" style="top:-4px;right:-4px;"><svg style="width:12px;height:12px;"><use href="#leaf-shape"/></svg></span>
-      </div>
-      <p class="transition-note"><strong>Future Green is now Richline.</strong> Same factory, same team, same 10-year promise — carried forward under a registered name. Your existing contacts, pricing and support channels are unchanged.</p>
-    </div>
-    <a href="#legacy" class="btn btn--ghost-light" style="padding:10px 20px;font-size:13px;">Read the transition &rarr;</a>
-  </div>
-</section>
-
-<!-- ================= STORY ================= -->
-<section class="story" id="story">
-  <div class="wrap">
-    <div class="story-head reveal">
-      <span class="eyebrow">Our Story</span>
-      <h2 class="section-title">What we believe</h2>
-      <p class="section-sub">A leaf from Mother Nature — universal, of no single place. Growth, renewal and a lighter footprint sit at the centre of everything we make.</p>
-    </div>
-
-    <div class="belief-grid">
-      <div class="belief-card reveal">
-        <div class="belief-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22c6-3 8-8 8-14 0 0-8-1-8 6 0-7-8-6-8-6 0 6 2 11 8 14z"/></svg></div>
-        <h3>Inspired by Nature</h3>
-        <p>A leaf from Mother Nature — universal, of no single place. Growth, renewal and a lighter footprint sit at the centre of the mark.</p>
-      </div>
-      <div class="belief-card reveal">
-        <div class="belief-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 4v5"/></svg></div>
-        <h3>Professionalism with Humanity</h3>
-        <p>Precise engineering and a warm, human touch. The exact geometry of the wordmark meets a living leaf and a warm glow.</p>
-      </div>
-      <div class="belief-card reveal">
-        <div class="belief-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18a14 14 0 0 1 0-18z"/></svg></div>
-        <h3>Indian at Heart, Global in Reach</h3>
-        <p>Rooted in our values and the way we work; open to the whole planet. World Will Glow is a promise without borders.</p>
-      </div>
-      <div class="belief-card reveal">
-        <div class="belief-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4M4.9 19.1l2.8-2.8M16.3 7.7l2.8-2.8"/><circle cx="12" cy="12" r="4"/></svg></div>
-        <h3>Light that Gives Back</h3>
-        <p>Efficient, dependable light — and a warm one. The glow at the heart of the mark is the warm white our fixtures actually cast.</p>
-      </div>
-    </div>
-
-    <div class="belief-quote reveal">
-      <p>&ldquo;World Will Glow.&rdquo;</p>
-      <span>The constant through the transition — our registered promise, unchanged.</span>
-    </div>
-  </div>
-</section>
-
-<!-- ================= PRODUCTS ================= -->
-<section class="products" id="products">
-  <div class="wrap">
-    <div class="products-head reveal">
+    <section class="brand-bridge" id="our-story">
       <div>
-        <span class="eyebrow eyebrow--on-dark">The Botanical System</span>
-        <h2 class="section-title section-title--on-dark">29 families. 411+ SKUs.</h2>
-        <p class="section-sub section-sub--on-dark">Every product is named from nature — flowers and celestial light. The naming system carries over from Future Green unchanged; new products take the next fitting botanical or celestial name.</p>
+        <p class="eyebrow">OUR EVOLUTION</p>
+        <h2>Future Green™ is now Richline®</h2>
       </div>
-      <div class="sku-badge"><b>411+</b><span>SKUs across<br>the full range</span></div>
-    </div>
+      <p>Richline is the evolution of Future Green—same people, same products and the same promise, now carried under a registered identity built for the future.</p>
+      <div class="bridge-points"><span>Same team</span><span>Same manufacturing</span><span>Same commitment</span></div>
+    </section>
 
-    <div class="tabs reveal" role="tablist" aria-label="Filter products by category">
-      <button class="tab-btn is-active" data-filter="all">All Products</button>
-      <button class="tab-btn" data-filter="Indoor">Indoor</button>
-      <button class="tab-btn" data-filter="Outdoor">Outdoor</button>
-      <button class="tab-btn" data-filter="Decorative">Decorative</button>
-      <button class="tab-btn" data-filter="Power">Power</button>
-    </div>
-
-    <div class="product-grid" id="productGrid">
-      <!-- Indoor -->
-      <div class="product-card reveal" data-cat="Indoor"><div class="p-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 2v3M12 19v3M4.2 4.2l2 2M17.8 17.8l2 2M2 12h3M19 12h3M4.2 19.8l2-2M17.8 6.2l2-2"/></svg></div><h4>Iris</h4><span class="p-cat">Indoor</span><p>Recessed downlight for false ceilings — crisp, even spread.</p></div>
-      <div class="product-card reveal" data-cat="Indoor"><div class="p-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l7 4v10l-7 4-7-4V7z"/></svg></div><h4>Tulip</h4><span class="p-cat">Indoor</span><p>Surface panel light for offices, showrooms and retail units.</p></div>
-      <div class="product-card reveal" data-cat="Indoor"><div class="p-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="9" width="16" height="6" rx="3"/></svg></div><h4>Lily</h4><span class="p-cat">Indoor</span><p>Slim batten for kitchens, corridors and utility spaces.</p></div>
-      <div class="product-card reveal" data-cat="Indoor"><div class="p-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/></svg></div><h4>Camellia</h4><span class="p-cat">Indoor</span><p>Concealed cove light for false-ceiling profiles.</p></div>
-      <div class="product-card reveal" data-cat="Indoor"><div class="p-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20h16M8 20V10l4-6 4 6v10"/></svg></div><h4>Magnolia</h4><span class="p-cat">Indoor</span><p>Decorative pendant for dining and reception areas.</p></div>
-      <div class="product-card reveal" data-cat="Indoor"><div class="p-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="5" width="14" height="14" rx="2"/></svg></div><h4>Daisy</h4><span class="p-cat">Indoor</span><p>Square panel light, edge-lit for uniform glow.</p></div>
-      <div class="product-card reveal" data-cat="Indoor"><div class="p-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 20V10a6 6 0 0 1 12 0v10"/></svg></div><h4>Heather</h4><span class="p-cat">Indoor</span><p>Track-mounted spotlight for accent and display lighting.</p></div>
-      <div class="product-card reveal" data-cat="Indoor"><div class="p-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="7"/><path d="M12 8v4l3 2"/></svg></div><h4>Jasmine</h4><span class="p-cat">Indoor</span><p>Mini downlight for false-ceiling grids and niches.</p></div>
-      <div class="product-card reveal" data-cat="Indoor"><div class="p-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v12H4zM9 20h6M12 16v4"/></svg></div><h4>Peony</h4><span class="p-cat">Indoor</span><p>Backlit mirror & vanity light for bath and bedroom.</p></div>
-
-      <!-- Outdoor -->
-      <div class="product-card reveal" data-cat="Outdoor"><div class="p-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v3M12 20v3M4.2 4.2l2 2M17.8 17.8l2 2M1 12h3M20 12h3M4.2 19.8l2-2M17.8 6.2l2-2"/></svg></div><h4>Sunflower</h4><span class="p-cat">Outdoor</span><p>High-output flood light for facades and large open areas.</p></div>
-      <div class="product-card reveal" data-cat="Outdoor"><div class="p-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20l8-16 8 16z"/></svg></div><h4>Marigold</h4><span class="p-cat">Outdoor</span><p>Bollard light for pathways, gardens and driveways.</p></div>
-      <div class="product-card reveal" data-cat="Outdoor"><div class="p-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="10" width="18" height="6" rx="1"/></svg></div><h4>Gazania</h4><span class="p-cat">Outdoor</span><p>Street light fixture for roads and campus lighting.</p></div>
-      <div class="product-card reveal" data-cat="Outdoor"><div class="p-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M6 20a6 6 0 0 1 12 0"/></svg></div><h4>Zinnia</h4><span class="p-cat">Outdoor</span><p>Wall-mounted step & fence light, weatherproof housing.</p></div>
-      <div class="product-card reveal" data-cat="Outdoor"><div class="p-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l2.5 6.5L21 9l-5 4.5L17.5 21 12 17l-5.5 4L8 13.5 3 9l6.5-.5z"/></svg></div><h4>Poppy</h4><span class="p-cat">Outdoor</span><p>Facade wall-washer for building and monument lighting.</p></div>
-      <div class="product-card reveal" data-cat="Outdoor"><div class="p-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18"/></svg></div><h4>Aster</h4><span class="p-cat">Outdoor</span><p>Solar-integrated garden light, dusk-to-dawn sensor.</p></div>
-      <div class="product-card reveal" data-cat="Outdoor"><div class="p-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="8"/></svg></div><h4>Larkspur</h4><span class="p-cat">Outdoor</span><p>Underwater / pool-safe light, IP68 sealed housing.</p></div>
-      <div class="product-card reveal" data-cat="Outdoor"><div class="p-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M12 3v18"/><circle cx="12" cy="12" r="9"/></svg></div><h4>Crocus</h4><span class="p-cat">Outdoor</span><p>In-ground uplighter for trees, columns and signage.</p></div>
-
-      <!-- Decorative -->
-      <div class="product-card reveal" data-cat="Decorative"><div class="p-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2c3 3 5 6 5 9a5 5 0 0 1-10 0c0-3 2-6 5-9z"/></svg></div><h4>Orchid</h4><span class="p-cat">Decorative</span><p>Chandelier-style hanging light for foyers and living rooms.</p></div>
-      <div class="product-card reveal" data-cat="Decorative"><div class="p-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 8h14l-2 12H7z"/><path d="M9 8V5a3 3 0 0 1 6 0v3"/></svg></div><h4>Dahlia</h4><span class="p-cat">Decorative</span><p>Festive string & fairy lights, indoor/outdoor rated.</p></div>
-      <div class="product-card reveal" data-cat="Decorative"><div class="p-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l16 16M20 4L4 20"/><circle cx="12" cy="12" r="9"/></svg></div><h4>Calla</h4><span class="p-cat">Decorative</span><p>RGB strip light with app/remote colour control.</p></div>
-      <div class="product-card reveal" data-cat="Decorative"><div class="p-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3c-4 0-7 3-7 7 0 4 3 6 7 11 4-5 7-7 7-11 0-4-3-7-7-7z"/></svg></div><h4>Bluebell</h4><span class="p-cat">Decorative</span><p>Festoon / celebration bulb string for events and terraces.</p></div>
-      <div class="product-card reveal" data-cat="Decorative"><div class="p-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="3" width="12" height="18" rx="3"/><path d="M9 7h6M9 11h6M9 15h6"/></svg></div><h4>Freesia</h4><span class="p-cat">Decorative</span><p>Wall-panel motif light for accent walls and signage.</p></div>
-      <div class="product-card reveal" data-cat="Decorative"><div class="p-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12c3-6 8-9 10-9s7 3 10 9c-3 6-8 9-10 9s-7-3-10-9z"/><circle cx="12" cy="12" r="3"/></svg></div><h4>Lotus</h4><span class="p-cat">Decorative</span><p>Diya-style festive floor & table light, warm-white glow.</p></div>
-      <div class="product-card reveal" data-cat="Decorative"><div class="p-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 18a8 8 0 0 1 16 0"/><path d="M8 18a4 4 0 0 1 8 0"/><circle cx="12" cy="6" r="2"/></svg></div><h4>Aurora</h4><span class="p-cat">Decorative</span><p>Curtain / waterfall light for facades and stage backdrops.</p></div>
-
-      <!-- Power -->
-      <div class="product-card reveal" data-cat="Power"><div class="p-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2 4 14h6l-1 8 9-12h-6z"/></svg></div><h4>Nova</h4><span class="p-cat">Power</span><p>Premium COB downlight — high CRI, compact heat sink.</p></div>
-      <div class="product-card reveal" data-cat="Power"><div class="p-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v4M12 19v4M1 12h4M19 12h4"/></svg></div><h4>Surya</h4><span class="p-cat">Power</span><p>Industrial high-bay light for warehouses and factories.</p></div>
-      <div class="product-card reveal" data-cat="Power"><div class="p-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 3 4 14h6l-1 7 9-11h-6z"/></svg></div><h4>Suraj</h4><span class="p-cat">Power</span><p>LED driver & power module range for OEM and retrofit.</p></div>
-      <div class="product-card reveal" data-cat="Power"><div class="p-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z"/></svg></div><h4>Luna</h4><span class="p-cat">Power</span><p>Solar street-light system with lithium battery backup.</p></div>
-      <div class="product-card reveal" data-cat="Power"><div class="p-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"/></svg></div><h4>Comet</h4><span class="p-cat">Power</span><p>Emergency & inverter-backed light for critical spaces.</p></div>
-    </div>
-
-    <div class="cob-band reveal">
-      <div>
-        <span class="eyebrow eyebrow--on-dark">Premium Collection</span>
-        <h3>COB — Nova Series</h3>
-        <p>Our highest-spec collection: chip-on-board LEDs for a single, shadow-free source of light — higher CRI, tighter binning and a longer rated life for premium interiors.</p>
+    <section class="section" id="solutions">
+      <div class="section-heading">
+        <p class="eyebrow">FIND YOUR SOLUTION</p>
+        <h2>What are you lighting today?</h2>
+        <p>Start with the space. We will help you reach the right lighting family.</p>
       </div>
-      <a href="#contact" class="btn btn--marigold">Ask About Nova</a>
-    </div>
-
-    <div class="finish-guide reveal">
-      <h3>Nine Finishes</h3>
-      <div class="finish-row">
-        <div class="finish-item"><div class="finish-swatch" style="background:#1c1c1c;"></div><span>Matte Black</span></div>
-        <div class="finish-item"><div class="finish-swatch" style="background:#f7f0e0;"></div><span>Pearl White</span></div>
-        <div class="finish-item"><div class="finish-swatch" style="background:#c9a24a;"></div><span>Champagne Gold</span></div>
-        <div class="finish-item"><div class="finish-swatch" style="background:#8c7350;"></div><span>Antique Brass</span></div>
-        <div class="finish-item"><div class="finish-swatch" style="background:#a8a9ad;"></div><span>Brushed Nickel</span></div>
-        <div class="finish-item"><div class="finish-swatch" style="background:#5c3a21;"></div><span>Bronze Patina</span></div>
-        <div class="finish-item"><div class="finish-swatch" style="background:#4a4d4f;"></div><span>Graphite Grey</span></div>
-        <div class="finish-item"><div class="finish-swatch" style="background:#e0b8ae;"></div><span>Rose Gold</span></div>
-        <div class="finish-item"><div class="finish-swatch" style="background:linear-gradient(135deg,#6CB52D,#E7A23C);"></div><span>Custom / RAL Match</span></div>
+      <div class="solution-grid">
+        <article><span>01</span><h3>Residential</h3><p>Comfortable, efficient lighting for modern homes.</p><a href="#products">Explore →</a></article>
+        <article><span>02</span><h3>Commercial</h3><p>Consistent illumination for offices and retail spaces.</p><a href="#products">Explore →</a></article>
+        <article><span>03</span><h3>Industrial</h3><p>Reliable lighting for factories, production and warehousing.</p><a href="#products">Explore →</a></article>
+        <article><span>04</span><h3>Infrastructure</h3><p>Dependable outdoor lighting for roads, campuses and public spaces.</p><a href="#products">Explore →</a></article>
       </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<!-- ================= LEGACY / TIMELINE ================= -->
-<section class="legacy" id="legacy">
-  <div class="wrap">
-    <div class="reveal">
-      <span class="eyebrow">Twenty-Five Years in the Making</span>
-      <h2 class="section-title">From housing finance to World Will Glow</h2>
-      <p class="section-sub">Richline is built on a career spent understanding how Indian businesses buy, sell and trust — long before the first LED shipped.</p>
-    </div>
+    <section class="section products-section" id="products">
+      <div class="section-heading row-heading">
+        <div><p class="eyebrow">PRODUCT FAMILIES</p><h2>Nature-inspired names. Purpose-built light.</h2></div>
+        <a class="text-link" href="#contact">Request product catalogue →</a>
+      </div>
+      <div class="product-grid">
+        <article class="product-card"><img src="public/products/iris-surface-panel.png" alt="Iris surface panel"><div><p>IRIS</p><h3>Surface Panel</h3><span>Modern surface lighting</span></div></article>
+        <article class="product-card"><img src="public/products/ilex-rimless-surface-panel.png" alt="Ilex rimless surface panel"><div><p>ILEX</p><h3>Rimless Panel</h3><span>Minimal ceiling design</span></div></article>
+        <article class="product-card"><img src="public/products/tulip-deep-light.png" alt="Tulip deep light"><div><p>TULIP</p><h3>Deep Light</h3><span>Architectural illumination</span></div></article>
+        <article class="product-card"><img src="public/products/nova-k.png" alt="Nova K decorative light"><div><p>NOVA</p><h3>Decorative Series</h3><span>Contemporary visual character</span></div></article>
+        <article class="product-card"><img src="public/products/orchid-floodlight.png" alt="Orchid floodlight"><div><p>ORCHID</p><h3>Floodlight</h3><span>Outdoor performance</span></div></article>
+        <article class="product-card"><img src="public/products/heather-strip-light.png" alt="Heather strip light"><div><p>HEATHER</p><h3>Linear Lighting</h3><span>Flexible accent solutions</span></div></article>
+      </div>
+    </section>
 
-    <div class="timeline">
-      <div class="t-item reveal">
-        <div class="t-dot"></div>
-        <span class="t-year">2001</span>
-        <h4>Foundations in real estate & housing finance</h4>
-        <p>Ravi Adwani began his career in real estate and housing finance — learning how trust, credit and long-term relationships are built with dealers and customers alike.</p>
-      </div>
-      <div class="t-item reveal">
-        <div class="t-dot"></div>
-        <span class="t-year">June 2004</span>
-        <h4>A move into telecom</h4>
-        <p>A shift into the telecom industry brought exposure to distribution networks and channel sales at scale — groundwork for a future manufacturing and dealer business.</p>
-      </div>
-      <div class="t-item is-milestone reveal">
-        <div class="t-dot"></div>
-        <span class="t-year">2016</span>
-        <h4>SSAKAR founded — Future Green launches</h4>
-        <p>Drawing on 15 years across finance and telecom, Ravi founded SSAKAR and launched Future Green, an LED lighting brand manufactured in Bhopal for dealers and distributors nationwide.</p>
-      </div>
-      <div class="t-item is-milestone reveal">
-        <div class="t-dot"></div>
-        <span class="t-year">2026</span>
-        <h4>Future Green is now Richline</h4>
-        <p>A decade of promises kept — the same factory, team and catalogue now carried forward under a registered name and identity: Richline. World Will Glow®.</p>
-      </div>
-    </div>
-  </div>
-</section>
+    <section class="projects-preview section" id="projects">
+      <div class="section-heading"><p class="eyebrow">APPLICATIONS</p><h2>Built for real spaces.</h2><p>Explore product families by application while project stories and verified installation imagery are being added.</p></div>
+      <div class="project-grid"><article><strong>01</strong><h3>Homes</h3><p>Comfort and ambience.</p></article><article><strong>02</strong><h3>Workplaces</h3><p>Clarity and productivity.</p></article><article><strong>03</strong><h3>Industry</h3><p>Reliability and visibility.</p></article></div>
+    </section>
 
-<!-- ================= ASSURANCE ================= -->
-<section class="assurance" id="assurance">
-  <div class="wrap">
-    <div class="seal reveal">
-      <b>10+</b>
-      <span>Years · Promise Kept</span>
-    </div>
-    <span class="eyebrow eyebrow--on-dark">Richline Assurance</span>
-    <h2 class="section-title section-title--on-dark reveal">What we commit, we deliver.</h2>
-    <p class="reveal">Manufactured in Bhopal, backed by a decade of dealer relationships. Our assurance isn't a slogan — it's a standard we hold every batch to.</p>
-
-    <div class="pledge-grid">
-      <div class="pledge-card reveal">
-        <div class="pledge-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 11.5 12 4l8 7.5"/><path d="M6 10v9h12v-9"/><path d="M10 19v-5h4v5"/></svg></div>
-        <span class="pledge-no">Non-Negotiable 01</span>
-        <h3>Would we run it in our own house?</h3>
-        <p>Every panel, COB or bulb we ship is one we'd fit in our own home or office first. If we wouldn't live with it, we don't put the Richline name on it.</p>
+    <section class="split-section" id="manufacturing">
+      <div class="split-copy">
+        <p class="eyebrow">MANUFACTURING</p>
+        <h2>Built with precision. Delivered with responsibility.</h2>
+        <p>From component verification and assembly to testing, inspection and packing, every stage is designed to support consistent quality.</p>
+        <a class="btn btn-glow" href="#contact">Discuss your requirement</a>
       </div>
-      <div class="pledge-card reveal">
-        <div class="pledge-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="8.5"/><path d="M12 7v10M15 9.5c0-1.4-1.3-2.5-3-2.5s-3 1-3 2.3c0 3 6 1.5 6 4.5 0 1.3-1.3 2.4-3 2.4s-3-1.1-3-2.4"/></svg></div>
-        <span class="pledge-no">Non-Negotiable 02</span>
-        <h3>Is it worth every rupee spent?</h3>
-        <p>Real value for every rupee the end user pays — no cutting corners to hit a price point, and no premium tag for a logo alone. If it doesn't earn its price, it doesn't ship.</p>
+      <div class="process-list">
+        <div><strong>01</strong><span>Component verification</span></div>
+        <div><strong>02</strong><span>Controlled assembly</span></div>
+        <div><strong>03</strong><span>Electrical testing</span></div>
+        <div><strong>04</strong><span>Final inspection</span></div>
       </div>
-    </div>
+    </section>
 
-    <div class="assurance-grid">
-      <div class="assurance-item reveal">
-        <h4>Consistent Quality</h4>
-        <p>Every batch tested against the same specification we shipped a decade ago — no shortcuts on components.</p>
+    <section class="section quality" id="quality">
+      <div class="section-heading"><p class="eyebrow">QUALITY & SUPPORT</p><h2>Quality is built into every stage.</h2></div>
+      <div class="quality-grid">
+        <article><h3>Engineering focused</h3><p>Products developed around practical applications and dependable performance.</p></article>
+        <article><h3>Consistent processes</h3><p>Defined checkpoints across assembly, testing, inspection and dispatch.</p></article>
+        <article><h3>Reliable warranty</h3><p>24 months on standard products and 12 months on solar products.</p></article>
       </div>
-      <div class="assurance-item reveal">
-        <h4>Dealer-First Support</h4>
-        <p>Direct factory access, transparent pricing and a team that answers — not a call centre queue.</p>
+    </section>
+
+    <section class="resources" id="resources">
+      <div><p class="eyebrow">RESOURCE CENTRE</p><h2>Better information. Better lighting decisions.</h2></div>
+      <div class="resource-links">
+        <a href="#contact">Product Catalogue <span>→</span></a>
+        <a href="#contact">Technical Datasheets <span>→</span></a>
+        <a href="#contact">Installation Guidance <span>→</span></a>
       </div>
-      <div class="assurance-item reveal">
-        <h4>Built to Last</h4>
-        <p>Warranty-backed fixtures designed for Indian conditions — heat, dust and voltage swings included.</p>
-      </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<!-- ================= TESTIMONIALS ================= -->
-<section class="testimonials">
-  <div class="wrap">
-    <span class="eyebrow">What Dealers Say</span>
-    <h2 class="section-title reveal">Real relationships, in their words</h2>
-    <div class="testi-empty reveal">
-      <p>We're collecting testimonials from our dealer partners as Future Green becomes Richline. If you've worked with us, we'd love to feature your story here.</p>
-      <a href="#contact" class="btn btn--ghost-light">Share Your Story</a>
-    </div>
-  </div>
-</section>
+    <section class="partner" id="partner">
+      <p class="eyebrow">PARTNER WITH RICHLINE</p>
+      <h2>Grow with a lighting brand built on quality and trust.</h2>
+      <a class="btn btn-light" href="#contact">Become a Dealer</a>
+    </section>
 
-<!-- ================= CONTACT ================= -->
-<section class="contact" id="contact">
-  <div class="wrap contact-inner">
-    <div class="reveal">
-      <span class="eyebrow eyebrow--on-dark">Get In Touch</span>
-      <h2 class="section-title section-title--on-dark">Dealer & bulk enquiries welcome</h2>
-      <p class="section-sub section-sub--on-dark">Reach our Bhopal factory & head office, or our Jaipur branch. We typically respond within one business day.</p>
+    <section class="contact section" id="contact">
+      <div><p class="eyebrow">LET'S CONNECT</p><h2>Tell us what you need.</h2><p>Product enquiry, dealership, project consultation or technical support.</p></div>
+      <form class="contact-form" id="contactForm">
+        <input required name="name" placeholder="Your name" />
+        <input required name="phone" placeholder="Mobile number" inputmode="tel" />
+        <select name="requirement"><option>Product enquiry</option><option>Dealership</option><option>Project requirement</option><option>Technical support</option></select>
+        <textarea name="message" placeholder="Your requirement"></textarea>
+        <button class="btn btn-primary" type="submit">Submit enquiry</button>
+        <p id="formStatus" class="form-status" aria-live="polite"></p>
+      </form>
+    </section>
+  </main>
 
-      <div class="offices">
-        <div class="office-card">
-          <b>Bhopal<span class="office-tag">Factory &amp; HQ</span></b>
-          <p>A-09, IT Park, Badwai, Bhopal, Madhya Pradesh — India</p>
-        </div>
-        <div class="office-card">
-          <b>Jaipur<span class="office-tag" style="background:var(--marigold);">Branch Office</span></b>
-          <p>765, Sindhi Colony, Rajapark, Jaipur 302004 — India</p>
-        </div>
-      </div>
-    </div>
-
-    <form class="enquiry-form reveal" id="enquiryForm">
-      <h3>Send an enquiry</h3>
-      <p class="section-sub">Tell us what you're looking for — we'll route it to the right team.</p>
-
-      <div class="form-row">
-        <div class="field">
-          <label for="f-name">Full name</label>
-          <input id="f-name" name="name" type="text" required placeholder="Your name">
-        </div>
-        <div class="field">
-          <label for="f-company">Company</label>
-          <input id="f-company" name="company" type="text" placeholder="Firm / dealership">
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="field">
-          <label for="f-phone">Phone</label>
-          <input id="f-phone" name="phone" type="tel" required placeholder="+91 ">
-        </div>
-        <div class="field">
-          <label for="f-city">City</label>
-          <input id="f-city" name="city" type="text" placeholder="Your city">
-        </div>
-      </div>
-      <div class="form-row full">
-        <div class="field">
-          <label for="f-interest">I'm enquiring about</label>
-          <select id="f-interest" name="interest">
-            <option>Becoming a dealer / distributor</option>
-            <option>Bulk / project order</option>
-            <option>Nova Series (Premium COB)</option>
-            <option>General product enquiry</option>
-          </select>
-        </div>
-      </div>
-      <div class="form-row full">
-        <div class="field">
-          <label for="f-message">Message</label>
-          <textarea id="f-message" name="message" rows="3" placeholder="Tell us a bit more..."></textarea>
-        </div>
-      </div>
-      <button type="submit" class="btn btn--primary">Send Enquiry</button>
-      <p class="form-note">Or reach us directly on WhatsApp at +91 90390 99107</p>
-    </form>
-  </div>
-</section>
-
-<!-- ================= FOOTER ================= -->
-<footer>
-  <div class="wrap">
-    <div class="footer-top">
-      <div class="footer-brand">
-        <div class="rl-lockup rl-lockup--reversed">
-          <div class="rl-chip rl-chip--reversed">
-            <span class="rl-chip__r">R</span>
-            <span class="rl-chip__leaf"><svg><use href="#leaf-shape"/></svg></span>
-          </div>
-          <div class="rl-lockup__text">
-            <span class="rl-wordmark">RICHLINE<sup>&reg;</sup></span>
-            <div class="rl-beam"></div>
-            <span class="rl-tagline">World Will Gl<em>&#9670;</em>w</span>
-          </div>
-        </div>
-        <p>Formerly Future Green™. LED lighting manufactured in Bhopal, India — for dealers, distributors and bulk buyers who need light they can rely on.</p>
-      </div>
-      <div class="footer-col">
-        <h5>Explore</h5>
-        <a href="#story">Our Story</a>
-        <a href="#products">Products</a>
-        <a href="#legacy">Legacy</a>
-        <a href="#assurance">Assurance</a>
-        <a href="#contact">Contact</a>
-      </div>
-      <div class="footer-col">
-        <h5>Get in Touch</h5>
-        <a href="tel:+919039099107">+91 90390 99107</a>
-        <a href="https://wa.me/919039099107" target="_blank" rel="noopener">WhatsApp Us</a>
-        <a href="#contact">Bhopal Factory &amp; HQ</a>
-        <a href="#contact">Jaipur Branch Office</a>
-      </div>
-    </div>
-
-    <div class="footer-bottom">
-      <div>
-        <p>&copy; <span id="year"></span> Richline. All rights reserved.</p>
-        <p class="legal-note">RICHLINE&reg; and WORLD WILL GL&#9670;W&reg; are registered trademarks. FUTURE GREEN&trade; is used under the transition endorser lockup and is not a registered mark.</p>
-      </div>
-      <p>Hold the line. Keep it warm. Let the world glow.</p>
-    </div>
-  </div>
-</footer>
-
-<!-- ================= WHATSAPP FAB ================= -->
-<a class="wa-fab" href="https://wa.me/919039099107?text=Hi%20Richline%2C%20I%27d%20like%20to%20know%20more%20about%20your%20LED%20lighting%20range." target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
-  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.9-4.45 9.9-9.91C21.96 6.45 17.5 2 12.04 2zm5.8 14.16c-.24.68-1.4 1.3-1.93 1.36-.5.06-1.11.09-1.79-.11-.41-.13-.94-.3-1.62-.6-2.86-1.24-4.73-4.13-4.87-4.32-.14-.19-1.17-1.55-1.17-2.96 0-1.41.74-2.1 1-2.39.26-.28.57-.35.76-.35.19 0 .38 0 .55.01.18.01.41-.07.64.49.24.57.81 1.98.88 2.13.07.14.11.31.02.5-.09.19-.14.31-.28.47-.14.16-.29.36-.42.48-.14.14-.28.29-.12.57.16.28.71 1.17 1.53 1.9 1.05.94 1.94 1.23 2.22 1.37.28.14.44.12.6-.07.16-.19.68-.79.86-1.06.18-.28.36-.23.6-.14.24.09 1.53.72 1.79.86.26.14.44.21.5.32.06.11.06.65-.18 1.33z"/></svg>
-</a>
-
-<script>
-  document.getElementById('year').textContent = new Date().getFullYear();
-
-  // Mobile nav
-  var navToggle = document.getElementById('navToggle');
-  var mainNav = document.getElementById('mainNav');
-  navToggle.addEventListener('click', function(){
-    var open = mainNav.classList.toggle('is-open');
-    navToggle.setAttribute('aria-expanded', open);
-  });
-  mainNav.querySelectorAll('a').forEach(function(a){
-    a.addEventListener('click', function(){ mainNav.classList.remove('is-open'); });
-  });
-
-  // Product filter tabs
-  var tabs = document.querySelectorAll('.tab-btn');
-  var cards = document.querySelectorAll('.product-card');
-  tabs.forEach(function(tab){
-    tab.addEventListener('click', function(){
-      tabs.forEach(function(t){ t.classList.remove('is-active'); });
-      tab.classList.add('is-active');
-      var f = tab.getAttribute('data-filter');
-      cards.forEach(function(c){
-        c.hidden = !(f === 'all' || c.getAttribute('data-cat') === f);
-      });
-    });
-  });
-
-  // Enquiry form -> WhatsApp handoff
-  document.getElementById('enquiryForm').addEventListener('submit', function(e){
-    e.preventDefault();
-    var d = new FormData(e.target);
-    var msg = 'Hi Richline, enquiry from ' + (d.get('name')||'') +
-      (d.get('company') ? ' (' + d.get('company') + ')' : '') +
-      '. City: ' + (d.get('city')||'-') +
-      '. Phone: ' + (d.get('phone')||'-') +
-      '. Interested in: ' + (d.get('interest')||'-') +
-      (d.get('message') ? '. Message: ' + d.get('message') : '');
-    window.open('https://wa.me/919039099107?text=' + encodeURIComponent(msg), '_blank');
-  });
-
-  // Reveal on scroll
-  var io = new IntersectionObserver(function(entries){
-    entries.forEach(function(en){
-      if(en.isIntersecting){ en.target.classList.add('is-visible'); io.unobserve(en.target); }
-    });
-  }, {threshold:0.12});
-  document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
-</script>
+  <footer>
+    <div class="footer-brand"><img src="public/brand/logo-reversed.png" alt="Richline — World Will Glow" /></div>
+    <div class="footer-links"><a href="#solutions">Solutions</a><a href="#products">Products</a><a href="#projects">Projects</a><a href="#resources">Resources</a><a href="#our-story">Our Story</a><a href="#contact">Contact</a></div>
+    <p>© 2026 Richline®. All rights reserved.</p>
+  </footer>
+  <script src="script.js"></script>
 </body>
 </html>
